@@ -156,6 +156,7 @@
   (save-place-mode t)
   (show-paren-mode t)
   (winner-mode t)
+  (savehist-mode)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defun display-startup-echo-area-message ())
   (set-language-environment "UTF-8")
