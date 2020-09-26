@@ -7,37 +7,35 @@
   (package-install 'use-package))
 
 (eval-when-compile
-  (require 'use-package))
+  (require 'use-package)
+  (require 'use-package-ensure)
+  (setq use-package-always-ensure t))
 
-(use-package epl
-  :ensure t)
+
+(use-package epl)
+
+(use-package diminish)
+
+(use-package restart-emacs)
 
 (use-package gcmh
-  :ensure t
-  :diminish gcmh-mode
+  :diminish
   :custom
   (gcmh-idle-delay 10)
   (gcmh-high-cons-threshold #x20000000)
   :config (gcmh-mode t))
 
-(use-package diminish
-  :ensure t)
-
-(use-package restart-emacs
-  :ensure t)
-
 (use-package direnv
-  :ensure t
+  :if (executable-find "direnv")
   :config (direnv-mode))
 
 (use-package rg
-  :ensure t)
+  :if (executable-find "rg"))
 
-(use-package wgrep
-  :ensure t)
+(use-package wgrep)
 
 (use-package git-timemachine
-  :ensure t
+  :if (executable-find "git")
   :hook
   (git-timemachine-mode
    . (lambda ()
@@ -51,46 +49,37 @@
 		 (cdr git-timemachine-mode-map))))))
 
 (use-package neotree
-  :ensure t
   :custom
   (neo-smart-open t)
   (neo-theme 'ascii))
 
 (use-package hl-todo
-  :ensure t
   :custom
   (hl-todo-highlight-punctuation ":")
   :config (global-hl-todo-mode))
 
 (use-package projectile
-  :ensure t
   :custom
   (projectile-completion-system 'ivy)
   :config (projectile-mode))
 
 (use-package smartparens
-  :ensure t
-  :diminish smartparens-mode
+  :diminish
   :custom
   (sp-autoinsert-pair nil)
   (sp-autoskip-closing-pair nil)
-  (sp-base-key-bindings 'paredit))
-
-(use-package smartparens-config
-  :ensure smartparens
+  (sp-base-key-bindings 'paredit)
   :hook
   (prog-mode . smartparens-mode))
 
 (use-package magit
-  :ensure t
+  :if (executable-find "git")
   :custom
   (magit-completing-read-function 'ivy-completing-read))
 
-(use-package evil-magit
-  :ensure t)
+(use-package evil-magit)
 
 (use-package winum
-  :ensure t
   :config
   (dotimes (i 9)
     (let ((n (+ i 1)))
@@ -100,22 +89,18 @@
   (winum-mode))
 
 (use-package ivy
-  :ensure t
-  :diminish ivy-mode
+  :diminish
   :config (ivy-mode t))
 
 (use-package counsel
-  :ensure t
-  :diminish counsel-mode
+  :diminish
   :config (counsel-mode))
 
 (use-package zenburn-theme
-  :ensure t
   :config
   (load-theme 'zenburn t))
 
 (use-package nix-mode
-  :ensure t
   :mode "\\.nix\\'")
 
 (defmacro my/user-emacs-subdirectory (dir)
@@ -126,6 +111,7 @@
 (defconst my/undo-tree-history-dir (my/user-emacs-subdirectory "undo-tree-history/"))
 
 (use-package emacs
+  :ensure nil
   :custom
   (create-lockfiles nil)
   (enable-recursive-minibuffers t)
@@ -179,43 +165,36 @@
 
 (use-package evil
   :diminish undo-tree-mode
-  :ensure t
   :custom
   (evil-want-C-u-scroll t)
   (evil-kill-on-visual-paste nil)
   :config (evil-mode 1))
 
 (use-package evil-surround
-  :ensure t
   :config
   (global-evil-surround-mode 1))
 
 (use-package anzu
-  :ensure t
-  :diminish anzu-mode
+  :diminish
   :config (global-anzu-mode t))
 
-(use-package evil-anzu
-  :ensure t)
+(use-package evil-anzu)
 
 (use-package company
-  :ensure t
-  :diminish company-mode
+  :diminish
   :hook (after-init . global-company-mode))
 
 (use-package which-key
-  :ensure t
-  :diminish which-key-mode
+  :diminish
   :custom (which-key-dont-use-unicode t)
   :config (which-key-mode))
 
 (use-package editorconfig
-  :ensure t
-  :diminish editorconfig-mode
+  :diminish
   :config (editorconfig-mode t))
 
 (use-package dashboard
-  :ensure projectile
+  :after projectile
   :custom
   (dashboard-startup-banner 'logo)
   (dashboard-center-content t)
@@ -243,20 +222,26 @@
   (dashboard-setup-startup-hook))
 
 (use-package flycheck
-  :ensure t
   :custom (flycheck-disabled-checkers '(emacs-lisp-checkdoc))
-  :diminish flycheck-mode
+  :diminish
   :config (global-flycheck-mode))
 
+(use-package dap-mode
+  :config
+  (dap-mode 1)
+  (dap-ui-mode 1)
+  (dap-tooltip-mode 1)
+  (tooltip-mode 1)
+  (dap-ui-controls-mode 1))
+
 (use-package lsp-mode
+  :after dap-mode
   :init
   (require 'dap-lldb)
-  :ensure t
   :custom
   (lsp-print-io t)
   (lsp-trace t)
   (lsp-enable-snippet nil)
-  :commands lsp
   :hook
   ((python-mode . lsp)
    (c-mode . lsp)
@@ -265,27 +250,15 @@
    (lsp-mode . lsp-enable-which-key-integration)))
 
 (use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode
   :hook (lsp-mode . lsp-ui-mode))
 
-(use-package dap-mode
-  :ensure t
-  :config
-  (dap-mode 1)
-  (dap-ui-mode 1)
-  (dap-tooltip-mode 1)
-  (tooltip-mode 1)
-  (dap-ui-controls-mode 1))
-
 (use-package company-lsp
-  :ensure t
   :custom
   (company-lsp-cache-candidates t)
   (company-lsp-async t))
 
 (use-package lsp-python-ms
-  :ensure t
+  :if (executable-find "python-language-server")
   :custom
   (lsp-python-ms-executable (executable-find "python-language-server"))
   :hook
