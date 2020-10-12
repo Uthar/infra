@@ -169,7 +169,7 @@ in
   #  PasswordAuthentication no
   #'';
 
-  services.printing.enable = true;
+  services.printing.enable = false;
 
   location = {
     latitude = 52.0;
