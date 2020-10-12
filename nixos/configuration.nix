@@ -184,6 +184,7 @@ in
   services.emacs = {
     enable = true;
     defaultEditor = true;
+    package = (import ./emacs.nix {});
   };
 
   services.devmon.enable = true;
