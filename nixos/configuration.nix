@@ -213,7 +213,7 @@ in
 
   services.xserver.windowManager.i3.enable = true;
   services.xserver.windowManager.i3.package = pkgs.i3-gaps;
-  services.xserver.windowManager.i3.configFile = pkgs.writeText "i3.conf" (lib.readFile ./i3.conf);
+  services.xserver.windowManager.i3.configFile = ./i3.conf;
 
 
 
