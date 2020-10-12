@@ -96,9 +96,10 @@
   :diminish
   :config (counsel-mode))
 
-(use-package zenburn-theme
+(use-package hc-zenburn-theme
   :config
-  (load-theme 'zenburn t))
+  (load-theme 'hc-zenburn t))
+
 
 (use-package nix-mode
   :mode "\\.nix\\'")
