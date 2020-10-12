@@ -1,16 +1,5 @@
-(require 'package)
-(add-to-list 'package-archives
-			 '("melpa" . "https://melpa.org/packages/"))
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
 (eval-when-compile
-  (require 'use-package)
-  (require 'use-package-ensure)
-  (setq use-package-always-ensure t))
-
+  (require 'use-package))
 
 (use-package epl)
 
@@ -26,16 +15,13 @@
   :config (gcmh-mode t))
 
 (use-package direnv
-  :if (executable-find "direnv")
   :config (direnv-mode))
 
-(use-package rg
-  :if (executable-find "rg"))
+(use-package rg)
 
 (use-package wgrep)
 
 (use-package git-timemachine
-  :if (executable-find "git")
   :hook
   (git-timemachine-mode
    . (lambda ()
@@ -73,7 +59,6 @@
   (prog-mode . smartparens-mode))
 
 (use-package magit
-  :if (executable-find "git")
   :custom
   (magit-completing-read-function 'ivy-completing-read))
 
@@ -112,7 +97,6 @@
 (defconst my/undo-tree-history-dir (my/user-emacs-subdirectory "undo-tree-history/"))
 
 (use-package emacs
-  :ensure nil
   :custom
   (create-lockfiles nil)
   (enable-recursive-minibuffers t)
@@ -259,7 +243,6 @@
   (company-lsp-async t))
 
 (use-package lsp-python-ms
-  :if (executable-find "python-language-server")
   :custom
   (lsp-python-ms-executable (executable-find "python-language-server"))
   :hook
