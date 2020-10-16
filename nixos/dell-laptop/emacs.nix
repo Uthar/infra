@@ -53,6 +53,7 @@ with pkgs; with emacsPackagesNg;
       lsp-ui
       company-lsp
       lsp-python-ms
+      doom-themes
     ])
 
   )

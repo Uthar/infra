@@ -251,3 +251,8 @@
 	   (require 'lsp-python-ms)
 	   (require 'dap-python)
 	   (lsp))))
+
+(use-package doom-themes
+	:init
+    (doom-themes-org-config)
+    (add-hook 'after-init-hook (lambda () (load-theme 'doom-city-lights t))))
