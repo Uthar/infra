@@ -68,9 +68,6 @@
 
     services.openssh.enable = true;
 
-    services.nginx.enable = true;
-    services.nginx.virtualHosts."galkowski.xyz".root = "/srv/www";
-
     # networking.useDHCP = false;
     # networking.interfaces.enp0s3.useDHCP = true;
     # networking.interfaces.enp0s8.useDHCP = true;
