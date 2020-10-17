@@ -48,7 +48,7 @@
       htop
     ];
 
-    networking.firewall.allowedTCPPorts = [ 80 3000 ];
+    networking.firewall.allowedTCPPorts = [ 80 443 3000 ];
     networking.hostName = "jazajuk";
     networking.useDHCP = false;
     networking.interfaces.ens4.useDHCP = false;
@@ -168,8 +168,20 @@
     users.users.git = {
       createHome = true;
       home = "/srv/git";
+      group = "wwwrun";
       shell = "${pkgs.git}/bin/git-shell";
       openssh.authorizedKeys.keyFiles = [ ./ssh/id_rsa.pub ];
+    };
+
+    security.acme.acceptTerms = true;
+    services.httpd = {
+      enable = true;
+      virtualHosts."galkowski.xyz" = {
+        addSSL = true;
+        documentRoot = "/srv/git";
+        enableACME = true;
+        adminAddr = "k@demondust.xyz";
+      };
     };
 
     users.users.root = {
