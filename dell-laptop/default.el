@@ -81,11 +81,6 @@
   :diminish
   :config (counsel-mode))
 
-(use-package hc-zenburn-theme
-  :config
-  (load-theme 'hc-zenburn t))
-
-
 (use-package nix-mode
   :mode "\\.nix\\'")
 
@@ -253,6 +248,8 @@
 	   (lsp))))
 
 (use-package doom-themes
-	:init
-    (doom-themes-org-config)
-    (add-hook 'after-init-hook (lambda () (load-theme 'doom-city-lights t))))
+  :hook
+  (after-init
+   . (lambda ()
+       (load-theme 'doom-city-lights t))))
+
