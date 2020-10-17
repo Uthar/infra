@@ -67,7 +67,7 @@ in
 
   ### Net
   networking.hostName = "nixos";
-  networking.interfaces.enp0s3.useDHCP = true;
+  networking.interfaces.wlp2s0.useDHCP = true;
   networking.networkmanager.enable = true;
   networking.networkmanager.dns = "none";
   networking.nameservers = [ "::1" ];
