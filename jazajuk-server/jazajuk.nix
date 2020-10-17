@@ -68,12 +68,8 @@
 
     services.openssh.enable = true;
 
-    # networking.useDHCP = false;
-    # networking.interfaces.enp0s3.useDHCP = true;
-    # networking.interfaces.enp0s8.useDHCP = true;
-
-    # networking.bridges.br0.interfaces = [ "enp0s3" "tap0" ];
-    # networking.interfaces.br0.ipv4.addresses = [ { address = "10.9.0.1"; prefixLength = 24; } ];
+    networking.bridges.br0.interfaces = [ "ens4" "tap0" ];
+    networking.interfaces.br0.ipv4.addresses = [ { address = "10.9.0.2"; prefixLength = 24; } ];
 
     services.openvpn.servers.ovpn.config = ''
     port 1194
@@ -116,43 +112,44 @@
         ];
       in { after = keyServices; wants = keyServices; };
 
-    # services.openvpn.servers.totala.config = ''
-    # port 1338
-    # proto udp
-    # dev tap0
-    # ca /run/keys/totalaCa
-    # cert /run/keys/totalaCert
-    # key /run/keys/totalaKey
-    # dh /run/keys/totalaDh
-    # topology subnet
-    # ifconfig-pool-persist ipp.txt
-    # server-bridge 10.9.0.10 255.255.255.0 10.9.0.50 10.9.0.100
-    # client-to-client
-    # keepalive 10 120
-    # tls-auth /run/keys/totalaTauth 0
-    # auth SHA512
-    # cipher AES-256-CBC
-    # comp-lzo
-    # user nobody
-    # group nogroup
-    # persist-key
-    # persist-tun
-    # status openvpn-bridge-status.log
-    # log-append  openvpn-bridge.log
-    # verb 4
-    # explicit-exit-notify 1
-    # '';
+    services.openvpn.servers.totala.config = ''
+    port 1338
+    proto udp
+    dev tap0
+    ca /run/keys/totalaCa
+    cert /run/keys/totalaCert
+    key /run/keys/totalaKey
+    dh /run/keys/totalaDh
+    topology subnet
+    ifconfig-pool-persist ipp.txt
+    server-bridge 10.9.0.10 255.255.255.0 10.9.0.50 10.9.0.100
+    server-bridge
+    client-to-client
+    keepalive 10 120
+    tls-auth /run/keys/totalaTauth 0
+    auth SHA512
+    cipher AES-256-CBC
+    user nobody
+    group nogroup
+    persist-key
+    persist-tun
+    status openvpn-bridge-status.log
+    log-append  openvpn-bridge.log
+    verb 4
+    mute 20
+    explicit-exit-notify 1
+    '';
 
-    # systemd.services.openvpn-totala =
-    #   let
-    #     keyServices = [ 
-    #       "totalaCa-key.service"
-    #       "totalaCert-key.service"
-    #       "totalaKey-key.service"
-    #       "totalaDh-key.service"
-    #       "totalaTauth-key.service"
-    #     ];
-    #   in { after = keyServices; wants = keyServices; };
+    systemd.services.openvpn-totala =
+      let
+        keyServices = [ 
+          "totalaCa-key.service"
+          "totalaCert-key.service"
+          "totalaKey-key.service"
+          "totalaDh-key.service"
+          "totalaTauth-key.service"
+        ];
+      in { after = keyServices; wants = keyServices; };
 
     services.murmur = {
       enable = true;
