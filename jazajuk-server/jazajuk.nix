@@ -58,7 +58,7 @@
     networking.defaultGateway = { address = "104.244.74.1"; interface = "ens3"; };
     networking.nameservers = [ "8.8.8.8" ];
     networking.firewall.allowedUDPPorts = [ 1194 1338 ];
-    networking.firewall.trustedInterfaces = [ "tun0" "tap0" /*"br0"*/ ];
+    networking.firewall.trustedInterfaces = [ "tun0" "tap0" ];
 
     networking.nat = {
       enable = true;
