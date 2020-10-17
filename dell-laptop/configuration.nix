@@ -51,19 +51,19 @@ in
   }) {}).linuxPackages-libre;
 
   boot.initrd.availableKernelModules = [ "ata_piix" "ohci_pci" "sd_mod" "sr_mod" "dm-snapshot" ];
-  boot.kernelParams = ["root=/dev/disk/by-label/crypto-root"];
+  boot.kernelParams = ["root=/dev/nixos/main"];
 
-  boot.initrd.luks.devices."crypto-root" = {
+  boot.initrd.luks.devices.encrypted = {
     device = "/dev/sda1";
     keyFile = "/root/key";
   };
 
   fileSystems."/" = { 
-    device = "/dev/disk/by-label/crypto-root";
+    device = "/dev/nixos/main";
     fsType = "ext4";
   };
 
-
+  swapDevices = [ { device = "/dev/nixos/swap"; } ]; 
 
   ### Net
   networking.hostName = "nixos";
