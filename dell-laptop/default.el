@@ -60,7 +60,13 @@
 
 (use-package magit
   :custom
-  (magit-completing-read-function 'ivy-completing-read))
+  (magit-completing-read-function 'ivy-completing-read)
+  :config
+  (dotimes (i 4)
+    (let ((n (+ i 1)))
+      (define-key magit-section-mode-map (kbd (format "M-%i" n)) nil)
+      (define-key magit-section-mode-map (kbd (format "C-%i" n)) 
+        (intern (format "magit-section-show-level-%i-all" n))))))
 
 (use-package evil-magit)
 
