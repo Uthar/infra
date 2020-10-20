@@ -29,6 +29,12 @@
       totalaDh.text = readFile ./pki/dh.pem;
       totalaTauth.text = readFile ./pki/ta.key;
 
+      murmurIni.user = "murmur";
+      murmurIni.text = ''
+      ${config.services.murmur.config}
+      serverpassword=${readFile ./keys/murmurPassword}
+      '';
+
     };
 
     nix.autoOptimiseStore = true;
@@ -48,7 +54,7 @@
       htop
     ];
 
-    networking.firewall.allowedTCPPorts = [ 80 443 3000 ];
+    networking.firewall.allowedTCPPorts = [ 64738 80 443 3000 ];
     networking.hostName = "jazajuk";
     networking.useDHCP = false;
     networking.interfaces.ens4.useDHCP = false;
@@ -57,7 +63,7 @@
     ];
     networking.defaultGateway = { address = "104.244.74.1"; interface = "ens3"; };
     networking.nameservers = [ "8.8.8.8" ];
-    networking.firewall.allowedUDPPorts = [ 1194 1338 ];
+    networking.firewall.allowedUDPPorts = [ 64738 1194 1338 ];
     networking.firewall.trustedInterfaces = [ "tun0" "tap0" ];
 
     networking.nat = {
@@ -159,7 +165,17 @@
       sendVersion = false;
       textMsgLength = 0;
       welcometext = "Welcome to the CADMIUM server!";
+      iniPath = "/run/keys/murmurIni";
+      group = "keys";
     };
+
+    systemd.services.murmur =
+      let
+        keyServices = [ "murmurIni-key.service" ];
+      in {
+        after = keyServices;
+        wants = keyServices;
+      };
 
     services.fossil = {
       enable = true;
