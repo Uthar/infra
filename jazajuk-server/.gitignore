@@ -1,3 +1,4 @@
 pki/
 ssh/
 *.ovpn
+keys/
