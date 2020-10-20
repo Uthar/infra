@@ -145,6 +145,9 @@
   (defun open-region-in-browser ()
     (interactive)
     (call-process-shell-command (format "$BROWSER \"%s\" &" (buffer-substring-no-properties (region-beginning) (region-end)))))
+  (dotimes (i 4)
+    (let ((n (+ i 1)))
+      (define-key diff-mode-map (kbd (format "M-%i" n)) nil)))
   :hook
   (after-save . executable-make-buffer-file-executable-if-script-p)
   (prog-mode . display-line-numbers-mode))
