@@ -170,6 +170,10 @@
 (use-package evil-anzu)
 
 (use-package company
+  :custom
+  (company-dabbrev-downcase nil)
+  (company-dabbrev-ignore-case t)
+  (company-minimum-prefix-length 3)
   :diminish
   :hook (after-init . global-company-mode))
 
