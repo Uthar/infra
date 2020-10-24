@@ -132,6 +132,10 @@
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defun display-startup-echo-area-message ())
   (set-language-environment "UTF-8")
+  (defun my/comment-or-uncomment-region ()
+    (interactive)
+    (comment-or-uncomment-region (region-beginning) (region-end))
+    (setq deactivate-mark nil))
   (defun xclip-copy ()
     (interactive)
     (when (region-active-p)
@@ -148,6 +152,7 @@
   (dotimes (i 9)
     (let ((n (+ i 1)))
       (define-key diff-mode-map (kbd (format "M-%i" n)) nil)))
+  (global-set-key (kbd "C-;") 'my/comment-or-uncomment-region)
   :hook
   (after-save . executable-make-buffer-file-executable-if-script-p)
   (prog-mode . display-line-numbers-mode))
