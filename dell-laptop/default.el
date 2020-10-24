@@ -214,9 +214,9 @@
    . (lambda ()
        (when (and (not (eval (daemonp)))
                   (< (length command-line-args) 2 ))
-         `(,(switch-to-buffer "*dashboard*")
-           ,(goto-char (point-min))
-           ,(redisplay))))))
+         (switch-to-buffer "*dashboard*")
+         (goto-char (point-min))
+         (redisplay)))))
 
 (use-package flycheck
   :custom (flycheck-disabled-checkers '(emacs-lisp-checkdoc))
