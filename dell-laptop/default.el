@@ -207,17 +207,16 @@
 				 (define-key evil-normal-state-local-map (kbd key)
 				   (lookup-key dashboard-mode-map key)))
 			   '("m" "p" "r"))))
-  :config
-  (defun dashboard-setup-startup-hook ()
-	(add-hook 'after-init-hook (lambda ()
-								 (dashboard-insert-startupify-lists)))
-	(add-hook 'emacs-startup-hook (lambda ()
-									(when (and (not (eval (daemonp)))
-											   (< (length command-line-args) 2 ))
-									  `(,(switch-to-buffer "*dashboard*")
-										,(goto-char (point-min))
-										,(redisplay))))))
-  (dashboard-setup-startup-hook))
+  (after-init
+   . (lambda ()
+       (dashboard-insert-startupify-lists)))
+  (emacs-startup
+   . (lambda ()
+       (when (and (not (eval (daemonp)))
+                  (< (length command-line-args) 2 ))
+         `(,(switch-to-buffer "*dashboard*")
+           ,(goto-char (point-min))
+           ,(redisplay))))))
 
 (use-package flycheck
   :custom (flycheck-disabled-checkers '(emacs-lisp-checkdoc))
