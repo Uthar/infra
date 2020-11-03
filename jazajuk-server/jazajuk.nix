@@ -10,7 +10,7 @@
     fileSystems."/" = { device = "/dev/nixos/main"; fsType = "ext4"; };
     swapDevices = [ { device = "/dev/nixos/swap"; } ]; 
     nix.maxJobs = lib.mkDefault 1;
-    virtualisation.hypervGuest.enable = true;
+    virtualisation.hypervGuest.enable = false;
 
     deployment.targetHost = "104.244.74.41";
 
