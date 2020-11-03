@@ -29,10 +29,9 @@
       totalaDh.text = readFile ./pki/dh.pem;
       totalaTauth.text = readFile ./pki/ta.key;
 
-      murmurIni.user = "murmur";
-      murmurIni.text = ''
-      ${config.services.murmur.config}
-      serverpassword=${readFile ./keys/murmurPassword}
+      murmurPassword.user = "murmur";
+      murmurPassword.text = ''
+      MURMUR_PASSWORD=${readFile ./keys/murmurPassword}
       '';
 
     };
@@ -165,13 +164,13 @@
       sendVersion = false;
       textMsgLength = 0;
       welcometext = "Welcome to the CADMIUM server!";
-      iniPath = "/run/keys/murmurIni";
-      group = "keys";
+      environmentFile = "/run/keys/murmurPassword";
+      password="$MURMUR_PASSWORD";
     };
 
     systemd.services.murmur =
       let
-        keyServices = [ "murmurIni-key.service" ];
+        keyServices = [ "murmurPassword-key.service" ];
       in {
         after = keyServices;
         wants = keyServices;
