@@ -150,7 +150,8 @@
     (insert (shell-command-to-string "xsel -o -b")))
   (defun open-region-in-browser ()
     (interactive)
-    (call-process-shell-command (format "$BROWSER \"%s\" &" (buffer-substring-no-properties (region-beginning) (region-end)))))
+    (call-process-shell-command
+     (format "$BROWSER \"%s\" &" (buffer-substring-no-properties (region-beginning) (region-end)))))
   (dotimes (i 9)
     (let ((n (+ i 1)))
       (define-key diff-mode-map (kbd (format "M-%i" n)) nil)))
