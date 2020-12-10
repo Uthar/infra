@@ -270,5 +270,5 @@
   :hook
   (after-init
    . (lambda ()
-       (load-theme 'doom-city-lights t))))
+       (load-theme 'doom-gruvbox t))))
 
