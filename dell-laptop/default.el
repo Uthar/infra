@@ -64,7 +64,7 @@
   (magit-completing-read-function 'ivy-completing-read)
   :config
   (dotimes (i 4)
-    (let ((n (+ i 1)))
+    (let ((n (1+ i)))
       (define-key magit-section-mode-map (kbd (format "M-%i" n)) nil)
       (define-key magit-section-mode-map (kbd (format "C-%i" n)) 
         (intern (format "magit-section-show-level-%i-all" n))))))
