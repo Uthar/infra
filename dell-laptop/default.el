@@ -142,10 +142,9 @@
   (defun x-copy ()
     (interactive)
     (when (region-active-p)
-      (progn
-        (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
-        (message "Yanked region to clipboard")
-        (deactivate-mark))))
+      (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
+      (message "Yanked region to clipboard")
+      (deactivate-mark)))
   (defun x-paste ()
     (interactive)
     (insert (shell-command-to-string "xsel -o -b")))
