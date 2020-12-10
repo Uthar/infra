@@ -198,9 +198,7 @@
   :custom
   (dashboard-startup-banner 'logo)
   (dashboard-center-content t)
-  (dashboard-items '((recents . 10)
-					 (projects . 10)
-					 (bookmarks . 5)))
+  (dashboard-items '((recents . 10)))
   (dashboard-set-footer nil)
   :hook
   (dashboard-mode
