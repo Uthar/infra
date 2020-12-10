@@ -214,8 +214,8 @@
        (dashboard-insert-startupify-lists)))
   (emacs-startup
    . (lambda ()
-       (unless (or (eval (daemonp))
-                   (>= (length command-line-args) 2 ))
+       (unless (or (symbol-value (daemonp))
+                   (>= (length command-line-args) 2))
          (switch-to-buffer "*dashboard*")
          (goto-char (point-min))
          (redisplay)))))
