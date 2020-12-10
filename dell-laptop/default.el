@@ -121,6 +121,8 @@
   (indent-tabs-mode nil)
   (c-basic-offset 4)
   (tab-width 4)
+  (column-number-mode t)
+  (line-number-mode nil)
   :config
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
