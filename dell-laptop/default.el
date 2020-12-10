@@ -47,6 +47,7 @@
 (use-package projectile
   :custom
   (projectile-completion-system 'ivy)
+  (projectile-track-known-projects-automatically nil)
   :config (projectile-mode))
 
 (use-package smartparens
