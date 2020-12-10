@@ -91,8 +91,8 @@
 (use-package nix-mode
   :mode "\\.nix\\'")
 
-(defmacro my/user-emacs-subdirectory (dir)
-  `(expand-file-name (concat user-emacs-directory ,dir)))
+(defun my/user-emacs-subdirectory (dir)
+  (expand-file-name (concat user-emacs-directory dir)))
 
 (defconst my/backup-dir (my/user-emacs-subdirectory "backups/"))
 (defconst my/auto-save-dir (my/user-emacs-subdirectory "auto-save/"))
