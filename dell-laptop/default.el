@@ -7,6 +7,8 @@
 
 (use-package restart-emacs)
 
+(use-package browse-kill-ring)
+
 (use-package gcmh
   :diminish
   :custom

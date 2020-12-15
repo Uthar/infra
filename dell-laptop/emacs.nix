@@ -54,6 +54,7 @@ with pkgs; with emacsPackagesNg;
       company-lsp
       lsp-python-ms
       doom-themes
+      browse-kill-ring
     ])
 
   )
