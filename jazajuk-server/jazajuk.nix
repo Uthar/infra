@@ -60,7 +60,8 @@
     networking.firewall.allowedTCPPorts = [ 64738 80 443 3000 ];
     networking.hostName = "jazajuk";
     networking.useDHCP = false;
-    networking.interfaces.ens4.useDHCP = false;
+    networking.interfaces.vpn.useDHCP = false;
+    networking.interfaces.vpn.virtual = true;
     networking.interfaces.ens3.ipv4.addresses = [
       { address = "104.244.74.41"; prefixLength = 24; }
     ];
@@ -77,7 +78,7 @@
 
     services.openssh.enable = true;
 
-    networking.bridges.br0.interfaces = [ "ens4" "tap0" ];
+    networking.bridges.br0.interfaces = [ "vpn" "tap0" ];
     networking.interfaces.br0.ipv4.addresses = [ { address = "10.9.0.2"; prefixLength = 24; } ];
 
     services.openvpn.servers.ovpn.config = ''
