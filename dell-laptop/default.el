@@ -1,8 +1,6 @@
 (eval-when-compile
   (require 'use-package))
 
-(use-package epl)
-
 (use-package diminish)
 
 (use-package restart-emacs)

@@ -22,7 +22,6 @@ with pkgs; with emacsPackagesNg;
 
     (with epkgs.melpaPackages; [
       use-package
-      epl
       diminish
       restart-emacs
       gcmh
