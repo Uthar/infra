@@ -52,10 +52,6 @@
     boot.loader.grub = { enable = true; version = 2; device = "/dev/vda"; };
 
     environment.systemPackages = with pkgs; [
-      bind.dnsutils
-      htop
-      jq
-      openvpn
       git
       ranger
       htop
