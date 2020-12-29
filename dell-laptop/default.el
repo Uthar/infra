@@ -10,6 +10,10 @@
 (use-package evil-matchit
   :config (global-evil-matchit-mode))
 
+(use-package page-break-lines
+  :diminish page-break-lines-mode
+  :config (global-page-break-lines-mode))
+
 (use-package gcmh
   :diminish
   :custom

@@ -56,6 +56,7 @@ with pkgs; with emacsPackagesNg;
       lsp-python-ms
       doom-themes
       browse-kill-ring
+      page-break-lines
       evil-matchit
     ])
 
