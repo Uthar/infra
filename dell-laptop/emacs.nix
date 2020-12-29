@@ -38,7 +38,6 @@ with pkgs; with emacsPackagesNg;
       winum
       ivy
       counsel
-      hc-zenburn-theme
       nix-mode
       ranger
       evil
