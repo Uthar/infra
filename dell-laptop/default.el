@@ -48,6 +48,7 @@
   :custom
   (projectile-completion-system 'ivy)
   (projectile-track-known-projects-automatically nil)
+  :bind-keymap ("C-c p" . projectile-command-map)
   :config (projectile-mode))
 
 (use-package smartparens
