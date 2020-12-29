@@ -63,6 +63,8 @@
 (use-package magit
   :custom
   (magit-completing-read-function 'ivy-completing-read)
+  :hook
+  (after-save . magit-after-save-refresh-status)
   :config
   (dotimes (i 4)
     (let ((n (1+ i)))
