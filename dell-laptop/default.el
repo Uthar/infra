@@ -7,6 +7,9 @@
 
 (use-package browse-kill-ring)
 
+(use-package evil-matchit
+  :config (global-evil-matchit-mode))
+
 (use-package gcmh
   :diminish
   :custom
