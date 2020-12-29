@@ -1,7 +1,14 @@
 {
 
-  network.description = "Jazajuk server";
-  network.enableRollback = true;
+  # TODO Make it a function and pass in the details
+
+  network.description = "Jazajuk Machine Farm";
+
+  network.enableRollback = false;
+  network.nixpkgs = import (builtins.fetchTarball {
+    url    = "https://github.com/Uthar/nixpkgs/archive/aab74d2b13235dbae3d40e78ae28ea9aaa3f2263.tar.gz";
+    sha256 = "0di6di23bvdlfpqim3jk717mixs43swxfjjm6lilid8byq24rkiy";
+  }) {};
 
   jazajuk = { config, pkgs, lib, ... }: {
 
