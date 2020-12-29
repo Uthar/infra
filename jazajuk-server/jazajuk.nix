@@ -47,6 +47,7 @@
     system.extraSystemBuilderCmds = ''
       ln -s /etc/nixos $out/current-configuration
     '';                                 
+    services.journald.extraConfig = "SystemMaxUse=10M";
 
     boot.loader.grub = { enable = true; version = 2; device = "/dev/vda"; };
 
