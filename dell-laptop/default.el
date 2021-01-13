@@ -204,7 +204,6 @@
   :config (editorconfig-mode t))
 
 (use-package dashboard
-  :after projectile
   :custom
   (dashboard-startup-banner 'logo)
   (dashboard-center-content t)
