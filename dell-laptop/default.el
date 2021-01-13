@@ -34,11 +34,6 @@
 		   (format "%c" (car cell)))
 		 (cdr git-timemachine-mode-map))))))
 
-(use-package neotree
-  :custom
-  (neo-smart-open t)
-  (neo-theme 'ascii))
-
 (use-package hl-todo
   :custom
   (hl-todo-highlight-punctuation ":")
