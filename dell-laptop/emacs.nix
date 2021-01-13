@@ -52,8 +52,6 @@ with pkgs; with emacsPackagesNg;
       dap-mode
       lsp-mode
       lsp-ui
-      company-lsp
-      lsp-python-ms
       doom-themes
       browse-kill-ring
       page-break-lines

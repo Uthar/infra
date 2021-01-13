@@ -232,46 +232,15 @@
   :diminish
   :config (global-flycheck-mode))
 
-(use-package dap-mode
-  :config
-  (dap-mode 1)
-  (dap-ui-mode 1)
-  (dap-tooltip-mode 1)
-  (tooltip-mode 1)
-  (dap-ui-controls-mode 1))
-
 (use-package lsp-mode
-  :after dap-mode
-  :init
-  (require 'dap-lldb)
   :custom
-  (lsp-print-io t)
-  (lsp-trace t)
-  (lsp-enable-snippet nil)
+  (lsp-keymap-prefix "C-c l")
   :hook
-  ((python-mode . lsp)
-   (c-mode . lsp)
-   (c++-mode . lsp)
-   (sh-mode . lsp)
+  (((c-mode c++-mode python-mode sh-mode) . lsp)
    (lsp-mode . lsp-enable-which-key-integration)))
 
 (use-package lsp-ui
-  :hook (lsp-mode . lsp-ui-mode))
-
-(use-package company-lsp
-  :custom
-  (company-lsp-cache-candidates t)
-  (company-lsp-async t))
-
-(use-package lsp-python-ms
-  :custom
-  (lsp-python-ms-executable (executable-find "python-language-server"))
-  :hook
-  (python-mode
-   . (lambda ()
-	   (require 'lsp-python-ms)
-	   (require 'dap-python)
-	   (lsp))))
+  :custom (lsp-ui-doc-position 'top))
 
 (use-package doom-themes
   :hook
