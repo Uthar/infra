@@ -14,13 +14,6 @@
   :diminish page-break-lines-mode
   :config (global-page-break-lines-mode))
 
-(use-package gcmh
-  :diminish
-  :custom
-  (gcmh-idle-delay 10)
-  (gcmh-high-cons-threshold #x20000000)
-  :config (gcmh-mode t))
-
 (use-package direnv
   :config (direnv-mode))
 
