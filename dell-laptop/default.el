@@ -91,12 +91,8 @@
 
 (use-package go-mode)
 
-(defun my/user-emacs-subdirectory (dir)
-  (expand-file-name (concat user-emacs-directory dir)))
-
-(defconst my/backup-dir (my/user-emacs-subdirectory "backups/"))
-(defconst my/auto-save-dir (my/user-emacs-subdirectory "auto-save/"))
-(defconst my/undo-tree-history-dir (my/user-emacs-subdirectory "undo-tree-history/"))
+(defun state-dir (dir)
+  (expand-file-name (concat user-emacs-directory dir "/")))
 
 (use-package emacs
   :custom
@@ -112,11 +108,9 @@
   (inhibit-startup-screen t)
   (version-control t)
   (delete-old-versions t)
-  (backup-directory-alist `((".*" . ,my/backup-dir)))
-  (auto-save-file-name-transforms `((".*" ,my/auto-save-dir t)))
-  (auto-save-list-file-prefix my/auto-save-dir)
-  (undo-tree-auto-save-history t)
-  (undo-tree-history-directory-alist `(("." . ,my/undo-tree-history-dir)))
+  (backup-directory-alist `((".*" . ,(state-dir "backups"))))
+  (auto-save-file-name-transforms `((".*" ,(state-dir "auto-save") t)))
+  (auto-save-list-file-prefix (state-dir "auto-save"))
   (read-process-output-max (* 1024 1024))
   (indent-tabs-mode nil)
   (c-basic-offset 4)
@@ -161,7 +155,6 @@
   (prog-mode . display-line-numbers-mode))
 
 (use-package evil
-  :diminish undo-tree-mode
   :custom
   (evil-want-C-u-scroll t)
   (evil-kill-on-visual-paste nil)
@@ -169,6 +162,13 @@
 
 (use-package evil-surround
   :config (global-evil-surround-mode 1))
+
+(use-package undo-tree
+  :diminish
+  :custom
+  (undo-tree-auto-save-history t)
+  (undo-tree-history-directory-alist `(("." . ,(state-dir "undo-tree-history"))))
+  :config (global-undo-tree-mode))
 
 (use-package anzu
   :diminish
