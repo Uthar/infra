@@ -49,6 +49,7 @@ with pkgs; with emacsPackagesNg;
       editorconfig
       dashboard
       flycheck
+      go-mode
       dap-mode
       lsp-mode
       lsp-ui

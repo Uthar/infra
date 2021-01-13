@@ -101,6 +101,8 @@
 (use-package nix-mode
   :mode "\\.nix\\'")
 
+(use-package go-mode)
+
 (defun my/user-emacs-subdirectory (dir)
   (expand-file-name (concat user-emacs-directory dir)))
 
