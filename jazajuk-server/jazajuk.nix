@@ -41,6 +41,9 @@
       MURMUR_PASSWORD=${readFile ./keys/murmurPassword}
       '';
 
+      kMailAccount.destDir = "/run/mailserverKeys";
+      kMailAccount.text = readFile ./keys/mailserver/k;
+
     };
 
     nix.autoOptimiseStore = true;
@@ -73,7 +76,7 @@
     networking.nat = {
       enable = true;
       externalInterface = "ens3";
-      internalInterfaces  = [ "tun0" "tap0" ];
+      internalInterfaces  = [ "tun0" "tap0" "ve-mailserver" "ve-jitsi" ];
     };
 
     services.openssh.enable = true;
@@ -194,6 +197,7 @@
     };
 
     security.acme.acceptTerms = true;
+    security.acme.email = "k@demondust.xyz";
     services.httpd = {
       enable = true;
       virtualHosts."galkowski.xyz" = {
@@ -202,12 +206,114 @@
         enableACME = true;
         adminAddr = "k@demondust.xyz";
       };
+      virtualHosts."jitsi.galkowski.xyz" = {
+        locations."/.well-known".proxyPass = "!";
+        locations."/".proxyPass = "http://10.13.37.4/";
+        adminAddr = "k@demondust.xyz";
+        addSSL = true;
+        enableACME = true;
+      };
     };
 
     users.users.root = {
       openssh.authorizedKeys.keyFiles = [ ./ssh/id_rsa.pub ];
     };
 
+    containers = let
+        pkgsUnstable = import (builtins.fetchTarball {
+          url    = "https://github.com/NixOS/nixpkgs/archive/f1f9a55fb4b1d5adeebfff6c5ec58ce445bf5e84.tar.gz";
+          sha256 = "0iss3b7f4xc6czfwchs4qs3jy7y6l9cxmsyp77s4qksj0sn3mjnv";
+        }) {};
+    in {
+      jitsi = {
+        pkgs = pkgsUnstable;
+        autoStart = false;
+        privateNetwork = true;
+        hostAddress = "10.13.37.3";
+        localAddress = "10.13.37.4";
+        forwardPorts = [
+          { containerPort = 10000; hostPort = 10000; }
+          { containerPort = 4443; hostPort = 4443; }
+        ];
+        config = {
+          environment.systemPackages = with pkgs; [ htop ];
+          services.journald.extraConfig = "SystemMaxUse=10M";
+          services.jitsi-meet = {
+            enable = true;
+            hostName = "jitsi.galkowski.xyz";
+            config = {
+              enableWelcomePage = false;
+              prejoinPageEnabled = true;
+              defaultLang = "fi";
+            };
+            interfaceConfig = {
+              SHOW_JITSI_WATERMARK = false;
+              SHOW_WATERMARK_FOR_GUESTS = false;
+            };
+          };
+          services.jitsi-videobridge.nat.publicAddress = "104.244.74.41";
+          services.jitsi-videobridge.nat.localAddress = "10.13.37.4";
+          services.jitsi-videobridge.openFirewall = true;
+          networking.firewall.allowedTCPPorts = [ 80 443 ];
+          services.nginx.virtualHosts."jitsi.galkowski.xyz".enableACME = false;
+          services.nginx.virtualHosts."jitsi.galkowski.xyz".forceSSL = false;
+          #security.acme.email = "me@example.com";
+          #security.acme.acceptTerms = true;
+        };
+      };
+
+      mailserver = {
+        pkgs = pkgsUnstable;
+        autoStart = true;
+        privateNetwork = true;
+        hostAddress = "10.13.37.1";
+        localAddress = "10.13.37.2";
+        bindMounts."/run/mailserverKeys" = {};
+        forwardPorts = [
+          { containerPort = 993; hostPort = 993; }
+          { containerPort = 465; hostPort = 465; }
+          { containerPort = 143; hostPort = 143; }
+          { containerPort = 25; hostPort = 25; }
+        ];
+        config = let release = "7c06f610f15642e3664f01a51c08c64cc8835f51"; in {
+          imports = [
+            (builtins.fetchTarball {
+              url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz";
+              sha256 = "0yb54wjp2x30k8c1ksgsnpwrfrxlikxsvkzflp0crzw0lz8qmsmb";
+            })
+          ];
+
+          environment.systemPackages = with pkgs; [ htop ];
+          networking.nameservers = [ "8.8.8.8" ];
+          services.journald.extraConfig = "SystemMaxUse=10M";
+
+          mailserver = {
+            enable = true;
+            fqdn = "mail.galkowski.xyz";
+            domains = [ "galkowski.xyz" ];
+            loginAccounts = {
+              "k@galkowski.xyz" = {
+                # mkpasswd -m sha-512 "super secret password" > /hashed/password/file/location
+                hashedPasswordFile = "/run/mailserverKeys/kMailAccount";
+
+                aliases = [
+                  "kasper@galkowski.xyz"
+                ];
+              };
+            };
+
+            certificateScheme = 2;
+
+            enableImap = false;
+            enableImapSsl = true;
+            enableSubmission = false;
+            enableSubmissionSsl = true;
+
+            enableManageSieve = true;
+          };
+        };
+      };
+    };
   };
 
 }
