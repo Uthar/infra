@@ -3,7 +3,10 @@
 
 (use-package diminish)
 
-(use-package restart-emacs)
+(use-package restart-emacs
+  :config
+  (defun restart-emacs--get-emacs-binary ()
+    (shell-command-to-string "readlink -n `which emacs`"))) ; hack for ~/.nix-profile
 
 (use-package browse-kill-ring)
 
