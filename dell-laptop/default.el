@@ -76,6 +76,7 @@
   :config
   (dotimes (i 9)
     (let ((n (+ i 1)))
+      (define-key diff-mode-map (kbd (format "M-%i" n)) nil)
       (global-set-key
         (kbd (format "M-%i" n))
         (intern (format "winum-select-window-%i" n)))))
@@ -149,9 +150,6 @@
     (interactive)
     (call-process-shell-command
      (format "$BROWSER \"%s\" &" (buffer-substring-no-properties (region-beginning) (region-end)))))
-  (dotimes (i 9)
-    (let ((n (+ i 1)))
-      (define-key diff-mode-map (kbd (format "M-%i" n)) nil)))
   (global-set-key (kbd "C-;") 'my/comment-or-uncomment-region)
   :hook
   (after-save . executable-make-buffer-file-executable-if-script-p)
