@@ -54,6 +54,8 @@ with pkgs; with emacsPackagesNg;
       lsp-mode
       lsp-ui
       doom-themes
+      slime
+      slime-company
       browse-kill-ring
       page-break-lines
       evil-matchit

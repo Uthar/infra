@@ -239,3 +239,39 @@
    . (lambda ()
        (load-theme 'doom-gruvbox t))))
 
+(use-package slime
+  :custom
+  (slime-truncate-lines nil)
+  (slime-net-coding-system 'utf-8-unix)
+  (slime-lisp-implementations
+   '((sbcl ("sbcl" "--dynamic-space-size" "512"))
+     (abcl ("abcl"))
+     (ecl ("ecl"))))
+  (slime-contribs
+   '(slime-asdf
+     slime-company
+     slime-quicklisp
+     ;; slime-fancy except slime-c-p-c, which breaks completion
+     slime-autodoc
+     slime-editing-commands
+     slime-fancy-inspector
+     slime-fancy-trace
+     slime-fontifying-fu
+     slime-fuzzy
+     slime-indentation
+     slime-macrostep
+     slime-mdot-fu
+     slime-package-fu
+     slime-presentations
+     slime-references
+     slime-repl
+     slime-scratch
+     slime-trace-dialog))
+  (slime-complete-symbol*-fancy t)
+  (slime-repl-auto-right-margin t)
+  (slime-repl-history-size 10000)
+  :bind ("C-c s" . 'slime-selector))
+
+(use-package slime-company
+  :custom
+  (slime-company-completion 'fuzzy))
