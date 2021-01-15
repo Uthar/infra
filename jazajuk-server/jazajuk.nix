@@ -10,7 +10,13 @@
     sha256 = "0di6di23bvdlfpqim3jk717mixs43swxfjjm6lilid8byq24rkiy";
   }) {};
 
-  jazajuk = { config, pkgs, lib, ... }: {
+  jazajuk = { config, pkgs, lib, ... }:
+
+    let
+      publicAddress = "104.244.74.41";
+      publicInterface = "ens3";
+      domainName = "galkowski.xyz";
+    in {
 
     boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "sr_mod" "virtio_blk" ];
     boot.initrd.kernelModules = [ "dm-snapshot" ];
@@ -19,7 +25,7 @@
     nix.maxJobs = lib.mkDefault 1;
     virtualisation.hypervGuest.enable = false;
 
-    deployment.targetHost = "104.244.74.41";
+    deployment.targetHost = publicAddress;
 
     deployment.keys = with lib; {
 
@@ -37,9 +43,7 @@
       totalaTauth.text = readFile ./pki/ta.key;
 
       murmurPassword.user = "murmur";
-      murmurPassword.text = ''
-      MURMUR_PASSWORD=${readFile ./keys/murmurPassword}
-      '';
+      murmurPassword.text = "MURMUR_PASSWORD=${readFile ./keys/murmurPassword}";
 
       kMailAccount.destDir = "/run/mailserverKeys";
       kMailAccount.text = readFile ./keys/mailserver/k;
@@ -65,17 +69,17 @@
     networking.useDHCP = false;
     networking.interfaces.vpn.useDHCP = false;
     networking.interfaces.vpn.virtual = true;
-    networking.interfaces.ens3.ipv4.addresses = [
-      { address = "104.244.74.41"; prefixLength = 24; }
+    networking.interfaces.${publicInterface}.ipv4.addresses = [
+      { address = publicAddress; prefixLength = 24; }
     ];
-    networking.defaultGateway = { address = "104.244.74.1"; interface = "ens3"; };
+    networking.defaultGateway = { address = "104.244.74.1"; interface = publicInterface; };
     networking.nameservers = [ "8.8.8.8" ];
     networking.firewall.allowedUDPPorts = [ 64738 1194 1338 ];
     networking.firewall.trustedInterfaces = [ "tun0" "tap0" ];
 
     networking.nat = {
       enable = true;
-      externalInterface = "ens3";
+      externalInterface = publicInterface;
       internalInterfaces  = [ "tun0" "tap0" "ve-mailserver" "ve-jitsi" ];
     };
 
@@ -200,13 +204,13 @@
     security.acme.email = "k@demondust.xyz";
     services.httpd = {
       enable = true;
-      virtualHosts."galkowski.xyz" = {
+      virtualHosts.${domainName} = {
         addSSL = true;
         documentRoot = "/srv/git";
         enableACME = true;
         adminAddr = "k@demondust.xyz";
       };
-      virtualHosts."jitsi.galkowski.xyz" = {
+      virtualHosts."jitsi.${domainName}" = {
         locations."/.well-known".proxyPass = "!";
         locations."/".proxyPass = "http://10.13.37.4/";
         adminAddr = "k@demondust.xyz";
@@ -240,7 +244,7 @@
           services.journald.extraConfig = "SystemMaxUse=10M";
           services.jitsi-meet = {
             enable = true;
-            hostName = "jitsi.galkowski.xyz";
+            hostName = "jitsi.${domainName}";
             config = {
               enableWelcomePage = false;
               prejoinPageEnabled = true;
@@ -251,12 +255,11 @@
               SHOW_WATERMARK_FOR_GUESTS = false;
             };
           };
-          services.jitsi-videobridge.nat.publicAddress = "104.244.74.41";
+          services.jitsi-videobridge.nat.publicAddress = publicAddress;
           services.jitsi-videobridge.nat.localAddress = "10.13.37.4";
           services.jitsi-videobridge.openFirewall = true;
           networking.firewall.allowedTCPPorts = [ 80 443 ];
-          services.nginx.virtualHosts."jitsi.galkowski.xyz".enableACME = false;
-          services.nginx.virtualHosts."jitsi.galkowski.xyz".forceSSL = false;
+          services.nginx.virtualHosts."jitsi.${domainName}" = { enableACME = false; forceSSL = false; };
           #security.acme.email = "me@example.com";
           #security.acme.acceptTerms = true;
         };
@@ -289,15 +292,15 @@
 
           mailserver = {
             enable = true;
-            fqdn = "mail.galkowski.xyz";
-            domains = [ "galkowski.xyz" ];
+            fqdn = "mail.${domainName}";
+            domains = [ domainName ];
             loginAccounts = {
-              "k@galkowski.xyz" = {
+              "k@${domainName}" = {
                 # mkpasswd -m sha-512 "super secret password" > /hashed/password/file/location
                 hashedPasswordFile = "/run/mailserverKeys/kMailAccount";
 
                 aliases = [
-                  "kasper@galkowski.xyz"
+                  "kasper@${domainName}"
                 ];
               };
             };
