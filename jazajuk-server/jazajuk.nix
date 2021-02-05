@@ -16,7 +16,14 @@
       publicAddress = "104.244.74.41";
       publicInterface = "ens3";
       domainName = "galkowski.xyz";
+      baseConfig = {
+        environment.systemPackages = with pkgs; [ ranger htop ];
+        services.journald.extraConfig = "SystemMaxUse=10M";
+        boot.kernelParams = [ "cgroup_no_v1=all" "systemd.unified_cgroup_hierarchy=yes" ]; 
+      };
     in {
+
+      imports = [ baseConfig ];
 
     boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "sr_mod" "virtio_blk" ];
     boot.initrd.kernelModules = [ "dm-snapshot" ];
@@ -54,15 +61,10 @@
     system.extraSystemBuilderCmds = ''
       ln -s /etc/nixos $out/current-configuration
     '';                                 
-    services.journald.extraConfig = "SystemMaxUse=10M";
 
     boot.loader.grub = { enable = true; version = 2; device = "/dev/vda"; };
 
-    environment.systemPackages = with pkgs; [
-      git
-      ranger
-      htop
-    ];
+    environment.systemPackages = with pkgs; [ git ];
 
     networking.firewall.allowedTCPPorts = [ 64738 80 443 3000 ];
     networking.hostName = "jazajuk";
@@ -240,8 +242,7 @@
           { containerPort = 4443; hostPort = 4443; }
         ];
         config = {
-          environment.systemPackages = with pkgs; [ htop ];
-          services.journald.extraConfig = "SystemMaxUse=10M";
+          imports = [ baseConfig ];
           services.jitsi-meet = {
             enable = true;
             hostName = "jitsi.${domainName}";
@@ -284,11 +285,10 @@
               url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz";
               sha256 = "0yb54wjp2x30k8c1ksgsnpwrfrxlikxsvkzflp0crzw0lz8qmsmb";
             })
+            baseConfig
           ];
 
-          environment.systemPackages = with pkgs; [ htop ];
           networking.nameservers = [ "8.8.8.8" ];
-          services.journald.extraConfig = "SystemMaxUse=10M";
 
           mailserver = {
             enable = true;
