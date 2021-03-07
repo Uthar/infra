@@ -28,14 +28,14 @@
   :hook
   (git-timemachine-mode
    . (lambda ()
-	   (mapcar
-		(lambda (key)
-		  (define-key evil-normal-state-local-map (kbd key)
-			(lookup-key git-timemachine-mode-map key)))
-		(mapcar
-		 (lambda (cell)
-		   (format "%c" (car cell)))
-		 (cdr git-timemachine-mode-map))))))
+       (mapcar
+        (lambda (key)
+          (define-key evil-normal-state-local-map (kbd key)
+            (lookup-key git-timemachine-mode-map key)))
+        (mapcar
+         (lambda (cell)
+           (format "%c" (car cell)))
+         (cdr git-timemachine-mode-map))))))
 
 (use-package hl-todo
   :custom
@@ -75,11 +75,11 @@
 (use-package winum
   :config
   (dotimes (i 9)
-    (let ((n (+ i 1)))
+    (let ((n (1+ i)))
       (define-key diff-mode-map (kbd (format "M-%i" n)) nil)
       (global-set-key
-        (kbd (format "M-%i" n))
-        (intern (format "winum-select-window-%i" n)))))
+       (kbd (format "M-%i" n))
+       (intern (format "winum-select-window-%i" n)))))
   (winum-mode))
 
 (use-package ivy
@@ -115,7 +115,6 @@
   (backup-directory-alist `((".*" . ,(state-dir "backups"))))
   (auto-save-file-name-transforms `((".*" ,(state-dir "auto-save") t)))
   (auto-save-list-file-prefix (state-dir "auto-save"))
-  (read-process-output-max (* 1024 1024))
   (indent-tabs-mode nil)
   (c-basic-offset 4)
   (tab-width 4)
@@ -137,6 +136,7 @@
     (interactive)
     (comment-or-uncomment-region (region-beginning) (region-end))
     (setq deactivate-mark nil))
+  (global-set-key (kbd "C-;") 'my/comment-or-uncomment-region)
   (defun x-copy ()
     (interactive)
     (when (region-active-p)
@@ -150,10 +150,11 @@
     (interactive)
     (call-process-shell-command
      (format "$BROWSER \"%s\" &" (buffer-substring-no-properties (region-beginning) (region-end)))))
-  (global-set-key (kbd "C-;") 'my/comment-or-uncomment-region)
   :hook
   (after-save . executable-make-buffer-file-executable-if-script-p)
-  (prog-mode . display-line-numbers-mode))
+  ;(find-file . recentf-save-list)
+  (prog-mode . display-line-numbers-mode)
+  (after-init . (lambda () (set-cursor-color "#999"))))
 
 (use-package evil
   :custom
@@ -181,7 +182,7 @@
   :custom
   (company-dabbrev-downcase nil)
   (company-dabbrev-ignore-case t)
-  (company-minimum-prefix-length 3)
+  (company-minimum-prefix-length 1)
   :diminish
   :hook (after-init . global-company-mode))
 
@@ -194,6 +195,7 @@
   :diminish
   :config (editorconfig-mode t))
 
+;; remove this ? figure out recent files a differrent way
 (use-package dashboard
   :custom
   (dashboard-startup-banner 'logo)
@@ -203,10 +205,10 @@
   :hook
   (dashboard-mode
    . (lambda ()
-	   (mapcar (lambda (key)
-				 (define-key evil-normal-state-local-map (kbd key)
-				   (lookup-key dashboard-mode-map key)))
-			   '("m" "p" "r"))))
+       (mapcar (lambda (key)
+                 (define-key evil-normal-state-local-map (kbd key)
+                   (lookup-key dashboard-mode-map key)))
+               '("m" "p" "r"))))
   (after-init
    . (lambda ()
        (dashboard-insert-startupify-lists)))
@@ -230,6 +232,7 @@
   (((c-mode c++-mode python-mode sh-mode go-mode) . lsp)
    (lsp-mode . lsp-enable-which-key-integration)))
 
+;; Remove this?
 (use-package lsp-ui
   :custom (lsp-ui-doc-position 'top))
 
@@ -270,8 +273,31 @@
   (slime-complete-symbol*-fancy t)
   (slime-repl-auto-right-margin t)
   (slime-repl-history-size 10000)
+  (common-lisp-hyperspec-root
+   (expand-file-name "~/archive/www/HyperSpec/HyperSpec/"))
+  (common-lisp-hyperspec-symbol-table
+   (expand-file-name "~/archive/www/HyperSpec/HyperSpec/Data/Map_Sym.txt"))
+  (common-lisp-style-default
+   (progn
+     (require 'slime-cl-indent)
+     (define-common-lisp-style "kpg"
+       "Fix the indentation of some Clojure-like macros."
+       (:inherit "modern")
+       (:indentation 
+        (for (as handler-case))))))
   :bind ("C-c s" . 'slime-selector))
+
+;; give keyword colors to symbols in cl-keywords
+(let ((cl-keywords `("fn" "for" "defclass*")))
+  (add-to-list
+   'lisp-cl-font-lock-keywords-2
+   `(,(concat "(" `,(regexp-opt cl-keywords t) "\\_>") . 1)))
 
 (use-package slime-company
   :custom
   (slime-company-completion 'fuzzy))
+
+(use-package lisp-mode
+  :mode "\\.cl\\'")
+
+;; add cider

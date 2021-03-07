@@ -1,44 +1,51 @@
-pkgs:
+{ pkgs, config, ... }:
 
-with pkgs; [
+{environment.systemPackages = with pkgs; [
 
+  udiskie
+  dunst
+  pcmanfm
+
+  # Programming
+  clojure
+  ecl
+  sbcl
+  leiningen
+
+  # Search utils
   ag
-  baobab
+  fd
+  fzf
+  ripgrep
+
+  # Version control
+  fossil
+  git
+  mercurial
+
+  # Shell utils
   bat
-  clang-tools
   curl
   direnv
-  fd
-  feh
-  firefox-esr
-  fzf
-  git
   htop
   killall
-  man-pages
-  mpv
-  nodePackages.bash-language-server
   p7zip
   pass
   patchelf
-  #python-language-server
-  qrencode
-  qutebrowser
-  redshift
-  ripgrep
-  rofi-unwrapped
-  st
+  ranger
   tree
-  udevil
+  wget
+
+  # The rest
+  baobab
+  clang-tools
+  gsimplecal
+  rofi
+  st
+  ungoogled-chromium
   vim
   vlc
-  w3m
-  wget
-  wget
-  xcape
-  xclip
-  xdotool
-  xorg.xmodmap
   youtube-dl
 
-]
+];}
+
