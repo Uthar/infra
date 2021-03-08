@@ -58,9 +58,6 @@
     };
 
     nix.autoOptimiseStore = true;
-    system.extraSystemBuilderCmds = ''
-      ln -s /etc/nixos $out/current-configuration
-    '';                                 
 
     boot.loader.grub = { enable = true; version = 2; device = "/dev/vda"; };
 
