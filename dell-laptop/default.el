@@ -151,6 +151,7 @@
     (call-process-shell-command
      (format "$BROWSER \"%s\" &" (buffer-substring-no-properties (region-beginning) (region-end)))))
   :hook
+  (before-save . delete-trailing-whitespace)
   (after-save . executable-make-buffer-file-executable-if-script-p)
   ;(find-file . recentf-save-list)
   (prog-mode . display-line-numbers-mode)
