@@ -18,7 +18,13 @@
   nix.extraOptions = let mb = n: toString (n * 1024 * 1024); in ''
     min-free = ${mb 100}
     max-free = ${mb 500}
+    keep-outputs = true
+    keep-derivations = true
   '';
+
+  environment.pathsToLink = [
+    "/share/nix-direnv"
+  ];
 
   # Copy configuration directory to store. Make sure not to import anything from ../ in this file.
   system.extraSystemBuilderCmds = ''

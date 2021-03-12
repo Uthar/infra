@@ -2,6 +2,7 @@
 
 {environment.systemPackages = with pkgs; [
 
+  # desktop env stuff
   udiskie
   dunst
   pcmanfm
@@ -27,6 +28,7 @@
   bat
   curl
   direnv
+  nix-direnv
   htop
   killall
   p7zip
@@ -48,4 +50,3 @@
   youtube-dl
 
 ];}
-
