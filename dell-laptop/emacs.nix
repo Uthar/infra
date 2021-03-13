@@ -16,50 +16,50 @@ with pkgs; with emacsPackagesNg;
 
   in emacsWithPackages(epkgs:
 
-    [ defaultEl ] 
+    [ defaultEl ]
 
     ++
 
     (with epkgs.melpaPackages; [
-      use-package
-      diminish
-      restart-emacs
-      gcmh
-      direnv
-      rg
-      wgrep
-      git-timemachine
-      neotree
-      hl-todo
-      projectile
-      smartparens
-      magit
-      evil-magit
-      winum
-      ivy
-      counsel
-      nix-mode
-      ranger
-      evil
-      evil-surround
       anzu
-      evil-anzu
+      browse-kill-ring
+      cider
       company
-      which-key
-      editorconfig
-      dashboard
-      flycheck
-      go-mode
+      counsel
       dap-mode
+      dashboard
+      diminish
+      direnv
+      doom-themes
+      editorconfig
+      evil
+      evil-anzu
+      evil-magit
+      evil-matchit
+      evil-surround
+      flycheck
+      gcmh
+      git-timemachine
+      go-mode
+      hl-todo
+      ivy
       lsp-mode
       lsp-ui
-      doom-themes
+      magit
+      neotree
+      nix-mode
+      page-break-lines
+      projectile
+      ranger
+      restart-emacs
+      rg
       slime
       slime-company
-      browse-kill-ring
-      page-break-lines
-      evil-matchit
-      cider
+      smartparens
+      use-package
+      wgrep
+      which-key
+      winum
     ])
 
   )
