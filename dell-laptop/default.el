@@ -301,4 +301,4 @@
 (use-package lisp-mode
   :mode "\\.cl\\'")
 
-;; add cider
+(use-package cider)

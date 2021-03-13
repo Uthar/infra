@@ -59,6 +59,7 @@ with pkgs; with emacsPackagesNg;
       browse-kill-ring
       page-break-lines
       evil-matchit
+      cider
     ])
 
   )
