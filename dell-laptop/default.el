@@ -289,6 +289,11 @@
         (for (as handler-case))))))
   :bind ("C-c s" . 'slime-selector))
 
+(bind-keys* ("<f2>" . dired-jump)
+            ("<f5>" . previous-buffer)
+            ("<f6>" . next-buffer)
+            ("<f9>" . kill-buffer))
+
 ;; give keyword colors to symbols in cl-keywords
 (let ((cl-keywords `("fn" "for" "defclass*")))
   (add-to-list
