@@ -67,7 +67,7 @@
   (dotimes (i 4)
     (let ((n (1+ i)))
       (define-key magit-section-mode-map (kbd (format "M-%i" n)) nil)
-      (define-key magit-section-mode-map (kbd (format "C-%i" n)) 
+      (define-key magit-section-mode-map (kbd (format "C-%i" n))
         (intern (format "magit-section-show-level-%i-all" n))))))
 
 (use-package evil-magit)
@@ -155,6 +155,7 @@
   (after-save . executable-make-buffer-file-executable-if-script-p)
   ;(find-file . recentf-save-list)
   (prog-mode . display-line-numbers-mode)
+  (dired-mode . dired-hide-details-mode)
   (after-init . (lambda () (set-cursor-color "#999"))))
 
 (use-package evil
@@ -284,7 +285,7 @@
      (define-common-lisp-style "kpg"
        "Fix the indentation of some Clojure-like macros."
        (:inherit "modern")
-       (:indentation 
+       (:indentation
         (for (as handler-case))))))
   :bind ("C-c s" . 'slime-selector))
 
