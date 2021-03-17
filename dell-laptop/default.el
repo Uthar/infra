@@ -296,7 +296,8 @@
 (bind-keys* ("<f2>" . dired-jump)
             ("<f5>" . previous-buffer)
             ("<f6>" . next-buffer)
-            ("<f9>" . kill-buffer))
+            ("<f9>" . kill-buffer)
+            ("<f10>" . delete-window))
 
 ;; give keyword colors to symbols in cl-keywords
 (let ((cl-keywords `("fn" "for" "defclass*")))
