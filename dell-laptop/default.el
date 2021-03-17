@@ -156,6 +156,10 @@
   ;(find-file . recentf-save-list)
   (prog-mode . display-line-numbers-mode)
   (dired-mode . dired-hide-details-mode)
+  (dired-mode
+   . (lambda ()
+       (define-key evil-normal-state-local-map "l" 'dired-find-file)
+       (define-key evil-normal-state-local-map "h" 'dired-up-directory)))
   (after-init . (lambda () (set-cursor-color "#999"))))
 
 (use-package evil
