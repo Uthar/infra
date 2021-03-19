@@ -158,8 +158,15 @@
   (dired-mode . dired-hide-details-mode)
   (dired-mode
    . (lambda ()
-       (define-key evil-normal-state-local-map "l" 'dired-find-file)
-       (define-key evil-normal-state-local-map "h" 'dired-up-directory)))
+       (define-key evil-normal-state-local-map "l"
+         (lambda ()
+           (interactive)
+           (if (file-directory-p (dired-get-filename))
+               (dired-find-alternate-file) (dired-find-file))))
+       (define-key evil-normal-state-local-map "h"
+         (lambda ()
+           (interactive)
+           (find-alternate-file "..")))))
   (after-init . (lambda () (set-cursor-color "#999"))))
 
 (use-package evil
@@ -226,6 +233,7 @@
          (goto-char (point-min))
          (redisplay)))))
 
+;; remove ?
 (use-package flycheck
   :custom (flycheck-disabled-checkers '(emacs-lisp-checkdoc))
   :diminish
