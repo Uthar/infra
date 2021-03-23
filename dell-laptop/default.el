@@ -128,6 +128,7 @@
   (save-place-mode t)
   (show-paren-mode t)
   (winner-mode t)
+  (recentf-mode)
   (savehist-mode)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defun display-startup-echo-area-message ())
@@ -153,7 +154,7 @@
   :hook
   (before-save . delete-trailing-whitespace)
   (after-save . executable-make-buffer-file-executable-if-script-p)
-  ;(find-file . recentf-save-list)
+  (find-file . recentf-save-list)
   (prog-mode . display-line-numbers-mode)
   (dired-mode . dired-hide-details-mode)
   (dired-mode
@@ -167,7 +168,8 @@
          (lambda ()
            (interactive)
            (find-alternate-file "..")))))
-  (after-init . (lambda () (set-cursor-color "#999"))))
+  (after-init . (lambda () (set-cursor-color "#999")))
+  (after-init . (lambda () (setq inhibit-startup-screen t))))
 
 (use-package evil
   :custom
@@ -207,31 +209,6 @@
 (use-package editorconfig
   :diminish
   :config (editorconfig-mode t))
-
-;; remove this ? figure out recent files a differrent way
-(use-package dashboard
-  :custom
-  (dashboard-startup-banner 'logo)
-  (dashboard-center-content t)
-  (dashboard-items '((recents . 10)))
-  (dashboard-set-footer nil)
-  :hook
-  (dashboard-mode
-   . (lambda ()
-       (mapcar (lambda (key)
-                 (define-key evil-normal-state-local-map (kbd key)
-                   (lookup-key dashboard-mode-map key)))
-               '("m" "p" "r"))))
-  (after-init
-   . (lambda ()
-       (dashboard-insert-startupify-lists)))
-  (emacs-startup
-   . (lambda ()
-       (unless (or (symbol-value (daemonp))
-                   (>= (length command-line-args) 2))
-         (switch-to-buffer "*dashboard*")
-         (goto-char (point-min))
-         (redisplay)))))
 
 ;; remove ?
 (use-package flycheck
@@ -287,10 +264,8 @@
   (slime-complete-symbol*-fancy t)
   (slime-repl-auto-right-margin t)
   (slime-repl-history-size 10000)
-  (common-lisp-hyperspec-root
-   (expand-file-name "~/archive/www/HyperSpec/HyperSpec/"))
-  (common-lisp-hyperspec-symbol-table
-   (expand-file-name "~/archive/www/HyperSpec/HyperSpec/Data/Map_Sym.txt"))
+  (common-lisp-hyperspec-root "~/archive/www/clhs/HyperSpec/")
+  (common-lisp-hyperspec-symbol-table "~/archive/www/clhs/HyperSpec/Data/Map_Sym.txt")
   (common-lisp-style-default
    (progn
      (require 'slime-cl-indent)

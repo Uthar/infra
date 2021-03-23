@@ -2,10 +2,21 @@
 
 {environment.systemPackages = with pkgs; [
 
-  # desktop env stuff
+  # Desktop
   udiskie
   dunst
   pcmanfm
+
+  # Xorg
+  xsel
+  xclip
+
+  # urxvt
+  rxvt_unicode-with-plugins
+  tabbed
+  w3m
+  jq
+  poppler_utils
 
   # Programming
   clojure
@@ -25,7 +36,6 @@
   mercurial
 
   # Shell utils
-  bat
   curl
   direnv
   nix-direnv
@@ -43,7 +53,6 @@
   clang-tools
   gsimplecal
   rofi
-  st
   ungoogled-chromium
   vim
   vlc

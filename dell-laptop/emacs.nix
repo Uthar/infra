@@ -12,11 +12,23 @@ with pkgs; with emacsPackagesNg;
       cp ${./default.el} $out/share/emacs/site-lisp/default.el
     '');
 
+    slime = pkgs.emacsPackages.slime.overrideAttrs (old: rec {
+      src = fetchFromGitHub {
+        owner = "uthar";
+        repo = "slime";
+        rev = "236662f406c5e3fa004b9f7f301a84c8620d1602";
+        sha256 = "05s6xqys8yw3hy0jjz8f439pjlwg5wnh7sf4acy8xcdcvqwv820l";
+      };
+    });
+
     emacsWithPackages = (emacsPackagesNgGen emacs).emacsWithPackages;
 
   in emacsWithPackages(epkgs:
 
-    [ defaultEl ]
+    [
+      defaultEl
+      slime
+    ]
 
     ++
 
@@ -26,8 +38,6 @@ with pkgs; with emacsPackagesNg;
       cider
       company
       counsel
-      dap-mode
-      dashboard
       diminish
       direnv
       doom-themes
@@ -38,7 +48,6 @@ with pkgs; with emacsPackagesNg;
       evil-matchit
       evil-surround
       flycheck
-      gcmh
       git-timemachine
       go-mode
       hl-todo
@@ -46,14 +55,11 @@ with pkgs; with emacsPackagesNg;
       lsp-mode
       lsp-ui
       magit
-      neotree
       nix-mode
       page-break-lines
       projectile
-      ranger
       restart-emacs
       rg
-      slime
       slime-company
       smartparens
       use-package

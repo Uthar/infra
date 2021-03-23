@@ -5,7 +5,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = 
+  imports =
   [ ./hardware-configuration.nix
     ./packages.nix
     ./luks.nix
@@ -60,8 +60,9 @@
   time.timeZone = "Europe/Amsterdam";
 
   environment.variables = {
-    TERMINAL = "st";
+    TERMINAL = "urxvt";
     BROWSER = "chromium";
+    EDITOR= "emacsclient -nw -c";
   };
 
   environment.extraInit = ''
@@ -81,9 +82,10 @@
     mv = "mv -v";
     s = "sudo";
     n = "nix";
+    h = "htop";
     f = "fossil";
     g = "git";
-    e = "emacsclient -c";
+    e = "$EDITOR";
     x = "exit";
     r = "ranger";
     nuke = "shred -zu";
@@ -113,7 +115,6 @@
 
   services.emacs = {
     enable = true;
-    defaultEditor = true;
     package = import ./emacs.nix {};
   };
 
@@ -181,4 +182,3 @@
   system.stateVersion = "20.09"; # Did you read the comment?
 
 }
-
