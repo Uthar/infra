@@ -12,7 +12,7 @@
   xclip
 
   # urxvt
-  rxvt_unicode-with-plugins
+  rxvt-unicode
   tabbed
   w3m
   jq
