@@ -98,6 +98,10 @@
 (defun state-dir (dir)
   (expand-file-name (concat user-emacs-directory dir "/")))
 
+(defmacro with-inhibit-message (&rest body)
+  `(let ((inhibit-message t))
+     ,@body))
+
 (use-package emacs
   :custom
   (create-lockfiles nil)
@@ -154,7 +158,7 @@
   :hook
   (before-save . delete-trailing-whitespace)
   (after-save . executable-make-buffer-file-executable-if-script-p)
-  (find-file . recentf-save-list)
+  (find-file . (lambda () (with-inhibit-message (recentf-save-list))))
   (prog-mode . display-line-numbers-mode)
   (dired-mode . dired-hide-details-mode)
   (dired-mode
