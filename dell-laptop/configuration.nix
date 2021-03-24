@@ -62,7 +62,8 @@
   environment.variables = {
     TERMINAL = "urxvt";
     BROWSER = "chromium";
-    EDITOR= "emacsclient -nw -c";
+    EDITOR = "emacsclient -nw -c";
+    XENVIRONMENT = "${./Xresources}";
   };
 
   environment.extraInit = ''
