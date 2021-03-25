@@ -85,8 +85,10 @@
     nuke = "shred -zu";
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
+  programs.bash.interactiveShellInit = ''
+    eval "$(${pkgs.direnv}/bin/direnv hook bash)"
+  '';
+
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
