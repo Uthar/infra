@@ -134,6 +134,7 @@
   (winner-mode t)
   (recentf-mode)
   (savehist-mode)
+  (put 'dired-find-alternate-file 'disabled nil)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defun display-startup-echo-area-message ())
   (set-language-environment "UTF-8")
