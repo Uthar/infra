@@ -39,17 +39,10 @@
 
   networking.hostName = "nixos";
   networking.useDHCP = false;
-  # networking.interfaces.eno1.useDHCP = true;
-  # networking.interfaces.wlp2s0.useDHCP = true;
-
   networking.networkmanager.enable = true;
-  networking.wireless.enable = false;
-
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [ 5555 ];
   networking.firewall.allowedUDPPorts = [ 5555 ];
-  #networking.firewall.allowedTCPPortRanges = [];
-  #networking.firewall.allowedUDPPortRanges = [];
 
   console = {
     font = "Lat2-Terminus16";
