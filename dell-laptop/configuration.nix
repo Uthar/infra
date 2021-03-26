@@ -111,7 +111,7 @@
 
   services.emacs = {
     enable = true;
-    package = import ./emacs.nix {};
+    package = import ./emacs {};
   };
 
   services.logind.extraConfig = ''
