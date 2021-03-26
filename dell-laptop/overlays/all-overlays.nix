@@ -20,5 +20,19 @@
       };
     });
 
+    togglemonitor = super.writeShellScriptBin "togglemonitor" ''
+    if ! [ -f /tmp/togglemonitor ]; then
+        echo "" > /tmp/togglemonitor
+    fi
+    toggle=`cat /tmp/togglemonitor`
+    if [ $toggle ]; then
+        ${super.xorg.xrandr}/bin/xrandr --output VGA1 --auto --above LVDS1
+        echo "" > /tmp/togglemonitor
+    else
+        ${super.xorg.xrandr}/bin/xrandr --output VGA1 --off
+        echo 1 > /tmp/togglemonitor
+    fi
+    '';
+
   })
 ]

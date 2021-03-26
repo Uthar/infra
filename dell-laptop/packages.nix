@@ -58,18 +58,6 @@
   vlc
   youtube-dl
 
-  (writeShellScriptBin "togglemonitor" ''
-    if ! [ -f /tmp/togglemonitor ]; then
-        echo "" > /tmp/togglemonitor
-    fi
-    toggle=`cat /tmp/togglemonitor`
-    if [ $toggle ]; then
-        ${xorg.xrandr}/bin/xrandr --output VGA1 --auto --above LVDS1
-        echo "" > /tmp/togglemonitor
-    else
-        ${xorg.xrandr}/bin/xrandr --output VGA1 --off
-        echo 1 > /tmp/togglemonitor
-    fi
-  '')
+  togglemonitor
 
 ];}
