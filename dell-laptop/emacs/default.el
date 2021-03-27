@@ -269,8 +269,8 @@
   (slime-complete-symbol*-fancy t)
   (slime-repl-auto-right-margin t)
   (slime-repl-history-size 10000)
-  (common-lisp-hyperspec-root "~/archive/www/clhs/HyperSpec/")
-  (common-lisp-hyperspec-symbol-table "~/archive/www/clhs/HyperSpec/Data/Map_Sym.txt")
+  (common-lisp-hyperspec-root "@clhs@/")
+  (common-lisp-hyperspec-symbol-table "@clhs@/Data/Map_Sym.txt")
   (common-lisp-style-default
    (progn
      (require 'slime-cl-indent)

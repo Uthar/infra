@@ -9,6 +9,7 @@
   [ ./hardware-configuration.nix
     ./packages.nix
     ./luks.nix
+    ./i3
   ];
 
   nixpkgs.overlays = import ./overlays/all-overlays.nix;
@@ -56,7 +57,6 @@
     TERMINAL = "urxvt";
     BROWSER = "chromium";
     EDITOR = "emacsclient -nw -c";
-    XENVIRONMENT = "${./Xresources}";
   };
 
   environment.extraInit = ''
@@ -118,14 +118,6 @@
     HandlePowerKey=ignore
   '';
 
-  services.compton = {
-    enable          = true;
-    fade            = true;
-    shadow          = true;
-    fadeDelta       = 3;
-    shadowExclude = [ "class_g = 'slop'" "class_g = 'locate-pointer'"];
-  };
-
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
 
@@ -145,12 +137,6 @@
   services.xserver.deviceSection = ''
     Option "TearFree" "true"
   '';
-
-  services.xserver.windowManager.i3.enable = true;
-  services.xserver.windowManager.i3.package = pkgs.i3-gaps;
-  services.xserver.windowManager.i3.configFile = ./i3.conf;
-  environment.etc."i3status.conf".source = ./i3status.conf;
-  environment.etc."dunstrc".source = ./dunstrc;
 
   # Enable sound.
   sound.enable = true;

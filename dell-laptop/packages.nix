@@ -1,19 +1,12 @@
 { pkgs, config, ... }:
 
-{environment.systemPackages = with pkgs; [
-
-  # Desktop
-  udiskie
-  dunst
-  pcmanfm
+{ environment.systemPackages = with pkgs; [
 
   # Xorg
-  xsel
   xclip
 
   # urxvt
-  rxvt-unicode
-  tabbed
+  urxvt
   w3m
   jq
   poppler_utils
@@ -51,13 +44,8 @@
   # The rest
   baobab
   clang-tools
-  gsimplecal
-  rofi
-  ungoogled-chromium
   vim
   vlc
   youtube-dl
-
-  togglemonitor
 
 ];}

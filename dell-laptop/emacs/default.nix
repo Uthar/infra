@@ -7,9 +7,18 @@ with pkgs; with emacsPackagesNg;
 
   let
 
-    defaultEl = (runCommand "default.el" {} ''
+    clhs = runCommand
+      "clhs"
+      { src = fetchTarball {
+          url = http://ftp.lispworks.com/pub/software_tools/reference/HyperSpec-7-0.tar.gz;
+          sha256 = "1248sws9yk2wy1ajvn88m3cl8lii77961gax4mlka2899d69bkzs"; };}
+      "cp -Tr $src $out";
+
+    defaultEl = (runCommand "default.el" { inherit clhs; } ''
       mkdir -p $out/share/emacs/site-lisp
-      cp ${./default.el} $out/share/emacs/site-lisp/default.el
+      substitute ${./default.el} $out/share/emacs/site-lisp/default.el \
+        --replace xsel ${xsel}/bin/xsel
+      substituteAllInPlace $out/share/emacs/site-lisp/default.el
     '');
 
     slime = pkgs.emacsPackages.slime.overrideAttrs (old: rec {
