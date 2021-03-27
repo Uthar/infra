@@ -38,7 +38,11 @@
       name = "urxvt";
       paths = [ super.rxvt-unicode ];
       buildInputs = [ super.makeWrapper ];
-      postBuild = "wrapProgram $out/bin/urxvt --set XENVIRONMENT ${../i3/Xresources}";
+      postBuild = ''
+        wrapProgram $out/bin/urxvt \
+            --set XENVIRONMENT ${../i3/Xresources} \
+            --prefix PATH : ${super.xsel}/bin
+      '';
     };
 
   })
