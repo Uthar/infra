@@ -243,9 +243,7 @@
   (slime-truncate-lines nil)
   (slime-net-coding-system 'utf-8-unix)
   (slime-lisp-implementations
-   '((sbcl ("sbcl" "--dynamic-space-size" "512"))
-     (abcl ("abcl"))
-     (ecl ("ecl"))))
+   '((common-lisp ("common-lisp.sh")))) ;; from nix-shell -p lispPackages
   (slime-contribs
    '(slime-asdf
      slime-company
