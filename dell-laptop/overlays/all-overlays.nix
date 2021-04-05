@@ -20,6 +20,22 @@
       };
     });
 
+    libfm = super.libfm.overrideAttrs (old: rec {
+      version = "1.3.2";
+      src = super.fetchurl {
+        url = "mirror://sourceforge/pcmanfm/libfm-${version}.tar.xz";
+        sha256 = "1rfira3lx8v6scz1aq69925j4vslpp36bmgrrzcfby2c60q2c155";
+      };
+    });
+
+    pcmanfm = super.pcmanfm.overrideAttrs (old: rec {
+      name = "pcmanfm-1.3.2";
+      src = super.fetchurl {
+        url = "mirror://sourceforge/pcmanfm/${name}.tar.xz";
+        sha256 = "1xqc2k2jh165mm81xg0ghxx0ml1s3rhh4ndvbzkcri4kfhj7pjql";
+      };
+    });
+
     togglemonitor = super.writeShellScriptBin "togglemonitor" ''
     if ! [ -f /tmp/togglemonitor ]; then
         echo "" > /tmp/togglemonitor
