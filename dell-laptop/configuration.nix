@@ -12,6 +12,11 @@
     ./i3
   ];
 
+  nixpkgs.pkgs = import (builtins.fetchTarball {
+    url = "https://github.com/nixos/nixpkgs/archive/6e7f25001fe6874f7ae271891f709bbf50a22c45.tar.gz";
+    sha256 = "1x04j4351pqiqbpkq6g308mxcvb5aqnwv8l2vmlxkgvq5phzky7z";
+  }) {};
+
   nixpkgs.overlays = import ./overlays/all-overlays.nix;
 
   nix.maxJobs = lib.mkDefault 4;
