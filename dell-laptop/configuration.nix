@@ -132,6 +132,7 @@
   services.xserver.xkbOptions = "altwin:swap_lalt_lwin,ctrl:nocaps";
 
   services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.lightdm.extraConfig = "user-authority-in-system-dir = true";
   services.xserver.displayManager.sessionCommands = ''
     ${pkgs.xorg.xmodmap}/bin/xmodmap -e "keycode 23 = Alt_L Meta_L Alt_L Meta_L"
     ${pkgs.xorg.xmodmap}/bin/xmodmap -e "keycode 222 = Tab"
