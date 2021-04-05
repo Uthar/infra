@@ -85,6 +85,7 @@
     f = "fossil";
     g = "git";
     e = "$EDITOR";
+    vim = "$EDITOR";
     x = "exit";
     r = "ranger";
     nuke = "shred -zu";
