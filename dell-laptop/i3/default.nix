@@ -52,6 +52,8 @@ in
 
       udiskie = makeImmortalService {
         description = "udiskie automount daemon";
+        environment = { inherit (config.environment.variables) GDK_PIXBUF_MODULE_FILE;
+                        XDG_DATA_DIRS = "${pkgs.gnome3.adwaita-icon-theme}/share"; };
         command =
           let
             udiskie = "${pkgs.udiskie}/bin/udiskie";
