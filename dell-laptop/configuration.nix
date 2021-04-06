@@ -62,12 +62,9 @@
     TERMINAL = "urxvt";
     BROWSER = "chromium";
     EDITOR = "emacsclient -nw -c";
-  };
 
-  environment.extraInit = ''
-    # Use librsvg's gdk-pixbuf loader cache file as it enables gdk-pixbuf to load SVG files (important for icons)
-    export GDK_PIXBUF_MODULE_FILE="$(echo ${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/*/loaders.cache)"
-  '';
+    GDK_PIXBUF_MODULE_FILE="${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
+  };
 
   environment.shellAliases = {
     l = "ls -lah --color=auto";
