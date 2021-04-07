@@ -13,8 +13,8 @@
   ];
 
   nixpkgs.pkgs = import (builtins.fetchTarball {
-    url = "https://github.com/nixos/nixpkgs/archive/6e7f25001fe6874f7ae271891f709bbf50a22c45.tar.gz";
-    sha256 = "1x04j4351pqiqbpkq6g308mxcvb5aqnwv8l2vmlxkgvq5phzky7z";
+    url = "https://github.com/nixos/nixpkgs/archive/12c99233cee3de4803d9a2b4db30c21843dc9565.tar.gz";
+    sha256 = "041x7pjarmypyz8pkx8371h4h33iy22gnmvqgxq2gv7rp42wisr6";
   }) {};
 
   nixpkgs.overlays = import ./overlays/all-overlays.nix;

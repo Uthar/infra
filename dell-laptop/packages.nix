@@ -4,9 +4,10 @@
 
   # Xorg
   xclip
+  xsel
 
   # urxvt
-  urxvt
+  rxvt-unicode
   w3m
   jq
   poppler_utils
