@@ -4,7 +4,7 @@ let
   immortalize = pkgs.writeShellScript "immortalize" ''
   while [ "`ls $XDG_RUNTIME_DIR/i3/ipc-socket* | wc -l`" -ne 0 ]; do
     "$@";
-    sleep 1;
+    sleep 0.2;
   done
   '';
   immortals = with pkgs; ''
