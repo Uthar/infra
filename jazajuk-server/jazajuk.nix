@@ -19,17 +19,12 @@
       baseConfig = {
         environment.systemPackages = with pkgs; [ ranger htop ];
         services.journald.extraConfig = "SystemMaxUse=10M";
-        boot.kernelParams = [ "cgroup_no_v1=all" "systemd.unified_cgroup_hierarchy=yes" ]; 
+        #boot.kernelParams = [ "cgroup_no_v1=all" "systemd.unified_cgroup_hierarchy=yes" ];
       };
     in {
 
-      imports = [ baseConfig ];
+      imports = [ baseConfig ./hardware-configuration.nix ];
 
-    boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "sr_mod" "virtio_blk" ];
-    boot.initrd.kernelModules = [ "dm-snapshot" ];
-    fileSystems."/" = { device = "/dev/nixos/main"; fsType = "ext4"; };
-    swapDevices = [ { device = "/dev/nixos/swap"; } ]; 
-    nix.maxJobs = lib.mkDefault 1;
     virtualisation.hypervGuest.enable = false;
 
     deployment.targetHost = publicAddress;
@@ -158,7 +153,7 @@
 
     systemd.services.openvpn-totala =
       let
-        keyServices = [ 
+        keyServices = [
           "totalaCa-key.service"
           "totalaCert-key.service"
           "totalaKey-key.service"
