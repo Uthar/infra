@@ -163,7 +163,8 @@
       (interactive)
       (if (string-match-p "a" dired-actual-switches)
           (dired "." (remove ?a dired-listing-switches))
-          (dired "." (concat dired-listing-switches "a")))))
+          (dired "." (concat dired-listing-switches "a")))
+      (setq dired-listing-switches dired-actual-switches)))
   :hook
   (before-save . delete-trailing-whitespace)
   (after-save . executable-make-buffer-file-executable-if-script-p)
