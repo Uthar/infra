@@ -156,6 +156,14 @@
     (interactive)
     (call-process-shell-command
      (format "$BROWSER \"%s\" &" (buffer-substring-no-properties (region-beginning) (region-end)))))
+  (define-key
+    dired-mode-map
+    (kbd "M-h")
+    (lambda ()
+      (interactive)
+      (if (string-match-p "a" dired-actual-switches)
+          (dired "." (remove ?a dired-listing-switches))
+          (dired "." (concat dired-listing-switches "a")))))
   :hook
   (before-save . delete-trailing-whitespace)
   (after-save . executable-make-buffer-file-executable-if-script-p)
