@@ -173,6 +173,8 @@
   (dired-mode . dired-hide-details-mode)
   (dired-mode
    . (lambda ()
+       (define-key dired-mode-map "N" nil)
+       (define-key dired-mode-map "n" nil)
        (define-key evil-normal-state-local-map "l"
          (lambda ()
            (interactive)
