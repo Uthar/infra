@@ -152,10 +152,6 @@
   (defun x-paste ()
     (interactive)
     (insert (shell-command-to-string "xsel -o -b")))
-  (defun open-region-in-browser ()
-    (interactive)
-    (call-process-shell-command
-     (format "$BROWSER \"%s\" &" (buffer-substring-no-properties (region-beginning) (region-end)))))
   (define-key
     dired-mode-map
     (kbd "M-h")
