@@ -68,3 +68,6 @@ URxvt*color14: #8ec07c
 ! LightGrey + White
 URxvt*color7:  #a89984
 URxvt*color15: #ebdbb2
+
+URxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: true
