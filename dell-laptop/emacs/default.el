@@ -234,7 +234,7 @@
   :custom
   (lsp-keymap-prefix "C-c l")
   :hook
-  (((c-mode c++-mode python-mode sh-mode go-mode) . lsp)
+  (((c-mode c++-mode python-mode go-mode) . lsp)
    (lsp-mode . lsp-enable-which-key-integration)))
 
 ;; Remove this?
