@@ -32,9 +32,20 @@
     "/share/nix-direnv"
   ];
 
-  # Copy configuration directory to store. Make sure not to import anything from ../ in this file.
-  system.extraSystemBuilderCmds = ''
-    ln -s ${builtins.dirOf <nixos-config>} $out/current-configuration
+  # Copy current configuration directory to store
+  # Make sure not to import anything from ../ in this file
+  # Ignores symlinks
+  system.extraSystemBuilderCmds =
+    with builtins;
+    with lib;
+    with pkgs;
+    let
+      paths =
+        map (x: { name = x; path = copyPathToStore "/etc/nixos/${x}"; })
+          (attrNames (filterAttrs (n: v: v != "symlink") (readDir /etc/nixos)));
+      configuration = linkFarm "configuration" paths;
+    in ''
+    ln -s ${configuration} $out/current-configuration
   '';
 
   boot.loader.grub = {
