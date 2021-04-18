@@ -125,6 +125,7 @@
   (column-number-mode t)
   (line-number-mode nil)
   :config
+  (minibuffer-depth-indicate-mode t)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (menu-bar-mode -1)
