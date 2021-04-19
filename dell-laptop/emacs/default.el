@@ -162,6 +162,11 @@
           (dired "." (remove ?a dired-listing-switches))
           (dired "." (concat dired-listing-switches "a")))
       (setq dired-listing-switches dired-actual-switches)))
+  (defadvice switch-to-buffer (after save-recentf activate)
+    (let ((file-name (buffer-file-name (current-buffer))))
+      (when file-name
+        (recentf-add-file file-name)
+        (with-inhibit-message (recentf-save-list)))))
   :hook
   (before-save . delete-trailing-whitespace)
   (after-save . executable-make-buffer-file-executable-if-script-p)
