@@ -288,10 +288,15 @@
   :bind ("C-c s" . 'slime-selector))
 
 (bind-keys* ("<f2>" . dired-jump)
+            ("<f3>" . counsel-fzf)
+            ("<f4>" . counsel-ag)
             ("<f5>" . previous-buffer)
             ("<f6>" . next-buffer)
-            ("<f9>" . kill-buffer)
-            ("<f10>" . delete-window))
+            ("<f7>" . nil)
+            ("<f8>" . exit-minibuffer)
+            ("<f9>" . kill-current-buffer)
+            ("<f10>" . delete-window)
+            ("<f12>" . universal-argument))
 
 ;; give keyword colors to symbols in cl-keywords
 (let ((cl-keywords `("fn" "for" "defclass*")))
