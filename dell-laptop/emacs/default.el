@@ -292,6 +292,12 @@
         (for (as handler-case))))))
   :bind ("C-c s" . 'slime-selector))
 
+(bind-key "<f1>"
+          (lambda ()
+            (interactive)
+            (select-window (split-window nil -15))
+            (switch-to-buffer (slime-repl-buffer))))
+
 (bind-keys* ("<f2>" . dired-jump)
             ("<f3>" . counsel-fzf)
             ("<f4>" . counsel-ag)
