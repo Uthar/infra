@@ -18,6 +18,7 @@
   :config (global-page-break-lines-mode))
 
 (use-package direnv
+  :custom (direnv-always-show-summary nil)
   :config (direnv-mode))
 
 (use-package rg)
