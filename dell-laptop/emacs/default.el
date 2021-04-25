@@ -241,10 +241,6 @@
   (((c-mode c++-mode python-mode go-mode) . lsp)
    (lsp-mode . lsp-enable-which-key-integration)))
 
-;; Remove this?
-(use-package lsp-ui
-  :custom (lsp-ui-doc-position 'top))
-
 (use-package doom-themes
   :hook
   (after-init

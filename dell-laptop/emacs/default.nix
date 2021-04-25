@@ -62,7 +62,6 @@ with pkgs; with emacsPackagesNg;
       hl-todo
       ivy
       lsp-mode
-      lsp-ui
       magit
       nix-mode
       page-break-lines
