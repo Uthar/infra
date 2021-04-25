@@ -237,6 +237,7 @@
 (use-package lsp-mode
   :custom
   (lsp-keymap-prefix "C-c l")
+  (lsp-restart 'ignore)
   :hook
   (((c-mode c++-mode python-mode go-mode) . lsp)
    (lsp-mode . lsp-enable-which-key-integration)))
