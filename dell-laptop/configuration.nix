@@ -164,6 +164,8 @@ in
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
+  virtualisation.podman.enable = true;
+
   fonts.fonts = with pkgs; [
     anonymousPro
     inconsolata
