@@ -160,6 +160,9 @@ in
     Option "TearFree" "true"
   '';
 
+  services.transmission.enable = true;
+  services.transmission.openFirewall = true;
+
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
@@ -176,7 +179,7 @@ in
   users.users.kpg = {
     isNormalUser = true;
     initialHashedPassword = "";
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "transmission" ];
   };
 
   # This value determines the NixOS release from which the default
