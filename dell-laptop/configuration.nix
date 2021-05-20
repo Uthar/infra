@@ -64,6 +64,7 @@ in
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [ 5555 ];
   networking.firewall.allowedUDPPorts = [ 5555 ];
+  networking.firewall.trustedInterfaces = [ "tap0" ];
 
   console = {
     font = "Lat2-Terminus16";
