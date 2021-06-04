@@ -112,6 +112,9 @@
 
   programs.nm-applet.enable = true;
 
+  programs.wireshark.enable = true;
+  programs.wireshark.package = pkgs.wireshark;
+
   services.printing.enable = false;
 
   location = {
@@ -172,7 +175,7 @@
   users.users.kpg = {
     isNormalUser = true;
     initialHashedPassword = "";
-    extraGroups = [ "wheel" "networkmanager" "transmission" ];
+    extraGroups = [ "wheel" "networkmanager" "transmission" "wireshark" ];
   };
 
   # This value determines the NixOS release from which the default
