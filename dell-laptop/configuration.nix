@@ -4,12 +4,6 @@
 
 { config, lib, pkgs, ... }:
 
-let
-  nixpkgs = builtins.fetchTarball
-    { url = "https://github.com/nixos/nixpkgs/archive/12c99233cee3de4803d9a2b4db30c21843dc9565.tar.gz";
-      sha256 = "041x7pjarmypyz8pkx8371h4h33iy22gnmvqgxq2gv7rp42wisr6";
-    };
-in
 {
   imports =
   [ ./hardware-configuration.nix
@@ -17,8 +11,6 @@ in
     ./luks.nix
     ./i3
   ];
-
-  nixpkgs.pkgs = import nixpkgs {};
 
   nixpkgs.overlays = import ./overlays/all-overlays.nix;
 
@@ -49,7 +41,7 @@ in
       configuration = linkFarm "configuration" paths;
     in ''
     ln -s ${configuration} $out/current-configuration
-    ln -s ${nixpkgs} $out/current-nixpkgs
+    ln -s ${<nixos>} $out/current-nixpkgs
   '';
 
   boot.loader.grub = {
