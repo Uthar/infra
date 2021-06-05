@@ -42,6 +42,7 @@ with pkgs; with emacsPackagesNg;
     ++
 
     (with epkgs.melpaPackages; [
+      ag
       anzu
       browse-kill-ring
       cider
@@ -68,6 +69,7 @@ with pkgs; with emacsPackagesNg;
       projectile
       restart-emacs
       rg
+      ripgrep
       slime-company
       smartparens
       use-package
