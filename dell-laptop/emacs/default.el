@@ -299,9 +299,27 @@
             (select-window (split-window nil -15))
             (switch-to-buffer (slime-repl-buffer))))
 
+(setenv "FZF_DEFAULT_COMMAND" "fd -H")
+
+(defun universal-argument-provided-p ()
+  (>= (prefix-numeric-value current-prefix-arg) 4))
+
+(defun guess-directory (cmd-name)
+  (if (universal-argument-provided-p)
+      (counsel-read-directory-name (concat cmd-name " in directory: "))
+      (or (projectile-project-root) default-directory)))
+
+(defun counsel-fzf-in-project ()
+  (interactive)
+  (counsel-fzf "" (guess-directory "fzf")))
+
+(defun counsel-ag-in-project ()
+  (interactive)
+  (counsel-ag "" (guess-directory "ag") " --hidden "))
+
 (bind-keys* ("<f2>" . dired-jump)
-            ("<f3>" . counsel-fzf)
-            ("<f4>" . counsel-ag)
+            ("<f3>" . counsel-fzf-in-project)
+            ("<f4>" . counsel-ag-in-project)
             ("<f5>" . previous-buffer)
             ("<f6>" . next-buffer)
             ("<f7>" . nil)
