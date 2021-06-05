@@ -13,10 +13,8 @@
   poppler_utils
 
   # Programming
-  clojure
   ecl
   sbcl
-  leiningen
 
   # Search utils
   ag
