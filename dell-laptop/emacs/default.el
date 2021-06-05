@@ -1,6 +1,8 @@
 (eval-when-compile
   (require 'use-package))
 
+(put 'if 'lisp-indent-function 4)
+
 (use-package diminish)
 
 (use-package restart-emacs
@@ -182,7 +184,8 @@
          (lambda ()
            (interactive)
            (if (file-directory-p (dired-get-filename))
-               (dired-find-alternate-file) (dired-find-file))))
+               (dired-find-alternate-file)
+               (dired-find-file))))
        (define-key evil-normal-state-local-map "h"
          (lambda ()
            (interactive)
