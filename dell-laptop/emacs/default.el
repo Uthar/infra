@@ -258,26 +258,8 @@
   (slime-net-coding-system 'utf-8-unix)
   (slime-lisp-implementations
    '((common-lisp ("common-lisp.sh")))) ;; from nix-shell -p lispPackages
-  (slime-contribs
-   '(slime-asdf
-     slime-company
-     slime-quicklisp
-     ;; slime-fancy except slime-c-p-c, which breaks completion
-     slime-autodoc
-     slime-editing-commands
-     slime-fancy-inspector
-     slime-fancy-trace
-     slime-fontifying-fu
-     slime-fuzzy
-     slime-indentation
-     slime-macrostep
-     slime-mdot-fu
-     slime-package-fu
-     slime-presentations
-     slime-references
-     slime-repl
-     slime-scratch
-     slime-trace-dialog))
+  (slime-contribs '(slime-asdf slime-company slime-quicklisp slime-fancy))
+  (slime-company-completion 'fuzzy)
   (slime-complete-symbol*-fancy t)
   (slime-repl-auto-right-margin t)
   (slime-repl-history-size 10000)
@@ -333,10 +315,6 @@
   (add-to-list
    'lisp-cl-font-lock-keywords-2
    `(,(concat "(" `,(regexp-opt cl-keywords t) "\\_>") . 1)))
-
-(use-package slime-company
-  :custom
-  (slime-company-completion 'fuzzy))
 
 (use-package lisp-mode
   :mode "\\.cl\\'")
