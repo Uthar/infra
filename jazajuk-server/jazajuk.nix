@@ -222,6 +222,10 @@
           url    = "https://github.com/NixOS/nixpkgs/archive/f1f9a55fb4b1d5adeebfff6c5ec58ce445bf5e84.tar.gz";
           sha256 = "0iss3b7f4xc6czfwchs4qs3jy7y6l9cxmsyp77s4qksj0sn3mjnv";
         }) {};
+        pkgs-21_05 = import (builtins.fetchTarball {
+          url    = "https://github.com/NixOS/nixpkgs/archive/21.05.tar.gz";
+          sha256 = "1ckzhh24mgz6jd1xhfgx0i9mijk6xjqxwsshnvq789xsavrmsc36";
+        }) {};
     in {
       jitsi = {
         pkgs = pkgsUnstable;
@@ -259,7 +263,7 @@
       };
 
       mailserver = {
-        pkgs = pkgsUnstable;
+        pkgs = pkgs-21_05;
         autoStart = true;
         privateNetwork = true;
         hostAddress = "10.13.37.1";
@@ -273,10 +277,7 @@
         ];
         config = let release = "7c06f610f15642e3664f01a51c08c64cc8835f51"; in {
           imports = [
-            (builtins.fetchTarball {
-              url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz";
-              sha256 = "0yb54wjp2x30k8c1ksgsnpwrfrxlikxsvkzflp0crzw0lz8qmsmb";
-            })
+            ./nixos-mailserver
             baseConfig
           ];
 
