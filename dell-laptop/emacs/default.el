@@ -275,11 +275,17 @@
         (for (as handler-case))))))
   :bind ("C-c s" . 'slime-selector))
 
+(defun ansi-term-buffer ()
+  (or (get-buffer "*ansi-term*")
+      (ansi-term "bash")))
+
 (bind-key "<f1>"
           (lambda ()
             (interactive)
-            (select-window (split-window nil -15))
-            (switch-to-buffer (slime-repl-buffer))))
+            (select-window (split-window (frame-root-window) -15))
+            (switch-to-buffer (if (universal-argument-provided-p)
+                                  (slime-repl-buffer)
+                                  (ansi-term-buffer)))))
 
 (setenv "FZF_DEFAULT_COMMAND" "fd -H")
 
