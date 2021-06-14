@@ -275,8 +275,22 @@
         (for (as handler-case))))))
   :bind ("C-c s" . 'slime-selector))
 
+(defvar *last-ansi-term-buffer* "*ansi-term*")
+
+(advice-add
+ 'switch-to-buffer
+ :after
+ (lambda (buffer-or-name &optional norecord force-same-window)
+   (when buffer-or-name
+     (let* ((buffer-name (cl-case (type-of buffer-or-name)
+                           ('string buffer-or-name)
+                           ('buffer (buffer-name buffer-or-name))))
+            (ansi-term-buffer-p (string-match-p "[*]ansi-term[*].*" buffer-name)))
+       (if ansi-term-buffer-p
+           (setf *last-ansi-term-buffer* buffer-name))))))
+
 (defun ansi-term-buffer ()
-  (or (get-buffer "*ansi-term*")
+  (or (get-buffer *last-ansi-term-buffer*)
       (ansi-term "bash")))
 
 (bind-key "<f1>"
