@@ -30,7 +30,12 @@ with pkgs; with emacsPackagesNg;
       };
     });
 
-    emacsWithPackages = (emacsPackagesNgGen emacs).emacsWithPackages;
+    emacs' = emacs.overrideAttrs (o: {
+      configureFlags = o.configureFlags ++ [ "CFLAGS=-g3" ];
+      dontStrip = true;
+    });
+
+    emacsWithPackages = (emacsPackagesNgGen emacs').emacsWithPackages;
 
   in emacsWithPackages(epkgs:
 
