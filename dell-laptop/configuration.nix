@@ -54,8 +54,8 @@
   networking.useDHCP = false;
   networking.networkmanager.enable = true;
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 5555 ];
-  networking.firewall.allowedUDPPorts = [ 5555 ];
+  networking.firewall.allowedTCPPorts = [ 5555 8554 ];
+  networking.firewall.allowedUDPPorts = [ 5555 8554 ];
   networking.firewall.trustedInterfaces = [ "tap0" ];
 
   console = {
