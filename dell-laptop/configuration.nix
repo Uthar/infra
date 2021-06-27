@@ -164,6 +164,8 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
+  virtualisation.virtualbox.host.enable = true;
+
   virtualisation.podman.enable = true;
 
   fonts.fonts = with pkgs; [
