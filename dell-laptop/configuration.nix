@@ -158,6 +158,7 @@
 
   services.transmission.enable = true;
   services.transmission.openFirewall = true;
+  services.transmission.settings.download-dir = "/home/kpg/torrents";
 
   # Enable sound.
   sound.enable = true;
