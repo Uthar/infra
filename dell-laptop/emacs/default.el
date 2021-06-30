@@ -5,11 +5,6 @@
 
 (use-package diminish)
 
-(use-package restart-emacs
-  :config
-  (defun restart-emacs--get-emacs-binary ()
-    (shell-command-to-string "readlink -n `which emacs`"))) ; hack for ~/.nix-profile
-
 (use-package browse-kill-ring)
 
 (use-package evil-matchit
@@ -51,15 +46,6 @@
   (projectile-track-known-projects-automatically nil)
   :bind-keymap ("C-c p" . projectile-command-map)
   :config (projectile-mode))
-
-(use-package smartparens
-  :diminish
-  :custom
-  (sp-autoinsert-pair nil)
-  (sp-autoskip-closing-pair nil)
-  (sp-base-key-bindings 'paredit)
-  :hook
-  (prog-mode . smartparens-mode))
 
 (use-package magit
   :custom

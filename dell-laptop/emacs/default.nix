@@ -72,11 +72,9 @@ with pkgs; with emacsPackagesNg;
       nix-mode
       page-break-lines
       projectile
-      restart-emacs
       rg
       ripgrep
       slime-company
-      smartparens
       use-package
       wgrep
       which-key
