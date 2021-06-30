@@ -237,9 +237,7 @@
 
 (use-package doom-themes
   :hook
-  (after-init
-   . (lambda ()
-       (load-theme my-theme t))))
+  (after-init . (lambda () (load-theme my-theme t))))
 
 (defvar my-theme-active? t)
 
