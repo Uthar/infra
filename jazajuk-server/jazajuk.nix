@@ -21,6 +21,7 @@
         services.journald.extraConfig = "SystemMaxUse=10M";
         #boot.kernelParams = [ "cgroup_no_v1=all" "systemd.unified_cgroup_hierarchy=yes" ];
       };
+      waitForServices = services: { after = services; wants = services; };
     in {
 
       imports = [ baseConfig ./hardware-configuration.nix ];
@@ -112,16 +113,14 @@
     '';
 
     systemd.services.openvpn-ovpn =
-      let
-        keyServices = [
-          "ovpnCa-key.service"
-          "ovpnCert-key.service"
-          "ovpnKey-key.service"
-          "ovpnDh-key.service"
-          "ovpnTauth-key.service"
-          "ovpnCrl-key.service"
-        ];
-      in { after = keyServices; wants = keyServices; };
+      waitForServices [
+        "ovpnCa-key.service"
+        "ovpnCert-key.service"
+        "ovpnKey-key.service"
+        "ovpnDh-key.service"
+        "ovpnTauth-key.service"
+        "ovpnCrl-key.service"
+      ];
 
     services.openvpn.servers.totala.config = ''
     port 1338
@@ -152,15 +151,13 @@
     '';
 
     systemd.services.openvpn-totala =
-      let
-        keyServices = [
+      waitForServices [
           "totalaCa-key.service"
           "totalaCert-key.service"
           "totalaKey-key.service"
           "totalaDh-key.service"
           "totalaTauth-key.service"
         ];
-      in { after = keyServices; wants = keyServices; };
 
     services.murmur = {
       enable = true;
@@ -174,13 +171,7 @@
       password="$MURMUR_PASSWORD";
     };
 
-    systemd.services.murmur =
-      let
-        keyServices = [ "murmurPassword-key.service" ];
-      in {
-        after = keyServices;
-        wants = keyServices;
-      };
+    systemd.services.murmur = waitForServices [ "murmurPassword-key.service" ];
 
     services.fossil = {
       enable = true;
