@@ -262,14 +262,6 @@
   (slime-repl-history-size 10000)
   (common-lisp-hyperspec-root "@clhs@/")
   (common-lisp-hyperspec-symbol-table "@clhs@/Data/Map_Sym.txt")
-  (common-lisp-style-default
-   (progn
-     (require 'slime-cl-indent)
-     (define-common-lisp-style "kpg"
-       "Fix the indentation of some Clojure-like macros."
-       (:inherit "modern")
-       (:indentation
-        (for (as handler-case))))))
   :bind ("C-c s" . 'slime-selector))
 
 (defvar *last-ansi-term-buffer* "*ansi-term*")
