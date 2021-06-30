@@ -255,8 +255,7 @@
   :custom
   (slime-truncate-lines nil)
   (slime-net-coding-system 'utf-8-unix)
-  (slime-lisp-implementations
-   '((common-lisp ("common-lisp.sh")))) ;; from nix-shell -p lispPackages
+  (inferior-lisp-program "sbcl")
   (slime-contribs '(slime-asdf slime-company slime-quicklisp slime-fancy))
   (slime-company-completion 'fuzzy)
   (slime-repl-auto-right-margin t)
