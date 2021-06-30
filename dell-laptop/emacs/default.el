@@ -329,12 +329,6 @@
             ("<f10>" . delete-window)
             ("<f12>" . universal-argument))
 
-;; give keyword colors to symbols in cl-keywords
-(let ((cl-keywords `("fn" "for" "defclass*")))
-  (add-to-list
-   'lisp-cl-font-lock-keywords-2
-   `(,(concat "(" `,(regexp-opt cl-keywords t) "\\_>") . 1)))
-
 (use-package lisp-mode
   :mode "\\.cl\\'")
 
