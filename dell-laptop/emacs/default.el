@@ -271,9 +271,9 @@
  :after
  (lambda (buffer-or-name &optional norecord force-same-window)
    (when buffer-or-name
-     (let* ((buffer-name (cl-case (type-of buffer-or-name)
-                           ('string buffer-or-name)
-                           ('buffer (buffer-name buffer-or-name))))
+     (let* ((buffer-name (cl-typecase buffer-or-name
+                           (string buffer-or-name)
+                           (buffer (buffer-name buffer-or-name))))
             (ansi-term-buffer? (string-match-p "[*]ansi-term[*].*" buffer-name)))
        (if ansi-term-buffer?
            (setf last-ansi-term-buffer buffer-name))))))
