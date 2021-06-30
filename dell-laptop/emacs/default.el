@@ -102,7 +102,7 @@
   (scroll-margin 4)
   (scroll-conservatively 1000)
   (initial-scratch-message "")
-  (inhibit-startup-screen t)
+  (initial-buffer-choice t)
   (version-control t)
   (delete-old-versions t)
   (backup-directory-alist `((".*" . ,(state-dir "backups"))))
@@ -178,8 +178,7 @@
          (lambda ()
            (interactive)
            (find-alternate-file "..")))))
-  (after-init . (lambda () (set-cursor-color "#999")))
-  (after-init . (lambda () (setq inhibit-startup-screen t))))
+  (after-init . (lambda () (set-cursor-color "#999"))))
 
 (use-package evil
   :custom
