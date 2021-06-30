@@ -264,7 +264,7 @@
   (common-lisp-hyperspec-symbol-table "@clhs@/Data/Map_Sym.txt")
   :bind ("C-c s" . 'slime-selector))
 
-(defvar *last-ansi-term-buffer* "*ansi-term*")
+(defvar last-ansi-term-buffer "*ansi-term*")
 
 (advice-add
  'switch-to-buffer
@@ -274,29 +274,29 @@
      (let* ((buffer-name (cl-case (type-of buffer-or-name)
                            ('string buffer-or-name)
                            ('buffer (buffer-name buffer-or-name))))
-            (ansi-term-buffer-p (string-match-p "[*]ansi-term[*].*" buffer-name)))
-       (if ansi-term-buffer-p
-           (setf *last-ansi-term-buffer* buffer-name))))))
+            (ansi-term-buffer? (string-match-p "[*]ansi-term[*].*" buffer-name)))
+       (if ansi-term-buffer?
+           (setf last-ansi-term-buffer buffer-name))))))
 
 (defun ansi-term-buffer ()
-  (or (get-buffer *last-ansi-term-buffer*)
+  (or (get-buffer last-ansi-term-buffer)
       (ansi-term "bash")))
 
 (bind-key "<f1>"
           (lambda ()
             (interactive)
             (select-window (split-window (frame-root-window) -15))
-            (switch-to-buffer (if (universal-argument-provided-p)
+            (switch-to-buffer (if (universal-argument-provided?)
                                   (slime-repl-buffer)
                                   (ansi-term-buffer)))))
 
 (setenv "FZF_DEFAULT_COMMAND" "fd -H")
 
-(defun universal-argument-provided-p ()
+(defun universal-argument-provided? ()
   (>= (prefix-numeric-value current-prefix-arg) 4))
 
 (defun guess-directory (cmd-name)
-  (if (universal-argument-provided-p)
+  (if (universal-argument-provided?)
       (counsel-read-directory-name (concat cmd-name " in directory: "))
       (or (projectile-project-root) default-directory)))
 
