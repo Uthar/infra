@@ -259,7 +259,6 @@
    '((common-lisp ("common-lisp.sh")))) ;; from nix-shell -p lispPackages
   (slime-contribs '(slime-asdf slime-company slime-quicklisp slime-fancy))
   (slime-company-completion 'fuzzy)
-  (slime-complete-symbol*-fancy t)
   (slime-repl-auto-right-margin t)
   (slime-repl-history-size 10000)
   (common-lisp-hyperspec-root "@clhs@/")
