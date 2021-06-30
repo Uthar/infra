@@ -246,11 +246,24 @@
   (((c-mode c++-mode python-mode go-mode) . lsp)
    (lsp-mode . lsp-enable-which-key-integration)))
 
+(defconst my-theme 'doom-gruvbox)
+
 (use-package doom-themes
   :hook
   (after-init
    . (lambda ()
-       (load-theme 'doom-gruvbox t))))
+       (load-theme my-theme t))))
+
+(defvar my-theme-active? t)
+
+(defun toggle-my-theme ()
+  (interactive)
+  (if my-theme-active?
+      (disable-theme my-theme)
+      (enable-theme my-theme))
+  (setf my-theme-active? (not my-theme-active?)))
+
+(bind-key "C-c t" 'toggle-my-theme)
 
 (use-package slime
   :custom
