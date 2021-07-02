@@ -281,13 +281,20 @@
   (or (get-buffer last-ansi-term-buffer)
       (ansi-term "bash")))
 
+(defvar repl-window nil)
+
 (bind-key "<f1>"
           (lambda ()
             (interactive)
-            (select-window (split-window (frame-root-window) -15))
-            (switch-to-buffer (if (universal-argument-provided?)
-                                  (slime-repl-buffer)
-                                  (ansi-term-buffer)))))
+            (if repl-window
+                (progn
+                  (ignore-errors (delete-window repl-window))
+                  (setf repl-window nil))
+                (progn
+                  (setf repl-window (select-window (split-window (frame-root-window) -15)))
+                  (switch-to-buffer (if (universal-argument-provided?)
+                                        (slime-repl-buffer)
+                                        (ansi-term-buffer)))))))
 
 (setenv "FZF_DEFAULT_COMMAND" "fd -H")
 
