@@ -282,6 +282,12 @@
       (ansi-term "bash")))
 
 (defvar repl-window nil)
+(defvar repl-window-height 25)
+
+(defun repl-window-save-height-and-delete (window)
+  (setf repl-window-height (window-height window))
+  (set-window-parameter window 'delete-window t)
+  (delete-window window))
 
 (bind-key "<f1>"
           (lambda ()
@@ -291,7 +297,8 @@
                   (ignore-errors (delete-window repl-window))
                   (setf repl-window nil))
                 (progn
-                  (setf repl-window (select-window (split-window (frame-root-window) -15)))
+                  (setf repl-window (select-window (split-window (frame-root-window) (- repl-window-height))))
+                  (set-window-parameter repl-window 'delete-window 'repl-window-save-height-and-delete)
                   (switch-to-buffer (if (universal-argument-provided?)
                                         (slime-repl-buffer)
                                         (ansi-term-buffer)))))))
