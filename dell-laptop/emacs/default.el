@@ -267,17 +267,14 @@
 
 (defvar last-ansi-term-buffer "*ansi-term*")
 
-(advice-add
- 'switch-to-buffer
- :after
- (lambda (buffer-or-name &optional norecord force-same-window)
-   (when buffer-or-name
-     (let* ((buffer-name (cl-typecase buffer-or-name
-                           (string buffer-or-name)
-                           (buffer (buffer-name buffer-or-name))))
-            (ansi-term-buffer? (string-match-p "[*]ansi-term[*].*" buffer-name)))
-       (if ansi-term-buffer?
-           (setf last-ansi-term-buffer buffer-name))))))
+(defun maybe-update-last-ansi-term-buffer (window-or-frame)
+  (when repl-window
+    (let* ((name (buffer-name (window-buffer repl-window)))
+           (ansi-term-buffer? (string-match-p "[*]ansi-term[*].*" name)))
+      (if ansi-term-buffer?
+          (setf last-ansi-term-buffer name)))))
+
+(add-to-list 'window-buffer-change-functions 'maybe-update-last-ansi-term-buffer)
 
 (defun ansi-term-buffer ()
   (or (get-buffer last-ansi-term-buffer)
