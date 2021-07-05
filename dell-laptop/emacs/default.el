@@ -261,7 +261,9 @@
   (slime-repl-history-size 10000)
   (common-lisp-hyperspec-root "@clhs@/")
   (common-lisp-hyperspec-symbol-table "@clhs@/Data/Map_Sym.txt")
-  :bind ("C-c s" . 'slime-selector))
+  :bind ("C-c s" . 'slime-selector)
+  :hook
+  (slime-mode . (lambda () (bind-key "C-]" 'slime-edit-definition 'evil-motion-state-local-map))))
 
 (defvar last-ansi-term-buffer "*ansi-term*")
 
