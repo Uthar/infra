@@ -6,8 +6,8 @@
 
   network.enableRollback = false;
   network.nixpkgs = import (builtins.fetchTarball {
-    url    = "https://github.com/Uthar/nixpkgs/archive/aab74d2b13235dbae3d40e78ae28ea9aaa3f2263.tar.gz";
-    sha256 = "0di6di23bvdlfpqim3jk717mixs43swxfjjm6lilid8byq24rkiy";
+    url    = "https://github.com/nixos/nixpkgs/archive/nixos-21.05-small.tar.gz";
+    sha256 = "16wgzs2aylaar8f09dac4bg0v88aas07z06527zvbwsaazvn06cv";
   }) {};
 
   jazajuk = { config, pkgs, lib, ... }:
@@ -173,11 +173,12 @@
 
     systemd.services.murmur = waitForServices [ "murmurPassword-key.service" ];
 
-    services.fossil = {
-      enable = true;
-    };
+    # services.fossil = {
+    #   enable = true;
+    # };
 
     users.users.git = {
+      isSystemUser = true;
       createHome = true;
       home = "/srv/git";
       group = "wwwrun";
@@ -219,7 +220,7 @@
         }) {};
     in {
       jitsi = {
-        pkgs = pkgsUnstable;
+        #pkgs = pkgsUnstable;
         autoStart = false;
         privateNetwork = true;
         hostAddress = "10.13.37.3";
@@ -254,7 +255,7 @@
       };
 
       mailserver = {
-        pkgs = pkgs-21_05;
+        #pkgs = pkgs-21_05;
         autoStart = true;
         privateNetwork = true;
         hostAddress = "10.13.37.1";
