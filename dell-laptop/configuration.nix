@@ -23,6 +23,8 @@
     keep-derivations = true
   '';
 
+  environment.variables.NIX_AUTO_RUN = "1";
+
   environment.pathsToLink = [
     "/share/nix-direnv"
   ];
