@@ -179,7 +179,7 @@
 
     users.users.git = {
       isSystemUser = true;
-      createHome = true;
+      createHome = false;
       home = "/srv/git";
       group = "wwwrun";
       shell = "${pkgs.git}/bin/git-shell";
