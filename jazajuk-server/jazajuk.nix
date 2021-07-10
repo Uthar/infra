@@ -8,7 +8,7 @@
   network.nixpkgs = import (builtins.fetchTarball {
     url    = "https://github.com/nixos/nixpkgs/archive/nixos-21.05-small.tar.gz";
     sha256 = "16wgzs2aylaar8f09dac4bg0v88aas07z06527zvbwsaazvn06cv";
-  }) {};
+  }) { overlays = import ../dell-laptop/overlays/all-overlays.nix; };
 
   jazajuk = { config, pkgs, lib, ... }:
 
@@ -17,7 +17,7 @@
       publicInterface = "ens3";
       domainName = "galkowski.xyz";
       baseConfig = {
-        environment.systemPackages = with pkgs; [ ranger htop ];
+        environment.systemPackages = with pkgs; [ ranger htop file ];
         services.journald.extraConfig = "SystemMaxUse=10M";
         #boot.kernelParams = [ "cgroup_no_v1=all" "systemd.unified_cgroup_hierarchy=yes" ];
       };
@@ -57,7 +57,7 @@
 
     boot.loader.grub = { enable = true; version = 2; device = "/dev/vda"; };
 
-    environment.systemPackages = with pkgs; [ git ];
+    environment.systemPackages = with pkgs; [ fossil sqlite git ];
 
     networking.firewall.allowedTCPPorts = [ 64738 80 443 3000 8554 ];
     networking.hostName = "jazajuk";
