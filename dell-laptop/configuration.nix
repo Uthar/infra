@@ -175,6 +175,19 @@
     inconsolata
   ];
 
+  security.sudo.enable = false;
+  security.doas.enable = true;
+  security.doas.extraRules = [
+    { users = [ "kpg" ];
+      keepEnv = true;
+      persist = true;
+    }
+    { users = [ "kpg" ];
+      cmd = "nixos-rebuild";
+      noPass = true;
+      keepEnv = true;
+    }];
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.groups.kpg = { gid = 1000; members = [ "kpg" ]; };
   users.users.kpg = {
