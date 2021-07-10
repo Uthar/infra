@@ -8,6 +8,7 @@
 (use-package browse-kill-ring)
 
 (use-package evil-matchit
+  :after evil
   :config (global-evil-matchit-mode))
 
 (use-package page-break-lines
@@ -58,8 +59,6 @@
       (define-key magit-section-mode-map (kbd (format "M-%i" n)) nil)
       (define-key magit-section-mode-map (kbd (format "C-%i" n))
         (intern (format "magit-section-show-level-%i-all" n))))))
-
-(use-package evil-magit)
 
 (use-package winum
   :config
@@ -184,9 +183,16 @@
   :custom
   (evil-want-C-u-scroll t)
   (evil-kill-on-visual-paste nil)
+  (evil-undo-system 'undo-tree)
+  (evil-want-keybinding nil)
   :config (evil-mode 1))
 
+(use-package evil-collection
+  :after evil
+  :config (evil-collection-init))
+
 (use-package evil-surround
+  :after evil
   :config (global-evil-surround-mode 1))
 
 (use-package undo-tree
@@ -200,7 +206,8 @@
   :diminish
   :config (global-anzu-mode t))
 
-(use-package evil-anzu)
+(use-package evil-anzu
+  :after evil)
 
 (use-package company
   :custom

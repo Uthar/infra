@@ -1,6 +1,6 @@
 { pkgs ? (import (builtins.fetchTarball {
-    url    = "https://github.com/Uthar/nixpkgs/archive/316fdae6dcf20a344fd0501bd961b686c7f41733.tar.gz";
-    sha256 = "04y6fjpz4blkl2h376qi5yb7l2ir2nfpxydcj3n0bg287sbv574a";
+    url    = "https://github.com/nixos/nixpkgs/archive/c06613c25df3fe1dd26243847a3c105cf6770627.tar.gz";
+    sha256 = "16si1436wf3fcx91p6cy3qxaib8kr78qivbi69lq4m63n96gglkv";
   }) {}) }:
 
 with pkgs; with emacsPackagesNg;
@@ -46,6 +46,12 @@ with pkgs; with emacsPackagesNg;
 
     ++
 
+    (with epkgs.elpaPackages; [
+      undo-tree
+    ])
+
+    ++
+
     (with epkgs.melpaPackages; [
       ag
       anzu
@@ -59,7 +65,7 @@ with pkgs; with emacsPackagesNg;
       editorconfig
       evil
       evil-anzu
-      evil-magit
+      evil-collection
       evil-matchit
       evil-surround
       flycheck
