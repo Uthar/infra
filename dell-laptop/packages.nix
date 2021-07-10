@@ -23,7 +23,7 @@
   ripgrep
 
   # Version control
-  fossil
+  fsl
   git
   mercurial
 

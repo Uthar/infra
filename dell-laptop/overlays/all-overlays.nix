@@ -1,5 +1,7 @@
 [
-  (self: super: {
+  (self: super: rec {
+
+    fsl = super.callPackage ./fsl.nix { inherit fossil; };
 
     fossil =
       with super.lib.lists;
@@ -13,6 +15,7 @@
           name = "${pname}-${version}.tar.gz";
           sha256 = "sha256:057sva63r9nrn7fmnjvn63ah03djz4mpk6p9hsshcawkjf07xczs";
         };
+        doCheck = false;
       });
 
     sbcl = super.callPackage ./sbcl.nix {};
