@@ -21,15 +21,6 @@ with pkgs; with emacsPackagesNg;
       substituteAllInPlace $out/share/emacs/site-lisp/default.el
     '');
 
-    slime = pkgs.emacsPackages.slime.overrideAttrs (old: rec {
-      src = fetchFromGitHub {
-        owner = "uthar";
-        repo = "slime";
-        rev = "236662f406c5e3fa004b9f7f301a84c8620d1602";
-        sha256 = "05s6xqys8yw3hy0jjz8f439pjlwg5wnh7sf4acy8xcdcvqwv820l";
-      };
-    });
-
     emacs' = emacs.overrideAttrs (o: {
       configureFlags = o.configureFlags ++ [ "CFLAGS=-g3" ];
       dontStrip = true;
@@ -41,7 +32,6 @@ with pkgs; with emacsPackagesNg;
 
     [
       defaultEl
-      slime
     ]
 
     ++
@@ -80,6 +70,7 @@ with pkgs; with emacsPackagesNg;
       projectile
       rg
       ripgrep
+      slime
       slime-company
       use-package
       wgrep
