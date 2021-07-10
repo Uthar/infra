@@ -1,6 +1,20 @@
 [
   (self: super: {
 
+    fossil =
+      with super.lib.lists;
+      super.fossil.overrideAttrs (old: rec {
+        pname = "fossil";
+        version = "2.16";
+        configureFlags = remove "--disable-internal-sqlite" old.configureFlags;
+        buildInputs = remove super.sqlite old.buildInputs;
+        src = super.fetchurl {
+          url = "https://fossil-scm.org/home/tarball/7aedd5675883d4412cf20917d340b6985e3ecb842e88a39f135df034b2d5f4d3/fossil-src-2.16.tar.gz";
+          name = "${pname}-${version}.tar.gz";
+          sha256 = "sha256:057sva63r9nrn7fmnjvn63ah03djz4mpk6p9hsshcawkjf07xczs";
+        };
+      });
+
     sbcl = super.callPackage ./sbcl.nix {};
 
     udiskie = super.udiskie.overridePythonAttrs (old: rec {
