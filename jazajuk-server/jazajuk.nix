@@ -190,6 +190,10 @@
     security.acme.email = "k@demondust.xyz";
     services.httpd = {
       enable = true;
+      extraConfig = ''
+        ServerTokens Prod
+        ServerSignature Off
+      '';
       virtualHosts.${domainName} = {
         addSSL = true;
         documentRoot = "/srv/git";
