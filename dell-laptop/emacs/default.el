@@ -214,6 +214,7 @@
   (company-dabbrev-downcase nil)
   (company-dabbrev-ignore-case t)
   (company-minimum-prefix-length 1)
+  (company-show-numbers 'left)
   :diminish
   :hook (after-init . global-company-mode))
 
