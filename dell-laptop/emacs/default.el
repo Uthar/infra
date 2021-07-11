@@ -272,42 +272,48 @@
   :hook
   (slime-mode . (lambda () (bind-key "C-]" 'slime-edit-definition 'evil-motion-state-local-map))))
 
-(defvar last-ansi-term-buffer "*ansi-term*")
 
-(defun maybe-update-last-ansi-term-buffer (window-or-frame)
-  (when repl-window
-    (let* ((name (buffer-name (window-buffer repl-window)))
-           (ansi-term-buffer? (string-match-p "[*]ansi-term[*].*" name)))
-      (if ansi-term-buffer?
-          (setf last-ansi-term-buffer name)))))
-
-(add-to-list 'window-buffer-change-functions 'maybe-update-last-ansi-term-buffer)
-
-(defun ansi-term-buffer ()
-  (or (get-buffer last-ansi-term-buffer)
-      (ansi-term "bash")))
+;; repl window
 
 (defvar repl-window nil)
-(defvar repl-window-height 25)
+(defvar repl-window-height 15)
+(defvar last-repl-buffer nil)
 
-(defun repl-window-save-height-and-delete (window)
-  (setf repl-window-height (window-height window))
-  (set-window-parameter window 'delete-window t)
-  (delete-window window))
+(defun repl-window-selected? ()
+  (and repl-window (eq repl-window (selected-window))))
 
-(bind-key "<f1>"
-          (lambda ()
-            (interactive)
-            (if repl-window
-                (progn
-                  (ignore-errors (delete-window repl-window))
-                  (setf repl-window nil))
-                (progn
-                  (setf repl-window (select-window (split-window (frame-root-window) (- repl-window-height))))
-                  (set-window-parameter repl-window 'delete-window 'repl-window-save-height-and-delete)
-                  (switch-to-buffer (if (universal-argument-provided?)
-                                        (slime-repl-buffer)
-                                        (ansi-term-buffer)))))))
+(defun save-last-repl-buffer (frame)
+  (when (repl-window-selected?)
+    (setf last-repl-buffer (window-buffer repl-window))))
+
+(add-to-list 'window-buffer-change-functions 'save-last-repl-buffer)
+
+(defun save-repl-window-height (frame)
+  (when repl-window
+    (setf repl-window-height (window-height repl-window))))
+
+(add-to-list 'window-size-change-functions 'save-repl-window-height)
+
+(defun default-repl-buffer ()
+  (ansi-term "bash"))
+
+(defun open-repl-window ()
+  (setf repl-window (split-window (frame-root-window) (- repl-window-height)))
+  (select-window repl-window)
+  (switch-to-buffer (or last-repl-buffer (default-repl-buffer))))
+
+(defun close-repl-window ()
+  (ignore-errors (delete-window repl-window))
+  (setf repl-window nil))
+
+(defun toggle-repl-window ()
+  (interactive)
+  (if repl-window
+      (close-repl-window)
+      (open-repl-window)))
+
+
+;; search
 
 (setenv "FZF_DEFAULT_COMMAND" "fd -H")
 
@@ -327,7 +333,11 @@
   (interactive)
   (counsel-ag "" (guess-directory "ag") " --hidden "))
 
-(bind-keys* ("<f2>" . dired-jump)
+
+;; keys
+
+(bind-keys* ("<f1>" . toggle-repl-window)
+            ("<f2>" . dired-jump)
             ("<f3>" . counsel-fzf-in-project)
             ("<f4>" . counsel-ag-in-project)
             ("<f5>" . previous-buffer)
