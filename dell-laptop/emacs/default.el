@@ -326,6 +326,19 @@
       (close-repl-window)
       (open-repl-window)))
 
+(defun ensure-repl-window ()
+  (if repl-window
+      (select-window repl-window)
+      (open-repl-window)))
+
+(defun open-buffer-in-repl-window (buffer)
+  (ensure-repl-window)
+  (switch-to-buffer buffer))
+
+(defun ansi-term* ()
+  (interactive)
+  (open-buffer-in-repl-window (save-window-excursion (ansi-term "bash"))))
+
 
 ;; search
 
