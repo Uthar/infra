@@ -343,10 +343,11 @@
             ("<f4>" . counsel-ag-in-project)
             ("<f5>" . previous-buffer)
             ("<f6>" . next-buffer)
-            ("<f7>" . nil)
+            ("<f7>" . recentf-open-files)
             ("<f8>" . exit-minibuffer)
             ("<f9>" . kill-current-buffer)
             ("<f10>" . delete-window)
+            ("<f11>" . kill-buffer-and-window)
             ("<f12>" . universal-argument))
 
 (use-package lisp-mode
