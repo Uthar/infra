@@ -1,5 +1,8 @@
 (eval-when-compile
-  (require 'use-package))
+  (require 'use-package)
+  (setf use-package-expand-minimally t
+        use-package-use-theme nil))
+
 
 (put 'if 'lisp-indent-function 4)
 
