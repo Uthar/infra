@@ -65,12 +65,13 @@
 
 (use-package winum
   :config
+  (require 'term)
   (dotimes (i 9)
-    (let ((n (1+ i)))
+    (let* ((n (1+ i))
+           (command (intern (format "winum-select-window-%i" n))))
       (define-key diff-mode-map (kbd (format "M-%i" n)) nil)
-      (global-set-key
-       (kbd (format "M-%i" n))
-       (intern (format "winum-select-window-%i" n)))))
+      (define-key term-raw-map (kbd (format "M-%i" n)) command)
+      (global-set-key (kbd (format "M-%i" n)) command)))
   (winum-mode))
 
 (use-package ivy
