@@ -323,7 +323,8 @@
 (defun guess-directory (cmd-name)
   (if (universal-argument-provided?)
       (counsel-read-directory-name (concat cmd-name " in directory: "))
-      (or (projectile-project-root) default-directory)))
+      (or (if (featurep 'projectile) (projectile-project-root))
+          default-directory)))
 
 (defun counsel-fzf-in-project ()
   (interactive)
