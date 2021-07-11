@@ -37,7 +37,11 @@ with pkgs; with emacsPackagesNg;
     ++
 
     (with epkgs.elpaPackages; [
+      company
+      counsel
+      ivy
       undo-tree
+      which-key
     ])
 
     ++
@@ -47,8 +51,6 @@ with pkgs; with emacsPackagesNg;
       anzu
       browse-kill-ring
       cider
-      company
-      counsel
       diminish
       direnv
       doom-themes
@@ -62,7 +64,6 @@ with pkgs; with emacsPackagesNg;
       git-timemachine
       go-mode
       hl-todo
-      ivy
       lsp-mode
       magit
       nix-mode
@@ -74,7 +75,6 @@ with pkgs; with emacsPackagesNg;
       slime-company
       use-package
       wgrep
-      which-key
       winum
     ])
 
