@@ -193,7 +193,16 @@
 
 (use-package evil-collection
   :after evil
-  :config (evil-collection-init))
+  :custom
+  (evil-collection-company-use-tng nil)
+  :config
+  (evil-collection-magit-setup)
+  (evil-collection-git-timemachine-setup)
+  (evil-collection-dired-setup)
+  (evil-collection-help-setup)
+  (evil-collection-company-setup)
+  (evil-collection-term-setup))
+
 
 (use-package evil-surround
   :after evil
