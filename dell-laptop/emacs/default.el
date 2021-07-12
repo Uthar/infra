@@ -3,7 +3,8 @@
   (setf use-package-expand-minimally t
         use-package-use-theme nil))
 
-
+(rplaca mouse-wheel-scroll-amount 2)
+(setf mouse-wheel-progressive-speed nil)
 (put 'if 'lisp-indent-function 4)
 
 (use-package diminish)
