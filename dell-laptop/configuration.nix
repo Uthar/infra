@@ -56,13 +56,17 @@
     device = "/dev/sda";
   };
 
-  networking.hostName = "nixos";
-  networking.useDHCP = false;
-  networking.networkmanager.enable = true;
-  networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 5555 8554 ];
-  networking.firewall.allowedUDPPorts = [ 5555 8554 ];
-  networking.firewall.trustedInterfaces = [ "tap0" ];
+  networking = {
+    hostName = "nixos";
+    useDHCP = false;
+    networkmanager.enable = true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 5555 8554 ];
+      allowedUDPPorts = [ 5555 8554 ];
+      trustedInterfaces = [ "tap0" ];
+    };
+  };
 
   console = {
     font = "Lat2-Terminus16";
@@ -162,9 +166,11 @@
     Option "TearFree" "true"
   '';
 
-  services.transmission.enable = true;
-  services.transmission.openFirewall = true;
-  services.transmission.settings.download-dir = "/home/kpg/torrents";
+  services.transmission = {
+    enable = true;
+    openFirewall = true;
+    settings.download-dir = "/home/kpg/torrents";
+  };
 
   # Enable sound.
   sound.enable = true;
