@@ -14,14 +14,18 @@
 
   nixpkgs.overlays = import ./overlays/all-overlays.nix;
 
-  nix.maxJobs = lib.mkDefault 4;
-  nix.autoOptimiseStore = true;
-  nix.extraOptions = let mb = n: toString (n * 1024 * 1024); in ''
-    min-free = ${mb 100}
-    max-free = ${mb 500}
-    keep-outputs = true
-    keep-derivations = true
-  '';
+  nix = {
+    maxJobs = lib.mkDefault 4;
+    autoOptimiseStore = true;
+    binaryCaches = [ "https://cache.galkowski.xyz" ];
+    binaryCachePublicKeys = [ "cache.galkowski.xyz-1:8itwpvpPypcmgogbwtWf6+/EOFALY2BIrG0zF8LfMCM=" ];
+    extraOptions = let mb = n: toString (n * 1024 * 1024); in ''
+      min-free = ${mb 100}
+      max-free = ${mb 500}
+      keep-outputs = true
+      keep-derivations = true
+    '';
+  };
 
   environment.variables.NIX_AUTO_RUN = "1";
 

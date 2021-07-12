@@ -177,6 +177,12 @@
     #   enable = true;
     # };
 
+    services.nix-serve = {
+      enable = true;
+      bindAddress = "127.0.0.1";
+      secretKeyFile = "/srv/nix-serve/secret-key-file";
+    };
+
     users.users.git = {
       isSystemUser = true;
       createHome = false;
@@ -199,6 +205,13 @@
         documentRoot = "/srv/git";
         enableACME = true;
         adminAddr = "k@demondust.xyz";
+      };
+      virtualHosts."cache.${domainName}" = {
+        locations."/.well-known".proxyPass = "!";
+        locations."/".proxyPass = "http://127.0.0.1:5000/";
+        adminAddr = "k@demondust.xyz";
+        forceSSL = true;
+        enableACME = true;
       };
       virtualHosts."jitsi.${domainName}" = {
         locations."/.well-known".proxyPass = "!";
