@@ -190,6 +190,11 @@
       cmd = "nixos-rebuild";
       noPass = true;
       keepEnv = true;
+    }
+    { users = [ "kpg" ];
+      cmd = "nix-channel";
+      noPass = true;
+      keepEnv = true;
     }];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
