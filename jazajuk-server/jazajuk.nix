@@ -59,7 +59,7 @@
 
     environment.systemPackages = with pkgs; [ fossil sqlite git ];
 
-    networking.firewall.allowedTCPPorts = [ 64738 80 443 3000 8554 ];
+    networking.firewall.allowedTCPPorts = [ 64738 80 443 8554 ];
     networking.hostName = "jazajuk";
     networking.useDHCP = false;
     networking.interfaces.vpn.useDHCP = false;
