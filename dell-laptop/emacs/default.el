@@ -276,7 +276,7 @@
   :custom
   (slime-truncate-lines nil)
   (slime-net-coding-system 'utf-8-unix)
-  (inferior-lisp-program "sbcl")
+  (inferior-lisp-program "sbcl --disable-ldb --dynamic-space-size 4096")
   (slime-contribs '(slime-asdf slime-company slime-quicklisp slime-fancy))
   (slime-company-completion 'fuzzy)
   (slime-repl-auto-right-margin t)
