@@ -94,11 +94,6 @@
     ".." = "cd ..";
     mkd = "mkdir -pv";
     mkdir = "mkdir -pv";
-    rm = "rm -v";
-    cp = "cp -v";
-    rsync = "rsync -v";
-    mv = "mv -v";
-    s = "sudo";
     n = "nix";
     h = "htop";
     f = "fossil";
