@@ -24,7 +24,7 @@
       waitForServices = services: { after = services; wants = services; };
     in {
 
-      imports = [ baseConfig ./hardware-configuration.nix ];
+      imports = [ baseConfig ./hardware-configuration.nix ./fossil-server.nix ];
 
     virtualisation.hypervGuest.enable = false;
 
@@ -173,9 +173,12 @@
 
     systemd.services.murmur = waitForServices [ "murmurPassword-key.service" ];
 
-    # services.fossil = {
-    #   enable = true;
-    # };
+    services.fossil = {
+      enable = true;
+      localhost = true;
+      baseurl = "https://fossil.${domainName}";
+      https = true;
+    };
 
     services.nix-serve = {
       enable = true;
@@ -216,6 +219,13 @@
       virtualHosts."jitsi.${domainName}" = {
         locations."/.well-known".proxyPass = "!";
         locations."/".proxyPass = "http://10.13.37.4/";
+        adminAddr = "k@demondust.xyz";
+        addSSL = true;
+        enableACME = true;
+      };
+      virtualHosts."fossil.${domainName}" = {
+        locations."/.well-known".proxyPass = "!";
+        locations."/".proxyPass = "http://127.0.0.1:8080/";
         adminAddr = "k@demondust.xyz";
         addSSL = true;
         enableACME = true;
