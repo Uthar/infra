@@ -6,8 +6,8 @@
 
   network.enableRollback = false;
   network.nixpkgs = import (builtins.fetchTarball {
-    url    = "https://github.com/nixos/nixpkgs/archive/nixos-21.05-small.tar.gz";
-    sha256 = "16wgzs2aylaar8f09dac4bg0v88aas07z06527zvbwsaazvn06cv";
+    url    = "https://github.com/NixOS/nixpkgs/commit/82151321eeaef290b8345803e0b217a261b7c4e1";
+    sha256 = "1n53jn8793midwdwiqk74l4vf0g94wg1bypab4cx1ydlbs20x882";
   }) { overlays = import ../dell-laptop/overlays/all-overlays.nix; };
 
   jazajuk = { config, pkgs, lib, ... }:
