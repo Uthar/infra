@@ -203,6 +203,16 @@
         ServerTokens Prod
         ServerSignature Off
       '';
+      # extraModules =
+      #   let
+      #     mod_wsgi = pkgs.mod_wsgi.overrideAttrs (o:
+      #       {
+      #         buildInputs = (lib.lists.remove pkgs.python2 o.buildInputs)
+      #                       ++ [ pkgs.mercurial.python pkgs.ncurses ];
+      #       });
+      #   in [
+      #     { name = "wsgi"; path = "${mod_wsgi}/modules/mod_wsgi.so"; }
+      #   ];
       virtualHosts.${domainName} = {
         addSSL = true;
         documentRoot = "/srv/git";
@@ -230,6 +240,28 @@
         addSSL = true;
         enableACME = true;
       };
+      # virtualHosts."hg.${domainName}" = {
+      #   adminAddr = "k@demondust.xyz";
+      #   addSSL = true;
+      #   enableACME = true;
+      #   extraConfig =
+      #     let
+      #       hg = pkgs.mercurial;
+      #       config = pkgs.writeTextFile { name="hgweb.config"; text = ''
+      #       [paths]
+      #       / = /srv/hg/repos/*
+      #       ''; };
+      #       hgweb = pkgs.runCommand "hgweb.wsgi" {} ''
+      #         cp ${hg}/share/cgi-bin/hgweb.wsgi $out
+      #         sed -i s,/path/to/python/lib,${hg}/lib/python3.8/site-packages, $out
+      #         sed -i "s,#.*import sys,import sys," $out
+      #         sed -i s,/path/to/repo/or/config,${config}, $out
+      #       '';
+      #     in ''
+      #       # WSGIScriptAlias hangs, ScriptAlias is terribly slow
+      #       WSGIScriptAlias / "${hgweb}/"
+      #     '';
+      # };
     };
 
     users.users.root = {
