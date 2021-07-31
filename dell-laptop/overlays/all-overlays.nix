@@ -1,6 +1,8 @@
 [
   (self: super: rec {
 
+    buildASDF = import ./save-lisp-and-die-static.nix;
+
     fsl = super.callPackage ./fsl.nix { inherit fossil; };
 
     fossil =
