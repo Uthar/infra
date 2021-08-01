@@ -261,7 +261,7 @@
   :hook
   (after-init . (lambda () (load-theme my-theme t t))))
 
-(defvar my-theme-active? t)
+(defvar my-theme-active? nil)
 
 (defun toggle-my-theme ()
   (interactive)
