@@ -11,6 +11,7 @@
     ./luks.nix
     ./i3
     ./binary-caches.nix
+    ./direnv.nix
   ];
 
   nixpkgs.overlays = import ./overlays/all-overlays.nix;
@@ -21,17 +22,10 @@
     extraOptions = let mb = n: toString (n * 1024 * 1024); in ''
       min-free = ${mb 100}
       max-free = ${mb 500}
-      keep-outputs = true
-      keep-derivations = true
     '';
   };
 
   environment.variables.NIX_AUTO_RUN = "1";
-
-  # FIXME put in direnv.nix
-  environment.pathsToLink = [
-    "/share/nix-direnv"
-  ];
 
   # Copy current configuration directory to store
   # Make sure not to import anything from ../ in this file
@@ -106,10 +100,6 @@
     nuke = "shred -zu";
   };
 
-  programs.bash.interactiveShellInit = ''
-    eval "$(${pkgs.direnv}/bin/direnv hook bash)"
-  '';
-
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
@@ -176,6 +166,7 @@
     inconsolata
   ];
 
+  # FIXME put in doas.nix
   security.sudo.enable = false;
   security.doas.enable = true;
   security.doas.extraRules = [
