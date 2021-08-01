@@ -23,14 +23,12 @@
   ripgrep
 
   # Version control
-  fsl
+  fsl fossil
   git
   mercurial
 
   # Shell utils
   curl
-  direnv
-  nix-direnv
   htop
   killall
   p7zip

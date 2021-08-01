@@ -15,4 +15,9 @@
     eval "$(${pkgs.direnv}/bin/direnv hook bash)"
   '';
 
+  environment.systemPackages = with pkgs;
+    [ direnv
+      nix-direnv
+    ];
+
 }
