@@ -17,8 +17,11 @@
   nix = {
     maxJobs = lib.mkDefault 4;
     autoOptimiseStore = true;
+
+    # FIXME put in binary-caches.nix
     binaryCaches = [ "https://cache.galkowski.xyz" ];
     binaryCachePublicKeys = [ "cache.galkowski.xyz-1:8itwpvpPypcmgogbwtWf6+/EOFALY2BIrG0zF8LfMCM=" ];
+
     extraOptions = let mb = n: toString (n * 1024 * 1024); in ''
       min-free = ${mb 100}
       max-free = ${mb 500}
@@ -29,6 +32,7 @@
 
   environment.variables.NIX_AUTO_RUN = "1";
 
+  # FIXME put in direnv.nix
   environment.pathsToLink = [
     "/share/nix-direnv"
   ];
@@ -85,6 +89,7 @@
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_DATA_HOME = "$HOME/.local/share";
 
+    # FIXME i3 specific
     GDK_PIXBUF_MODULE_FILE="${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
   };
 
@@ -149,13 +154,6 @@
   services.xserver.xkbOptions = "altwin:swap_lalt_lwin,ctrl:nocaps";
 
   services.xserver.displayManager.lightdm.enable = true;
-
-  # FIXME: does not survive a nixos-rebuild switch
-  services.xserver.displayManager.sessionCommands = ''
-    ${pkgs.xorg.xmodmap}/bin/xmodmap -e "keycode 23 = Alt_L Meta_L Alt_L Meta_L"
-    ${pkgs.xorg.xmodmap}/bin/xmodmap -e "keycode 222 = Tab"
-    ${pkgs.xcape}/bin/xcape -e "Alt_L=Tab"
-  '';
 
   services.xserver.videoDrivers = [ "intel" ];
 
