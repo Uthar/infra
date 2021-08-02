@@ -8,16 +8,6 @@
     { users = [ "kpg" ];
       keepEnv = true;
       persist = true;
-    }
-    { users = [ "kpg" ];
-      cmd = "nixos-rebuild";
-      noPass = true;
-      keepEnv = true;
-    }
-    { users = [ "kpg" ];
-      cmd = "nix-channel";
-      noPass = true;
-      keepEnv = true;
     }];
 
 }
