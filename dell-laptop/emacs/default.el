@@ -117,6 +117,7 @@
   (tab-width 4)
   (column-number-mode t)
   (line-number-mode nil)
+  (diff-font-lock-syntax nil)
   :config
   (minibuffer-depth-indicate-mode t)
   (tool-bar-mode -1)
