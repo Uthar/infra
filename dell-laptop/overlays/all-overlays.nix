@@ -5,16 +5,18 @@
 
     fsl = super.callPackage ./fsl.nix { inherit fossil; };
 
-    fossil =
+    fossil = let
+      rev = "e3066edea3d0cef2cff8baaddf2cb7008c3367e27cab209dddec4db99eb692fc";
+    in
       with super.lib.lists;
       super.fossil.overrideAttrs (old: rec {
         pname = "fossil";
-        version = "2.16";
+        version = "2.17";
         configureFlags = remove "--disable-internal-sqlite" old.configureFlags;
         buildInputs = remove super.sqlite old.buildInputs;
         src = super.fetchurl {
-          url = "https://fossil-scm.org/home/tarball/version-${version}/${pname}-${version}.tar.gz";
-          sha256 = "sha256:1z5ji25f2rqaxd1nj4fj84afl1v0m3mnbskgfwsjr3fr0h5p9aqy";
+          url = "https://fossil-scm.org/home/tarball/${rev}/${pname}-${rev}.tar.gz";
+          sha256 = "sha256:0kpk80vdp87myvzky1idrns1rvjawvnn8wc0vkgmpkp1ympxgzk0";
         };
         doCheck = false;
       });
