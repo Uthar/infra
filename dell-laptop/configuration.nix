@@ -95,7 +95,13 @@
     x = "exit";
     r = "ranger";
     nuke = "shred -zu";
-  };
+
+  }
+  //
+  (let
+    rlwrap = x: {name=x; value="rlwrap ${x}";};
+    wrapped = map rlwrap [ "ecl" "sbcl" "abcl" "sqlite3" "tclsh" "wish" ];
+  in lib.listToAttrs wrapped);
 
   programs.gnupg.agent = {
     enable = true;
