@@ -23,6 +23,8 @@
 
     sbcl = super.callPackage ./sbcl.nix {};
 
+    ecl = super.callPackage ./ecl.nix {};
+
     udiskie = super.udiskie.overridePythonAttrs (old: rec {
       version = "2.3.3";
       src = super.fetchFromGitHub {
