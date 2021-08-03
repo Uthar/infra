@@ -36,10 +36,9 @@
     with lib;
     with pkgs;
     let
-      paths =
-        map (x: { name = x; path = copyPathToStore "/etc/nixos/${x}"; })
-          (attrNames (filterAttrs (n: v: v != "symlink") (readDir /etc/nixos)));
-      configuration = linkFarm "configuration" paths;
+      copy = x: { name = x; path = copyPathToStore "/etc/nixos/${x}"; };
+      paths = attrNames (filterAttrs (n: v: v != "symlink") (readDir /etc/nixos));
+      configuration = linkFarm "configuration" (map copy paths);
     in ''
     ln -s ${configuration} $out/current-configuration
     ln -s ${<nixos>} $out/current-nixpkgs
