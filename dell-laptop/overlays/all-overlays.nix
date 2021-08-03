@@ -21,7 +21,8 @@
         doCheck = false;
       });
 
-    sbcl = super.callPackage ./sbcl.nix {};
+    sbcl = import ./sbcl.nix { inherit super; };
+    sbcl-static = super.callPackage ./sbcl-static.nix {};
 
     ecl = super.callPackage ./ecl.nix {};
 
