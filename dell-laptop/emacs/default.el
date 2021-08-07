@@ -305,7 +305,8 @@
 (add-to-list 'window-buffer-change-functions 'save-last-repl-buffer)
 
 (defun save-repl-window-height (frame)
-  (when repl-window
+  (when (and repl-window
+             (< (window-height repl-window) (window-height (frame-root-window))))
     (setf repl-window-height (window-height repl-window))))
 
 (add-to-list 'window-size-change-functions 'save-repl-window-height)
