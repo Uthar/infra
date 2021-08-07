@@ -74,6 +74,7 @@ with pkgs; with emacsPackagesNg;
       slime
       slime-company
       use-package
+      vc-fossil
       wgrep
       winum
     ])
