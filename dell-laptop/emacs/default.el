@@ -305,8 +305,7 @@
 (add-to-list 'window-buffer-change-functions 'save-last-repl-buffer)
 
 (defun save-repl-window-height (frame)
-  (when (and repl-window
-             (< (window-height repl-window) (window-height (frame-root-window))))
+  (when repl-window
     (setf repl-window-height (window-height repl-window))))
 
 (add-to-list 'window-size-change-functions 'save-repl-window-height)
@@ -315,7 +314,11 @@
   (ansi-term "bash"))
 
 (defun open-repl-window ()
-  (setf repl-window (split-window (frame-root-window) (- repl-window-height)))
+  (setf repl-window
+        (split-window
+         (frame-root-window)
+         (- (min repl-window-height
+                 (- (window-height (frame-root-window)) window-min-height)))))
   (select-window repl-window)
   (switch-to-buffer (or last-repl-buffer (default-repl-buffer))))
 
