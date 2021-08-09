@@ -10,7 +10,7 @@
     ./packages.nix
     ./luks.nix
     ./i3
-    #./binary-caches.nix
+    ./binary-caches.nix
     ./direnv.nix
     ./doas.nix
   ];
