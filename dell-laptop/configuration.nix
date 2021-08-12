@@ -4,6 +4,7 @@
 
 { config, lib, pkgs, ... }:
 
+let me = "kpg"; in
 {
   imports =
   [ ./hardware-configuration.nix
@@ -144,7 +145,7 @@
   services.transmission = {
     enable = true;
     openFirewall = true;
-    settings.download-dir = "/home/kpg/torrents";
+    settings.download-dir = "/home/${me}/torrents";
   };
 
   # Enable sound.
@@ -161,8 +162,8 @@
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.groups.kpg = { gid = 1000; members = [ "kpg" ]; };
-  users.users.kpg = {
+  users.groups.${me} = { gid = 1000; members = [ me ]; };
+  users.users.${me} = {
     isNormalUser = true;
     initialHashedPassword = "";
     extraGroups = [ "wheel" "networkmanager" "transmission" "wireshark" ];
