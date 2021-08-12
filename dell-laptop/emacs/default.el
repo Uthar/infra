@@ -163,6 +163,7 @@
       (when file-name
         (recentf-add-file file-name)
         (with-inhibit-message (recentf-save-list)))))
+  (setf dired-listing-switches (concat dired-listing-switches "h"))
   :hook
   (before-save . delete-trailing-whitespace)
   (after-save . executable-make-buffer-file-executable-if-script-p)
