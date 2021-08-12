@@ -24,7 +24,7 @@
       waitForServices = services: { after = services; wants = services; };
     in {
 
-      imports = [ baseConfig ./hardware-configuration.nix ./fossil-server.nix ];
+      imports = [ baseConfig ./hardware-configuration.nix ./fossil-server.nix ./bcache.nix ];
 
     virtualisation.hypervGuest.enable = false;
 
@@ -180,10 +180,11 @@
       https = true;
     };
 
-    services.nix-serve = {
+    services.bcache = {
       enable = true;
-      bindAddress = "127.0.0.1";
-      secretKeyFile = "/srv/nix-serve/secret-key-file";
+      group = "wwwrun";
+      compressionType = "gzip";
+      secretKeyFile = "/srv/bcache/secret-key-file";
     };
 
     users.users.git = {
@@ -221,7 +222,7 @@
       };
       virtualHosts."cache.${domainName}" = {
         locations."/.well-known".proxyPass = "!";
-        locations."/".proxyPass = "http://127.0.0.1:5000/";
+        locations."/".proxyPass = "unix:${config.services.bcache.socketPath}|http://localhost/";
         adminAddr = "k@demondust.xyz";
         forceSSL = true;
         enableACME = true;
