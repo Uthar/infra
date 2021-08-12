@@ -13,6 +13,7 @@
     ./binary-caches.nix
     ./direnv.nix
     ./doas.nix
+    ./redshift.nix
   ];
 
   nixpkgs.overlays = import ./overlays/all-overlays.nix;
@@ -115,16 +116,6 @@
   programs.wireshark.package = pkgs.wireshark;
 
   services.printing.enable = false;
-
-  location = {
-    latitude = 52.0;
-    longitude = 14.0;
-  };
-
-  services.redshift = {
-    enable = true;
-    temperature = { day = 5500; night = 2500; };
-  };
 
   services.emacs = {
     enable = true;
