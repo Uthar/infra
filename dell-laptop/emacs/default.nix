@@ -52,7 +52,7 @@ with pkgs; with emacsPackagesNg;
       browse-kill-ring
       cider
       diminish
-      direnv
+      (direnv.overrideAttrs(o:{ patches = [ ./direnv-el-message-not-warning.patch ]; }))
       doom-themes
       editorconfig
       evil
