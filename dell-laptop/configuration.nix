@@ -20,6 +20,7 @@ let me = "kpg"; in
   nixpkgs.overlays = import ./overlays/all-overlays.nix;
 
   nix = {
+    package = pkgs.nix; # overlayed
     maxJobs = lib.mkDefault 4;
     autoOptimiseStore = true;
     extraOptions = let mb = n: toString (n * 1024 * 1024); in ''
