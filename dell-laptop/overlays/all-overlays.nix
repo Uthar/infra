@@ -8,6 +8,8 @@
       };
     });
 
+    vlc = super.vlc.override { jackSupport = true; };
+
     bcache = super.callPackage ./bcache.nix {};
 
     buildASDF = import ./save-lisp-and-die-static.nix;
