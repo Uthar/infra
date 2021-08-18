@@ -40,5 +40,12 @@ ecl.overrideAttrs (o: {
       o.configureFlags)
     ++ [ "--enable-gmp=included" ];
 
+    postInstall = ''
+    sed -e 's/@[-a-zA-Z_]*@//g' -i $out/bin/ecl-config
+    wrapProgram "$out/bin/ecl" \
+      --prefix PATH ':' "${gcc}/bin" \
+      --prefix PATH ':' "${binutils-unwrapped}/bin"
+  '';
+
 
 })
