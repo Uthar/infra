@@ -35,7 +35,8 @@
     sbcl = import ./sbcl.nix { inherit super; };
     sbcl-static = super.callPackage ./sbcl-static.nix {};
 
-    ecl = super.callPackage ./ecl.nix {};
+    ecl = super.callPackage ./ecl {};
+    eclStatic = import ./ecl/static.nix { inherit ecl; };
 
     udiskie = super.udiskie.overridePythonAttrs (old: rec {
       version = "2.3.3";
