@@ -4,6 +4,8 @@
 
   network.description = "Jazajuk Machine Farm";
 
+  network.storage.legacy.databasefile = "nixops.sqlite";
+
   network.enableRollback = false;
   network.nixpkgs = import (builtins.fetchTarball {
     url    = "https://github.com/NixOS/nixpkgs/archive/82151321eeaef290b8345803e0b217a261b7c4e1.tar.gz";
