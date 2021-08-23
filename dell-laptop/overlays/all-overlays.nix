@@ -2,6 +2,8 @@
   (self: super: rec {
 
     nix = super.nix.overrideAttrs(o:{
+      pname = "nix";
+      version = "2.3.15";
       src = fetchTarball {
         url = "https://galkowski.xyz/nix-2.3.15.tar.xz";
         sha256 = "0jyw5alb189zcpllp48w54bxwcz62q84n20vprf2kqy1acf62hag";
