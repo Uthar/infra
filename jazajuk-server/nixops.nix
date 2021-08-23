@@ -10,7 +10,7 @@ in
 
   network.description = "Jazajuk Machine Farm";
 
-  network.storage.legacy.databasefile = "nixops.sqlite";
+  network.storage.legacy = {};
 
   network.enableRollback = false;
   network.nixpkgs = nixpkgs;
