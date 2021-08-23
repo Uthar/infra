@@ -16,6 +16,9 @@
   ecl
   sbcl
 
+  # overlaid
+  nixops
+
   # Search utils
   ag
   fd

@@ -10,6 +10,27 @@
       };
     });
 
+    nixops = super.nixopsUnstable.override {
+      overrides = (self: super: {
+        nixops = super.nixops.overridePythonAttrs (o:{
+            src = super.pkgs.fetchgit {
+              url = "https://github.com/nixos/nixops";
+              rev = "35ac02085169bc2372834d6be6cf4c1bdf820d09";
+              sha256 = "1jh0jrxyywjqhac2dvpj7r7isjv68ynbg7g6f6rj55raxcqc7r3j";
+            };
+            version = "20210821-35ac020851";
+          });
+        nixopsvbox = super.nixopsvbox.overridePythonAttrs (o:{
+            src = super.pkgs.fetchgit {
+              url = "https://galkowski.xyz/nixops-vbox";
+              rev = "5c1cd81de9568f37a9302b3b9a2314255419961e";
+              sha256 = "0a8lpcmadbpgpnqc8ksx7ds9dljgkr52bv0y0ghfrfhlsic0dmlv";
+            };
+            version = "20210823-5c1cd81de9";
+        });
+      });
+    };
+
     vlc = super.vlc.override { jackSupport = true; };
 
     bcache = super.callPackage ./bcache.nix {};
