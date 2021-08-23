@@ -1,3 +1,9 @@
+let
+  nixpkgs = import (builtins.fetchTarball {
+    url    = "https://github.com/NixOS/nixpkgs/archive/82151321eeaef290b8345803e0b217a261b7c4e1.tar.gz";
+    sha256 = "1n53jn8793midwdwiqk74l4vf0g94wg1bypab4cx1ydlbs20x882";
+  }) { overlays = import ../dell-laptop/overlays/all-overlays.nix; };
+in
 {
 
   # TODO Make it a function and pass in the details
@@ -7,10 +13,7 @@
   network.storage.legacy.databasefile = "nixops.sqlite";
 
   network.enableRollback = false;
-  network.nixpkgs = import (builtins.fetchTarball {
-    url    = "https://github.com/NixOS/nixpkgs/archive/82151321eeaef290b8345803e0b217a261b7c4e1.tar.gz";
-    sha256 = "1n53jn8793midwdwiqk74l4vf0g94wg1bypab4cx1ydlbs20x882";
-  }) { overlays = import ../dell-laptop/overlays/all-overlays.nix; };
+  network.nixpkgs = nixpkgs;
 
   jazajuk = { config, pkgs, lib, ... }:
 
@@ -25,6 +28,8 @@
       };
       waitForServices = services: { after = services; wants = services; };
     in {
+
+      nixpkgs.pkgs = nixpkgs;
 
       imports = [ baseConfig ./hardware-configuration.nix ./fossil-server.nix ./bcache.nix ];
 
