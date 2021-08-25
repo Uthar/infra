@@ -104,7 +104,7 @@ let me = "kpg"; in
   //
   (let
     rlwrap = x: {name=x; value="rlwrap ${x}";};
-    wrapped = map rlwrap [ "ecl" "sbcl" "abcl" "sqlite3" "tclsh" "wish" ];
+    wrapped = map rlwrap [ "ecl" "sbcl" "abcl" "sqlite3" "tclsh" "wish" "guile" "clojure" ];
   in lib.listToAttrs wrapped);
 
   programs.gnupg.agent = {
