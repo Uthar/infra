@@ -4,6 +4,7 @@ let
     sha256 = "1n53jn8793midwdwiqk74l4vf0g94wg1bypab4cx1ydlbs20x882";
   }) { overlays = import ../dell-laptop/overlays/all-overlays.nix; };
 in
+{ hardened ? true }:
 {
 
   # TODO Make it a function and pass in the details
@@ -68,6 +69,8 @@ in
     boot.loader.grub = { enable = true; version = 2; device = "/dev/vda"; };
 
     environment.systemPackages = with pkgs; [ fossil sqlite git ];
+
+    services.fail2ban.enable = hardened;
 
     networking.firewall.allowedTCPPorts = [ 64738 80 443 8554 ];
     networking.hostName = "jazajuk";
