@@ -18,7 +18,6 @@
   sbcl
 
   # Development utils
-  guix
   nixops
 
   # Search utils
