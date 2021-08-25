@@ -43,24 +43,24 @@ in
 
     deployment.keys = with lib; {
 
-      ovpnCa.text = readFile ./pki/ca.crt;
-      ovpnCert.text = readFile ./pki/issued/server.crt;
-      ovpnKey.text = readFile ./pki/private/server.key;
-      ovpnDh.text = readFile ./pki/dh.pem;
-      ovpnTauth.text = readFile ./pki/ta.key;
-      ovpnCrl.text = readFile ./pki/crl.pem;
+      ovpnCa.keyCommand = [ "pass" "infra/staging/layer-3-openvpn/ca.crt" ];
+      ovpnCert.keyCommand = [ "pass" "infra/staging/layer-3-openvpn/server.crt" ];
+      ovpnKey.keyCommand = [ "pass" "infra/staging/layer-3-openvpn/server.key" ];
+      ovpnDh.keyCommand = [ "pass" "infra/staging/layer-3-openvpn/dh.pem" ];
+      ovpnTauth.keyCommand = [ "pass" "infra/staging/layer-3-openvpn/ta.key" ];
+      ovpnCrl.keyCommand = [ "pass" "infra/staging/layer-3-openvpn/crl.pem" ];
 
-      totalaCa.text = readFile ./pki/ca.crt;
-      totalaCert.text = readFile ./pki/issued/server.crt;
-      totalaKey.text = readFile ./pki/private/server.key;
-      totalaDh.text = readFile ./pki/dh.pem;
-      totalaTauth.text = readFile ./pki/ta.key;
+      totalaCa.keyCommand = [ "pass" "infra/staging/layer-2-openvpn/ca.crt" ];
+      totalaCert.keyCommand = [ "pass" "infra/staging/layer-2-openvpn/server.crt" ];
+      totalaKey.keyCommand = [ "pass" "infra/staging/layer-2-openvpn/server.key" ];
+      totalaDh.keyCommand = [ "pass" "infra/staging/layer-2-openvpn/dh.pem" ];
+      totalaTauth.keyCommand = [ "pass" "infra/staging/layer-2-openvpn/ta.key" ];
 
       murmurPassword.user = "murmur";
-      murmurPassword.text = "MURMUR_PASSWORD=${readFile ./keys/murmurPassword}";
+      murmurPassword.keyCommand = [ "pass" "infra/staging/murmur/password" ];
 
       kMailAccount.destDir = "/run/mailserverKeys";
-      kMailAccount.text = readFile ./keys/mailserver/k;
+      kMailAccount.keyCommand = [ "pass" "infra/staging/mailserver/k" ];
 
     };
 
