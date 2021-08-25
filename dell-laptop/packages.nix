@@ -17,7 +17,8 @@
   guile_3_0
   sbcl
 
-  # overlaid
+  # Development utils
+  guix
   nixops
 
   # Search utils
