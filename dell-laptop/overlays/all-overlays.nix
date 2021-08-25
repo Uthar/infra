@@ -63,6 +63,8 @@
 
     lzlib = super.callPackage ./lzlib.nix {} ;
 
+    guile_3_0 = super.callPackage ./guile {} ;
+
     udiskie = super.udiskie.overridePythonAttrs (old: rec {
       version = "2.3.3";
       src = super.fetchFromGitHub {
