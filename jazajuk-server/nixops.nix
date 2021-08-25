@@ -36,6 +36,7 @@ in
     virtualisation.hypervGuest.enable = false;
 
     deployment.targetHost = publicAddress;
+    networking.publicIPv4 = publicAddress;
 
     deployment.provisionSSHKey = false;
 
