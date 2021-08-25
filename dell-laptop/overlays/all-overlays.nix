@@ -65,6 +65,8 @@
 
     guile_3_0 = super.callPackage ./guile {} ;
 
+    guix = super.callPackage ./guix { guile = guile_3_0; } ;
+
     udiskie = super.udiskie.overridePythonAttrs (old: rec {
       version = "2.3.3";
       src = super.fetchFromGitHub {
