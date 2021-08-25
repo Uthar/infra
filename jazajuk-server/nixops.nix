@@ -41,6 +41,15 @@ in
 
     deployment.provisionSSHKey = false;
 
+    # for unswappable secrets in ram
+    systemd.tmpfiles.rules = [
+      "d /run/mailserverKeys 0750 root keys"
+      "z /run/mailserverKeys 0750 root keys"
+    ];
+    boot.specialFileSystems = {
+      "/run/mailserverKeys" = { fsType = "ramfs"; options = [ "nosuid" "nodev" "mode=750" ]; };
+    };
+
     deployment.keys = with lib; {
 
       ovpnCa.keyCommand = [ "pass" "infra/staging/layer-3-openvpn/ca.crt" ];
