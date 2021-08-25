@@ -15,6 +15,7 @@ let me = "kpg"; in
     ./direnv.nix
     ./doas.nix
     ./redshift.nix
+    ./guix.nix
   ];
 
   nixpkgs.overlays = import ./overlays/all-overlays.nix;
@@ -142,6 +143,8 @@ let me = "kpg"; in
   services.xserver.deviceSection = ''
     Option "TearFree" "true"
   '';
+
+  services.guix.enable = true;
 
   services.transmission = {
     enable = true;
