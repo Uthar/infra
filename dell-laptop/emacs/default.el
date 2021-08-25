@@ -369,6 +369,14 @@
   (counsel-ag "" (guess-directory "ag") " --hidden "))
 
 
+;;
+
+(defun select-or-exit-minibuffer ()
+  (interactive)
+  (if (universal-argument-provided?)
+      (exit-minibuffer))
+      (select-window (minibuffer-window)))
+
 ;; keys
 
 (bind-keys* ("<f1>" . toggle-repl-window)
@@ -378,7 +386,7 @@
             ("<f5>" . previous-buffer)
             ("<f6>" . next-buffer)
             ("<f7>" . recentf-open-files)
-            ("<f8>" . exit-minibuffer)
+            ("<f8>" . select-or-exit-minibuffer)
             ("<f9>" . kill-current-buffer)
             ("<f10>" . delete-window)
             ("<f11>" . kill-buffer-and-window)
