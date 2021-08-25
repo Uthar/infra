@@ -37,6 +37,8 @@ in
 
     deployment.targetHost = publicAddress;
 
+    deployment.provisionSSHKey = false;
+
     deployment.keys = with lib; {
 
       ovpnCa.text = readFile ./pki/ca.crt;
