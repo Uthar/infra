@@ -61,6 +61,8 @@
     ecl = super.callPackage ./ecl {};
     eclStatic = import ./ecl/static.nix { inherit ecl; };
 
+    lzlib = super.callPackage ./lzlib.nix {} ;
+
     udiskie = super.udiskie.overridePythonAttrs (old: rec {
       version = "2.3.3";
       src = super.fetchFromGitHub {
