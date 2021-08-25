@@ -14,6 +14,7 @@
 
   # Programming
   ecl
+  guile_3_0
   sbcl
 
   # overlaid
