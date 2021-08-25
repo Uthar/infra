@@ -159,6 +159,7 @@
           (dired "." (remove ?a dired-listing-switches))
           (dired "." (concat dired-listing-switches "a")))
       (setq dired-listing-switches dired-actual-switches)))
+  (push (lambda (x) (string= x (expand-file-name recentf-save-file))) recentf-exclude)
   (defadvice switch-to-buffer (after save-recentf activate)
     (let ((file-name (buffer-file-name (current-buffer))))
       (when file-name
