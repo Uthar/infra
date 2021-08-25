@@ -159,12 +159,6 @@
           (dired "." (remove ?a dired-listing-switches))
           (dired "." (concat dired-listing-switches "a")))
       (setq dired-listing-switches dired-actual-switches)))
-  (push (lambda (x) (string= x (expand-file-name recentf-save-file))) recentf-exclude)
-  (defadvice switch-to-buffer (after save-recentf activate)
-    (let ((file-name (buffer-file-name (current-buffer))))
-      (when file-name
-        (recentf-add-file file-name)
-        (with-inhibit-message (recentf-save-list)))))
   (setf dired-listing-switches (concat dired-listing-switches "h"))
   :hook
   (before-save . delete-trailing-whitespace)
@@ -187,6 +181,23 @@
            (interactive)
            (find-alternate-file "..")))))
   (after-init . (lambda () (set-cursor-color "#999"))))
+
+;;;; recentf
+
+(defun recentf-save-file-p (file)
+  (string= file (expand-file-name recentf-save-file)))
+
+(add-to-list 'recentf-exclude 'recentf-save-file-p)
+
+(defun recentf-save-current-buffer (frame)
+  (let ((file-name (buffer-file-name (current-buffer))))
+    (when file-name
+      (recentf-add-file file-name)
+      (with-inhibit-message (recentf-save-list)))))
+
+(add-to-list 'window-buffer-change-functions 'recentf-save-current-buffer)
+
+;;;;
 
 (use-package evil
   :custom
