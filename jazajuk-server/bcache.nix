@@ -23,7 +23,7 @@ in
     };
 
     compressionType = mkOption {
-      type = types.enum ["xz" "bzip2" "none" "lz" "gzip"];
+      type = types.enum ["zstd" "xz" "bzip2" "none" "lz" "gzip"];
       default = "none";
       description = ''
           Type of compression to use
