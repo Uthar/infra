@@ -14,11 +14,11 @@
       overrides = (self: super: {
         nixops = super.nixops.overridePythonAttrs (o:{
             src = super.pkgs.fetchgit {
-              url = "https://github.com/nixos/nixops";
-              rev = "35ac02085169bc2372834d6be6cf4c1bdf820d09";
-              sha256 = "1jh0jrxyywjqhac2dvpj7r7isjv68ynbg7g6f6rj55raxcqc7r3j";
+              url = "https://galkowski.xyz/nixops";
+              rev = "4f17256b0af98f04f4398ddf50d6d1bfc6a253b4";
+              sha256 = "0nzsrww4rsfsd90ldcxfhcq6h7w2ayvv5y264pnmyfh1kd5b0m1k";
             };
-            version = "20210821-35ac020851";
+            version = "20210826-4f17256b0a";
           });
         nixopsvbox = super.nixopsvbox.overridePythonAttrs (o:{
             src = super.pkgs.fetchgit {
