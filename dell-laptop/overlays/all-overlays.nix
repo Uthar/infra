@@ -1,14 +1,15 @@
 [
   (self: super: rec {
 
-    nix = super.nix.overrideAttrs(o:{
-      pname = "nix";
-      version = "2.3.15";
-      src = fetchTarball {
-        url = "https://galkowski.xyz/nix-2.3.15.tar.xz";
-        sha256 = "0jyw5alb189zcpllp48w54bxwcz62q84n20vprf2kqy1acf62hag";
+    nix = let
+      repo = super.fetchgit {
+        url = "https://galkowski.xyz/nix";
+        rev = "49b5c895258c3898846679d20d262ee505ad9053";
+        sha256 = "0xn5n1c6s0n7pg5i78jz8970wm37jgvvhg11rf4zgrk6faxgn75c";
       };
-    });
+      tree = { outPath = repo; };
+      release = (import "${repo}/release.nix" { nix = tree;});
+    in release.build.${builtins.currentSystem};
 
     nixops = super.nixopsUnstable.override {
       overrides = (self: super: {
