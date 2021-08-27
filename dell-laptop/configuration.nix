@@ -122,7 +122,7 @@ let me = "kpg"; in
 
   services.emacs = {
     enable = true;
-    package = import ./emacs {};
+    package = import ./emacs { inherit pkgs; };
   };
 
   services.logind.extraConfig = ''
