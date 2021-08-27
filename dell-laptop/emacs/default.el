@@ -98,6 +98,7 @@
 
 (use-package emacs
   :custom
+  (server-client-instructions nil)
   (use-short-answers t)
   (create-lockfiles nil)
   (enable-recursive-minibuffers t)
