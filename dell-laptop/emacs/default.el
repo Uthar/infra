@@ -121,7 +121,6 @@
   (recentf-mode)
   (savehist-mode)
   (context-menu-mode)
-  (put 'dired-find-alternate-file 'disabled nil)
   (defun display-startup-echo-area-message ())
   (set-language-environment "UTF-8")
   (defun my/comment-or-uncomment ()
