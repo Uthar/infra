@@ -170,13 +170,13 @@
 
 (add-to-list 'recentf-exclude 'recentf-save-file-p)
 
-(defun recentf-save-current-buffer (frame)
+(defun recentf-save-current-buffer ()
   (let ((file-name (buffer-file-name (current-buffer))))
     (when file-name
       (recentf-add-file file-name)
       (with-inhibit-message (recentf-save-list)))))
 
-(add-to-list 'window-buffer-change-functions 'recentf-save-current-buffer)
+(add-hook 'buffer-list-update-hook 'recentf-save-current-buffer)
 
 ;;;;
 
