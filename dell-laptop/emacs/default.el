@@ -251,8 +251,9 @@
    (lsp-mode . lsp-enable-which-key-integration)))
 
 (use-package modus-themes
-  :init (modus-themes-load-themes)
-  :config (modus-themes-load-operandi)
+  :config
+  (modus-themes-load-themes)
+  :hook (after-init . modus-themes-load-operandi)
   :bind ("C-c t" . modus-themes-toggle))
 
 (use-package slime

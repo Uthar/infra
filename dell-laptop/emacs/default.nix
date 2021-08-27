@@ -36,6 +36,13 @@ with pkgs; with emacsPackagesNg;
         patches = [ ./tramp-detect-wrapped-gvfsd.patch ] ;
       });
 
+    modus-operandi = runCommand "modus-operandi" {} ''
+      mkdir -p $out/share/emacs/site-lisp
+      cp -Tr ${fetchTarball {
+        url = http://elpa.gnu.org/packages/modus-themes-1.5.0.tar;
+        sha256 = "0dr61yvmfq0cwrwc6by5iqy074q79qnpmvw4gmhhg6w7qpqyibnw";
+      }} $out/share/emacs/site-lisp
+    '';
 
     emacsWithPackages = (emacsPackagesNgGen emacs').emacsWithPackages;
 
@@ -51,6 +58,7 @@ with pkgs; with emacsPackagesNg;
       company
       counsel
       ivy
+      modus-operandi
       undo-tree
       which-key
     ])
