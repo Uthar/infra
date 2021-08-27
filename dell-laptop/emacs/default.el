@@ -265,21 +265,10 @@
   (((c-mode c++-mode python-mode go-mode) . lsp)
    (lsp-mode . lsp-enable-which-key-integration)))
 
-(defvar light-theme 'modus-operandi)
-(defvar dark-theme 'modus-vivendi)
-(defvar dark-theme-active? nil)
-
-(defun toggle-dark-theme ()
-  (interactive)
-  (if dark-theme-active?
-      (disable-theme dark-theme)
-      (enable-theme dark-theme))
-  (setf dark-theme-active? (not dark-theme-active?)))
-
-(bind-key "C-c t" 'toggle-dark-theme)
-
-(add-hook 'after-init-hook (lambda () (load-theme light-theme)))
-(add-hook 'after-init-hook (lambda () (load-theme dark-theme t t)))
+(use-package modus-themes
+  :init (modus-themes-load-themes)
+  :config (modus-themes-load-operandi)
+  :bind ("C-c t" . modus-themes-toggle))
 
 (use-package slime
   :custom
