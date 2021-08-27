@@ -27,19 +27,6 @@
 
 (use-package wgrep)
 
-(use-package git-timemachine
-  :hook
-  (git-timemachine-mode
-   . (lambda ()
-       (mapcar
-        (lambda (key)
-          (define-key evil-normal-state-local-map (kbd key)
-            (lookup-key git-timemachine-mode-map key)))
-        (mapcar
-         (lambda (cell)
-           (format "%c" (car cell)))
-         (cdr git-timemachine-mode-map))))))
-
 (use-package hl-todo
   :custom
   (hl-todo-highlight-punctuation ":")
@@ -208,7 +195,6 @@
   (evil-collection-company-use-tng nil)
   :config
   (evil-collection-magit-setup)
-  (evil-collection-git-timemachine-setup)
   (evil-collection-dired-setup)
   (evil-collection-help-setup)
   (evil-collection-company-setup)

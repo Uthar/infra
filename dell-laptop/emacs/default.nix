@@ -71,7 +71,6 @@ with pkgs; with emacsPackagesNg;
       evil-matchit
       evil-surround
       flycheck
-      git-timemachine
       go-mode
       hl-todo
       lsp-mode
