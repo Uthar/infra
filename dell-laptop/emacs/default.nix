@@ -64,7 +64,6 @@ with pkgs; with emacsPackagesNg;
       cider
       diminish
       (direnv.overrideAttrs(o:{ patches = [ ./direnv-el-message-not-warning.patch ]; }))
-      doom-themes
       editorconfig
       evil
       evil-anzu
