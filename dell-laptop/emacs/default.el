@@ -121,6 +121,7 @@
   (column-number-mode t)
   (line-number-mode nil)
   (diff-font-lock-syntax nil)
+  (dired-kill-when-opening-new-dired-buffer t)
   :config
   (minibuffer-depth-indicate-mode t)
   (tool-bar-mode -1)
@@ -172,16 +173,8 @@
    . (lambda ()
        (define-key dired-mode-map "N" nil)
        (define-key dired-mode-map "n" nil)
-       (define-key evil-normal-state-local-map "l"
-         (lambda ()
-           (interactive)
-           (if (file-directory-p (dired-get-filename))
-               (dired-find-alternate-file)
-               (dired-find-file))))
-       (define-key evil-normal-state-local-map "h"
-         (lambda ()
-           (interactive)
-           (find-alternate-file "..")))))
+       (define-key evil-normal-state-local-map "l" 'dired-find-file)
+       (define-key evil-normal-state-local-map "h" 'dired-up-directory)))
   (after-init . (lambda () (set-cursor-color "#999"))))
 
 ;;;; recentf
