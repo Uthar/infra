@@ -21,10 +21,21 @@ with pkgs; with emacsPackagesNg;
       substituteAllInPlace $out/share/emacs/site-lisp/default.el
     '');
 
-    emacs' = emacs.overrideAttrs (o: {
-      configureFlags = o.configureFlags ++ [ "CFLAGS=-g3" ];
-      dontStrip = true;
-    });
+
+    emacs' =
+      (pkgs.emacs.override { nativeComp = true; srcRepo = true; })
+      .overrideAttrs (o: {
+        CFLAGS="-g3";
+        dontStrip = true;
+        src = fetchgit {
+          url = https://galkowski.xyz/emacs;
+          rev = "9c1bbad907575987054b8d81ac2d09bfabe6214b";
+          sha256 = "0zacdwb5xfljnbbijf9z4qbsgr3xrknz7r8zvwzfm2z1ch3i6r9j";
+        };
+        version = "28.0.50";
+        patches = [ ./tramp-detect-wrapped-gvfsd.patch ] ;
+      });
+
 
     emacsWithPackages = (emacsPackagesNgGen emacs').emacsWithPackages;
 
