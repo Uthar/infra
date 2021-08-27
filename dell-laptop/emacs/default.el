@@ -98,6 +98,7 @@
 
 (use-package emacs
   :custom
+  (use-short-answers t)
   (create-lockfiles nil)
   (enable-recursive-minibuffers t)
   (custom-file null-device)
@@ -131,7 +132,6 @@
   (recentf-mode)
   (savehist-mode)
   (put 'dired-find-alternate-file 'disabled nil)
-  (defalias 'yes-or-no-p 'y-or-n-p)
   (defun display-startup-echo-area-message ())
   (set-language-environment "UTF-8")
   (defun my/comment-or-uncomment ()
