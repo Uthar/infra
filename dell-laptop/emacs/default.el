@@ -7,6 +7,9 @@
 (setf mouse-wheel-progressive-speed nil)
 (put 'if 'lisp-indent-function 4)
 
+(define-key tetris-mode-map "z" 'tetris-rotate-next)
+(define-key tetris-mode-map "x" 'tetris-rotate-prev)
+
 (use-package diminish)
 
 (use-package browse-kill-ring)
