@@ -8,8 +8,10 @@
 (put 'if 'lisp-indent-function 4)
 
 (use-package tetris
-  :bind (("z" . tetris-rotate-next)
-         ("x" . tetris-rotate-prev)))
+  :commands tetris
+  :config
+  (define-key tetris-mode-map "z" 'tetris-rotate-next)
+  (define-key tetris-mode-map "x" 'tetris-rotate-prev))
 
 (use-package diminish)
 
