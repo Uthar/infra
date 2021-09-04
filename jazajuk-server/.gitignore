@@ -1,5 +1,0 @@
-pki/
-ssh/
-*.ovpn
-keys/
-nixops.sqlite

@@ -1,0 +1,107 @@
+From 8556046965265d7082d8f28eee3f53ca66bcc067 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Kasper=20Ga=C5=82kowski?= <kpg@posteo.net>
+Date: Thu, 26 Aug 2021 20:48:42 +0200
+Subject: [PATCH] add zstd decompression
+
+---
+ shell.nix                  |  2 +-
+ src/libutil/compression.cc | 45 ++++++++++++++++++++++++++++++++++++++
+ src/libutil/local.mk       |  2 +-
+ 3 files changed, 47 insertions(+), 2 deletions(-)
+
+diff --git a/shell.nix b/shell.nix
+index e8026f8e4..011dc85c3 100644
+--- a/shell.nix
++++ b/shell.nix
+@@ -7,7 +7,7 @@ with import ./release-common.nix { inherit pkgs; };
+ (if useClang then clangStdenv else stdenv).mkDerivation {
+   name = "nix";
+ 
+-  buildInputs = buildDeps ++ propagatedDeps ++ tarballDeps ++ perlDeps;
++  buildInputs = buildDeps ++ propagatedDeps ++ tarballDeps ++ perlDeps ++ [ zstd ];
+ 
+   inherit configureFlags;
+ 
+diff --git a/src/libutil/compression.cc b/src/libutil/compression.cc
+index 826c7bcb2..5a7103bca 100644
+--- a/src/libutil/compression.cc
++++ b/src/libutil/compression.cc
+@@ -6,6 +6,7 @@
+ #include <lzma.h>
+ #include <bzlib.h>
+ #include <zlib.h>
++#include <zstd.h>
+ #include <cstdio>
+ #include <cstring>
+ 
+@@ -254,6 +255,48 @@ struct GzipDecompressionSink : ChunkedCompressionSink
+     }
+ };
+ 
++struct ZstdDecompressionSink : ChunkedCompressionSink
++{
++    Sink & nextSink;
++    ZSTD_DStream * strm;
++
++    ZstdDecompressionSink(Sink & nextSink) : nextSink(nextSink)
++    {
++        strm = ZSTD_createDStream();
++        if (!strm)
++            throw CompressionError("unable to initialise zstd decoder");
++    }
++
++    ~ZstdDecompressionSink()
++    {
++        ZSTD_freeDStream(strm);
++    }
++
++
++    void finish() override
++    {
++        flush();
++        write(nullptr, 0);
++    }
++
++    void writeInternal(const unsigned char * data, size_t len) override
++    {
++        ZSTD_inBuffer in = {data,len,0};
++        ZSTD_outBuffer out = {outbuf,sizeof(outbuf),0};
++
++        while (in.pos < in.size) {
++            checkInterrupt();
++
++            size_t ret = ZSTD_decompressStream(strm,&out,&in);
++            if (ZSTD_isError(ret))
++                throw CompressionError("error %d while decompressing zstd file", ret);
++
++            nextSink(outbuf, out.pos);
++            out.pos = 0;
++        }
++    }
++};
++
+ 
+ ref<std::string> decompress(const std::string & method, const std::string & in)
+ {
+@@ -276,6 +319,8 @@ ref<CompressionSink> makeDecompressionSink(const std::string & method, Sink & ne
+         return make_ref<BrotliDecompressionSink>(nextSink);
+     else if (method == "gzip")
+         return make_ref<GzipDecompressionSink>(nextSink);
++    else if (method == "zstd")
++        return make_ref<ZstdDecompressionSink>(nextSink);
+     else
+         throw UnknownCompressionMethod("unknown compression method '%s'", method);
+ }
+diff --git a/src/libutil/local.mk b/src/libutil/local.mk
+index dcdc88daf..4b3399453 100644
+--- a/src/libutil/local.mk
++++ b/src/libutil/local.mk
+@@ -6,4 +6,4 @@ libutil_DIR := $(d)
+ 
+ libutil_SOURCES := $(wildcard $(d)/*.cc)
+ 
+-libutil_LDFLAGS = -lz $(LIBLZMA_LIBS) -lbz2 -pthread $(OPENSSL_LIBS) $(LIBBROTLI_LIBS) $(BOOST_LDFLAGS) -lboost_context
++libutil_LDFLAGS = -lzstd -lz $(LIBLZMA_LIBS) -lbz2 -pthread $(OPENSSL_LIBS) $(LIBBROTLI_LIBS) $(BOOST_LDFLAGS) -lboost_context
+-- 
+2.31.1
+

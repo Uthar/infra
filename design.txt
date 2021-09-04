@@ -1,0 +1,35 @@
+
+                    installations of OS's on
+                    physical computers
+                      +-----------+
+     +----------------| networks  |-------------------------+
+     |                +-----------+                         |
+     |                   |     |                            |
+     |                   |     |                            |
+     |                   |     |                            |
+     |                   |     |                            |
+     |                   |     |                            |
+     |                   |     |                            |
+     |                   |     |                            |
+     |   +-----------+   |     |       +----------+         |
+     |   | machines  |<--+     +------>| systems  |         |
+     |   +-----------+                 +----------+         |
+     | physical computers             logical OS's          |
+     |                                                      |
+     v                                                      v
+   +---------+               +----------+              +---------+
+   | nixpkgs +-------------->| overlays |              | modules |
+   +---------+               +----------+              +---------+
+"standard library"         extensions               stuff that should-
+                                                    be in nixpks but isnt
+
+
+Can remove the nixpkgs dependency               If NIX_PATH pointed to local
+by using NIX_PATH in .envrc                     path in repo, could import
+                                                all modules in there to
+Still version-controlled, still                 remove the dependency in
+overridable if wanted, but not                  networks
+(needlessly) explicit dependency
+in network declarations                         NIXOS_EXTRA_MODULE_PATH looks
+                                                like a way to provide extra
+                                                modules (grep for it in nixpkgs)
