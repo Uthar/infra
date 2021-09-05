@@ -643,4 +643,25 @@ rec {
       bordeaux-threads
     ];
   };
+
+  iterate = build-asdf-system {
+    pname = "iterate";
+    version = "1.5.3-b12ed59941";
+    src = builtins.fetchTarball {
+      url = "https://gitlab.common-lisp.net/iterate/iterate/-/archive/b12ed5994137a67e15c46e6fd6f1ffd38d6bac81/iterate-master.tar.gz";
+      sha256 = "0v09598pm8frj61qzcsh654ij3l0fmqzfx727z38qnjigg16q5p3";
+    };
+  };
+
+  cl-sqlite = build-asdf-system {
+    pname = "cl-sqlite";
+    version = "0.2.1";
+    src = builtins.fetchTarball {
+      url = "https://github.com/TeMPOraL/cl-sqlite/archive/refs/tags/0.2.1.tar.gz";
+      sha256 = "08iv7b4m0hh7qx2cvq4f510nrgdld0vicnvmqsh9w0fgrcgmyg4k";
+    };
+    buildInputs = [ iterate cffi ];
+    systems = [ "sqlite" ];
+    nativeLibs = [ pkgs.sqlite ];
+  };
 }
