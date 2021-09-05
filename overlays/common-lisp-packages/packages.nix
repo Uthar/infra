@@ -4,7 +4,7 @@ rec {
 
   alexandria = build-asdf-system {
     pname = "alexandria";
-    version = "20210903";
+    version = "1.4-20210903";
     src = builtins.fetchTarball {
       url = "https://gitlab.common-lisp.net/alexandria/alexandria/-/archive/v1.4/alexandria-v1.4.tar.gz";
       sha256 = "0r1adhvf98h0104vq14q7y99h0hsa8wqwqw92h7ghrjxmsvz2z6l";
@@ -163,8 +163,6 @@ rec {
     };
     version = "20201016";
     pname = "cl-base64";
-    buildInputs = [
-    ];
   };
 
   "cl-cookie" = build-asdf-system {
@@ -190,8 +188,6 @@ rec {
     };
     version = "20141217";
     pname = "cl-json";
-    buildInputs = [
-    ];
   };
 
   "cl-unicode" = with builtins; let
@@ -300,8 +296,6 @@ rec {
     };
     version = "1.2.4";
     pname = "cl-utilities";
-    buildInputs = [
-    ];
   };
 
   "dexador" = build-asdf-system {
@@ -381,8 +375,6 @@ rec {
     };
     version = "20210124";
     pname = "local-time";
-    buildInputs = [
-    ];
   };
 
   "proc-parse" = build-asdf-system {
@@ -433,8 +425,6 @@ rec {
     };
     version = "2.0.0";
     pname = "split-sequence";
-    buildInputs = [
-    ];
   };
 
   "static-vectors" = build-asdf-system {
@@ -458,8 +448,6 @@ rec {
     };
     version = "20210411";
     pname = "trivial-features";
-    buildInputs = [
-    ];
   };
 
   "trivial-garbage" = build-asdf-system {
@@ -469,8 +457,6 @@ rec {
     };
     version = "20200925";
     pname = "trivial-garbage";
-    buildInputs = [
-    ];
   };
 
   "trivial-gray-streams" = build-asdf-system {
@@ -480,8 +466,6 @@ rec {
     };
     version = "20210124";
     pname = "trivial-gray-streams";
-    buildInputs = [
-    ];
   };
 
   "trivial-mimes" = build-asdf-system {
@@ -491,8 +475,6 @@ rec {
     };
     version = "20200715";
     pname = "trivial-mimes";
-    buildInputs = [
-    ];
   };
 
   "uiop" = build-asdf-system {
@@ -502,8 +484,6 @@ rec {
     };
     version = "3.3.4";
     pname = "uiop";
-    buildInputs = [
-    ];
   };
 
   "usocket" = build-asdf-system {
@@ -565,10 +545,10 @@ rec {
 
   jzon = build-asdf-system {
     src = builtins.fetchTarball {
-      url = "https://github.com/Zulu-Inuoe/jzon/archive/3869341634867fb3f3cdf606c1f89f323b117053.tar.gz";
-      sha256 = "0yg7ffwzgvvmwrisxnmrjlsjyiqfd42g36qnampwq0k3skmc4crl";
+      url = "https://github.com/Zulu-Inuoe/jzon/archive/6b201d4208ac3f9721c461105b282c94139bed29.tar.gz";
+      sha256 = "01d4a78pjb1amx5amdb966qwwk9vblysm1li94n3g26mxy5zc2k3";
     };
-    version = "0.0.0-20210819-3869341634";
+    version = "0.0.0-20210905-6b201d4208";
     pname = "jzon";
     buildInputs = [
       closer-mop
