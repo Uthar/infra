@@ -54,6 +54,7 @@ in
     systemd.services.selenium = {
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
+      path = [ pkgs.ungoogled-chromium ];
 
       serviceConfig = {
         Restart = "always";
