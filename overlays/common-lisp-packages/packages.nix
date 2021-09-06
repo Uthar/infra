@@ -477,15 +477,6 @@ rec {
     pname = "trivial-mimes";
   };
 
-  "uiop" = build-asdf-system {
-    src =  builtins.fetchTarball {
-      url = "http://beta.quicklisp.org/archive/uiop/2020-02-18/uiop-3.3.4.tgz";
-      sha256 = "1jnjpnarlpbvspdxviivld3cl7afhlryh6x8fn3azy5x7msjz6n5";
-    };
-    version = "3.3.4";
-    pname = "uiop";
-  };
-
   "usocket" = build-asdf-system {
     src =  builtins.fetchTarball {
       url = "http://beta.quicklisp.org/archive/usocket/2019-12-27/usocket-0.8.3.tgz";
