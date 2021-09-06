@@ -70,7 +70,15 @@ rec {
     ];
   };
 
-  "cffi" = build-asdf-system {
+
+  "cffi" = let
+    jna = pkgs.fetchMavenArtifact {
+      groupId = "net.java.dev.jna";
+      artifactId = "jna";
+      version = "5.9.0";
+      sha256 = "0qbis8acv04fi902qzak1mbagqaxcsv2zyp7b8y4shs5nj0cgz7a";
+    };
+  in build-asdf-system {
     src =  builtins.fetchTarball {
       url = "http://beta.quicklisp.org/archive/cffi/2021-04-11/cffi_0.24.1.tgz";
       sha256 = "17ryim4xilb1rzxydfr7595dnhqkk02lmrbkqrkvi9091shi4cj3";
@@ -82,6 +90,7 @@ rec {
       babel
       trivial-features
     ];
+    javaLibs = [ jna ];
     systems = [ "cffi" "cffi-grovel" "cffi-toolchain" ];
   };
 
