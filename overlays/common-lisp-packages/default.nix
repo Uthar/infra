@@ -178,14 +178,17 @@ let
     sbcl = "${pkgs.sbcl}/bin/sbcl --script";
     ecl = "${pkgs.ecl}/bin/ecl --shell";
     abcl = ''${pkgs.abcl}/bin/abcl --batch --eval "(load \"$buildScript\")"'';
+    ccl = ''${pkgs.ccl}/bin/ccl --batch --eval "(load \"$buildScript\")" --'';
 
     sbclPackages = commonLispPackagesFor sbcl;
     eclPackages = commonLispPackagesFor ecl;
     abclPackages = commonLispPackagesFor abcl;
+    cclPackages = commonLispPackagesFor ccl;
 
     sbclWithPackages = lispWithPackages sbclPackages;
     eclWithPackages = lispWithPackages eclPackages;
     abclWithPackages = lispWithPackages abclPackages;
+    cclWithPackages = lispWithPackages cclPackages;
   };
 
 in commonLispPackages
