@@ -124,14 +124,12 @@ let
 
   # Build the set of lisp packages using `lisp`
   commonLispPackagesFor = lisp:
-  let
-    build-asdf-system' = body: build-asdf-system (body // { inherit lisp; });
-  in { inherit lisp; }
-     //
-     (import ./packages.nix {
-       inherit pkgs;
-       build-asdf-system = build-asdf-system';
-     });
+    let
+      build-asdf-system' = body: build-asdf-system (body // { inherit lisp; });
+    in import ./packages.nix {
+      inherit pkgs;
+      build-asdf-system = build-asdf-system';
+    };
 
   # Creates a lisp wrapper with `packages` installed
   #
@@ -147,7 +145,7 @@ let
   lispWithPackages = clpkgs: packages:
     # FIXME just use flattenedDeps instead
     (build-asdf-system rec {
-      inherit (clpkgs) lisp;
+      lisp = (head (lib.attrValues clpkgs)).lisp;
       pname = baseNameOf (head (split " " lisp));
       version = "with-packages";
       buildInputs = packages clpkgs;
