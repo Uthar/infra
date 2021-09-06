@@ -90,6 +90,8 @@
     eclMuslStatic = import ./ecl/static.nix { ecl = eclMusl; };
     ecl = eclGlibc;
 
+    kawa = super.callPackage ./kawa {};
+
     lzlib = super.callPackage ./lzlib.nix {} ;
 
     guile_3_0 = super.callPackage ./guile {} ;
