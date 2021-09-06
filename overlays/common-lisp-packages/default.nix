@@ -1,3 +1,14 @@
+# TODO:
+# - faster build by using lisp with preloaded asdf?
+# - dont include java libs unless abcl?
+# - dont use build-asdf-system to build lispWithPackages?
+# - make the lisp packages overridable? (e.g. buildInputs glibc->musl)
+# - build asdf with nix and use that instead of one shipped with impls
+#   (e.g. to fix build with clisp - does anyone use clisp?)
+# - claspPackages ? (gotta package clasp with nix first)
+# - hard one: remove unrelated sources ( of systems not being built)
+# - figure out a less awkward way to patch sources
+#   (have to build from src directly for SLIME to work, so can't just patch sources in place)
 
 { pkgs, lib, stdenv, ... }:
 
