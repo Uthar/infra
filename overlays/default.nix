@@ -82,8 +82,11 @@
     sbcl = import ./sbcl.nix { inherit super; };
     sbcl-static = super.callPackage ./sbcl-static.nix {};
 
-    ecl = super.callPackage ./ecl {};
-    eclStatic = import ./ecl/static.nix { inherit ecl; };
+    eclGlibc = import ./ecl { pkgs = super; };
+    eclMusl = import ./ecl { pkgs = super.pkgsMusl; };
+    eclGlibcStatic = import ./ecl/static.nix { ecl = eclGlibc; };
+    eclMuslStatic = import ./ecl/static.nix { ecl = eclMusl; };
+    ecl = eclGlibc;
 
     lzlib = super.callPackage ./lzlib.nix {} ;
 

@@ -1,9 +1,7 @@
+{ pkgs }:
 
-
-{ pkgs, lib, stdenv, ... }:
-
-with pkgs.pkgsMusl;
-with lib.lists;
+with pkgs;
+with pkgs.lib.lists;
 
 # These 2 don't matter right, but leaving it around for playing with
 # static linking
