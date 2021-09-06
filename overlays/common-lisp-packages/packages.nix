@@ -657,4 +657,15 @@ rec {
     systems = [ "sqlite" ];
     nativeLibs = [ pkgs.sqlite ];
   };
+
+  cl-murmurhash = build-asdf-system {
+    pname = "cl-murmurhash";
+    version = "5433f5e95f";
+    src = builtins.fetchTarball {
+      url = https://github.com/ruricolist/cl-murmurhash/archive/5433f5e95f1cce63a81259a471150834c6a59364.tar.gz;
+      sha256 = "0251r0mpjm0y3qsm4lm7ncvrkxvgwc53spdm1p2mpayhvkkqqsws";
+    };
+    buildInputs = [ babel ];
+  };
+
 }
