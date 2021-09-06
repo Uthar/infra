@@ -668,4 +668,14 @@ rec {
     buildInputs = [ babel ];
   };
 
+  cl-hamt = build-asdf-system {
+    pname = "cl-hamt";
+    version = "7a99eaaca1";
+    src = builtins.fetchTarball {
+      url = https://github.com/danshapero/cl-hamt/archive/7a99eaaca1f952029def9ad5a2b80a612a712208.tar.gz;
+      sha256 = "1ycbd73ykfj5j9sdhlzamyv18qbjj6xqf7fhm4fa0nsyr6sr3rf5";
+    };
+    buildInputs = [ cl-murmurhash ];
+  };
+
 }
