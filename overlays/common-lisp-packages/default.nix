@@ -26,6 +26,9 @@ let
       # Native libraries, will be appended to the library path
       nativeLibs ? [],
 
+      # Java libraries for ABCL, will be appended to the class path
+      javaLibs ? [],
+
       # Lisp dependencies
       buildInputs ? [],
 
@@ -48,8 +51,8 @@ let
       ...
     } @ args:
 
-    stdenv.mkDerivation rec {
-      inherit pname version src nativeLibs buildInputs lisp systems;
+    stdenv.mkDerivation (rec {
+      inherit pname version src nativeLibs javaLibs buildInputs lisp systems;
 
       # When src is null, we are building a lispWithPackages and only
       # want to make use of the dependency environment variables
@@ -66,8 +69,8 @@ let
       # Tell lisp where to find native dependencies
       LD_LIBRARY_PATH = makeLibraryPath (concatMap (x: x.nativeLibs) (flattenedDeps buildInputs));
 
-      # FIXME for abcl
-      CLASSPATH = makeSearchPath "" (flattenedDeps buildInputs);
+      # Java libraries For ABCL
+      CLASSPATH = makeSearchPath "share/java/*" (concatMap (x: x.javaLibs) (flattenedDeps buildInputs));
 
       # Portable script to build the systems.
       #
@@ -84,9 +87,9 @@ let
         # of the systems being built
         #
         # *Append* src since `buildInputs` can provide .asd's that are
-        # also in `src` but are not in `systems` (the .asd's that will
-        # be deleted in installPhase). We don't want to rebuild them,
-        # but to load them from buildInputs.
+        # also in `src` but are not in `systems` (that is, the .asd's
+        # that will be deleted in installPhase). We don't want to
+        # rebuild them, but to load them from buildInputs.
         #
         # NOTE: It's important to read files from `src` instead of
         # from pwd to get go-to-definition working with SLIME
@@ -94,6 +97,7 @@ let
 
         # Similiarily for native deps
         export LD_LIBRARY_PATH=${makeLibraryPath nativeLibs}:$LD_LIBRARY_PATH
+        export CLASSPATH=${makeSearchPath "share/java/*" javaLibs}:$CLASSPATH
 
         # Make asdf compile from `src` to pwd and load `buildInputs`
         # from storeDir. Otherwise it could try to recompile lisp deps.
@@ -161,7 +165,9 @@ let
           --prefix CL_SOURCE_REGISTRY : "${o.CL_SOURCE_REGISTRY}" \
           --prefix ASDF_OUTPUT_TRANSLATIONS : ${storeDir}:${storeDir} \
           --prefix LD_LIBRARY_PATH : "${o.LD_LIBRARY_PATH}" \
-          --prefix LD_LIBRARY_PATH : "${makeLibraryPath o.nativeLibs}"
+          --prefix LD_LIBRARY_PATH : "${makeLibraryPath o.nativeLibs}" \
+          --prefix CLASSPATH : "${o.CLASSPATH}" \
+          --prefix CLASSPATH : "${makeSearchPath "share/java/*" o.javaLibs}"
       '';
     });
 
