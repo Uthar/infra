@@ -62,7 +62,7 @@ let
       ...
     } @ args:
 
-    stdenv.mkDerivation (rec {
+    stdenv.mkDerivation rec {
       inherit pname version src nativeLibs javaLibs buildInputs lisp systems;
 
       # When src is null, we are building a lispWithPackages and only
