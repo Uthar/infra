@@ -100,6 +100,8 @@ clasp_0_9 = llvmPackages_9.stdenv.mkDerivation {
     ];
 };
 
+# Probably best to wait for LLVM 13 to be released and clasp devs to
+# adjust to the new interface
 clasp_1_0 = let
 
   pkgs_unstable = import (builtins.fetchTarball {
