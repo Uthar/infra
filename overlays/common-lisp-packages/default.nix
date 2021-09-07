@@ -9,6 +9,7 @@
 # - hard one: remove unrelated sources ( of systems not being built)
 # - figure out a less awkward way to patch sources
 #   (have to build from src directly for SLIME to work, so can't just patch sources in place)
+# - don' conflate buildInputs as lisp libs, use something like lispLibs?
 
 { pkgs, lib, stdenv, ... }:
 
