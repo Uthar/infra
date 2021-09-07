@@ -1,0 +1,45 @@
+diff --git a/include/clasp/llvmo/llvmoExpose.h b/include/clasp/llvmo/llvmoExpose.h
+index fcb81617c..bf2387520 100644
+--- a/include/clasp/llvmo/llvmoExpose.h
++++ b/include/clasp/llvmo/llvmoExpose.h
+@@ -42,7 +42,7 @@ THE SOFTWARE.
+ #include <llvm/IR/Module.h>
+ #include <llvm/Linker/Linker.h>
+ #include <llvm/ExecutionEngine/ExecutionEngine.h>
+-#include <llvm/ExecutionEngine/Orc/TargetProcessControl.h>
++#include <llvm/ExecutionEngine/Orc/ExecutorProcessControl.h>
+ #include <llvm/MC/MCSubtargetInfo.h>
+ #include <llvm/CodeGen/TargetSubtargetInfo.h>
+ //#include "llvm/ExecutionEngine/JIT.h"
+@@ -4602,8 +4602,8 @@ public:
+   ~ClaspJIT_O();
+ public:
+   JITDylib_sp _MainJITDylib;
+-  std::unique_ptr<llvm::orc::TargetProcessControl> _TPC;
++  std::unique_ptr<llvm::orc::ExecutorProcessControl> _TPC;
+   std::unique_ptr<llvm::orc::LLJIT>    _LLJIT;
+ //  llvm::jitlink::JITLink* _LinkLayer;
+ #if _TARGET_OS_DARWIN
+
+diff --git a/src/llvmo/llvmoExpose.cc b/src/llvmo/llvmoExpose.cc
+index b44047e05..a6624805c 100644
+--- a/src/llvmo/llvmoExpose.cc
++++ b/src/llvmo/llvmoExpose.cc
+@@ -100,7 +100,7 @@ Error enableObjCRegistration(const char *PathToLibObjC);
+ #include <llvm/IR/Verifier.h>
+ #include <llvm/IR/AssemblyAnnotationWriter.h> // will be llvm/IR
+ #include <llvm/ExecutionEngine/Orc/RTDyldObjectLinkingLayer.h>
+-#include <llvm/ExecutionEngine/Orc/TargetProcessControl.h>
++#include <llvm/ExecutionEngine/Orc/ExecutorProcessControl.h>
+ #include <llvm/ExecutionEngine/Orc/DebugObjectManagerPlugin.h>
+ #include <llvm/ExecutionEngine/Orc/TargetProcess/RegisterEHFrames.h>
+ #include <llvm/ExecutionEngine/Orc/TargetProcess/JITLoaderGDB.h>
+@@ -4519,6 +4519,6 @@ ClaspJIT_O::ClaspJIT_O(bool loading, JITDylib_O* mainJITDylib) {
+         auto JTMB = ExitOnErr(JITTargetMachineBuilder::detectHost());
+         JTMB.setCodeModel(CodeModel::Small);
+         JTMB.setRelocationModel(Reloc::Model::PIC_);
+-        this->_TPC = ExitOnErr(orc::SelfTargetProcessControl::Create(std::make_shared<orc::SymbolStringPool>()));
++        this->_TPC = ExitOnErr(orc::SelfExecutorProcessControl::Create(std::make_shared<orc::SymbolStringPool>()));
+         auto J = ExitOnErr(
+                            LLJITBuilder()
+                            .setExecutionSession(std::make_unique<ExecutionSession>(this->_TPC->getSymbolStringPool()))

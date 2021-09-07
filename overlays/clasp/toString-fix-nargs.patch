@@ -1,0 +1,12 @@
+diff --git a/src/asttooling/astExpose1.cc b/src/asttooling/astExpose1.cc
+index aa536299a..dd077a2db 100644
+--- a/src/asttooling/astExpose1.cc
++++ b/src/asttooling/astExpose1.cc
+@@ -788,6 +788,6 @@ void af_getNameForDiagnostic(clang::ClassTemplateSpecializationDecl *decl, core:
+
+ core::T_sp af_constant_array_get_size(clang::ConstantArrayType *cat) {
+     llvm::APInt size = cat->getSize();
+-  string s = size.toString(10,true);
++  string s = size.toString(10,true,false);
+   return core::Integer_O::create(s);
+ }

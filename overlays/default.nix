@@ -92,6 +92,8 @@
 
     kawa = super.callPackage ./kawa {};
 
+    clasp = super.callPackage ./clasp {};
+
     lzlib = super.callPackage ./lzlib.nix {} ;
 
     guile_3_0 = super.callPackage ./guile {} ;
