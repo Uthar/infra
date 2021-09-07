@@ -91,6 +91,8 @@ clasp_0_9 = llvmPackages_9.stdenv.mkDerivation {
     # Simply exit right after cloning the repo, revisions are set on nix side
     substituteInPlace tools-for-build/fetch-git-revision.sh \
       --replace 'cd "$path" || exit $?' 'cd "$path" && exit 0'
+
+    echo "PREFIX = \"$out\"" > wscript.config
   '';
   buildInputs =
     [ python310 git sbcl gmp libffi boehmgc libelf libbsd
