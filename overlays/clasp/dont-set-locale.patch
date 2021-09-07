@@ -1,14 +1,13 @@
 diff --git a/wscript b/wscript
-index 95f886737..680aff89d 100644
+index 95f886737..9d71db7c2 100644
 --- a/wscript
 +++ b/wscript
-@@ -56,9 +56,6 @@ sys.dont_write_bytecode = True   # avoid littering the dirs with .pyc files
- from build_file_lists import *
+@@ -57,4 +57,4 @@ from build_file_lists import *
  from wscript_utils import *
 
--# Let's not depend on the locale setting of the host, set it explicitly.
+ # Let's not depend on the locale setting of the host, set it explicitly.
 -os.environ['LC_ALL'] = os.environ['LANG'] = "C"
--
++os.environ['LC_ALL'] = os.environ['LANG'] = "POSIX"
+
  # This function enables extra command line options for ./waf --help
  def options(ctx):
-     ctx.recurse('extensions')
