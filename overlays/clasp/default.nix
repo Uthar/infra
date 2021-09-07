@@ -2,6 +2,8 @@
 
 { pkgs, stdenv, lib, ... }:
 
+with pkgs;
+
 let
 
   pkgs_unstable = import (builtins.fetchTarball {
@@ -58,11 +60,8 @@ let
     leaveDotGit = true;
   };
 
-in
 
-with pkgs;
-
-llvmPackages_9.stdenv.mkDerivation {
+clasp_old = llvmPackages_9.stdenv.mkDerivation {
   pname = "clasp";
   version = "0.9-b14e329f49";
   src = fetchgit {
@@ -73,6 +72,9 @@ llvmPackages_9.stdenv.mkDerivation {
   preConfigure = ''
     ./waf configure
   '';
+  patches = [
+    ./dont-set-locale.patch
+  ];
   postPatch = ''
     substituteInPlace waf \
       --replace '/usr/bin/env python' ${python3.interpreter}
@@ -96,7 +98,9 @@ llvmPackages_9.stdenv.mkDerivation {
       llvm_9.dev
       llvmPackages_9.libclang
     ];
-}
+};
+
+in clasp_old
 
 # { pkgs, stdenv, lib, ... }:
 
