@@ -11,14 +11,14 @@ let
 
   Cleavir = pkgs.fetchgit {
     url = https://github.com/s-expressionists/Cleavir;
-    rev = "fb9ff5a6c54e8d27c402118426139ee40a4b4e65";
-    sha256 = "19wkgad2wrcvrgw0gr8lvkg3kxg957da47xxrxcymcf462lx1jd5";
+    rev = "715266bc877bf1c15d2c5e471a9e2d2d3ca5db6c";
+    sha256 = "0aa0a5hsjqzpy1s7pr2lmyzbsyhfrqfa41z54js6vgxf56p92gdg";
     leaveDotGit = true;
   };
   Concrete-Syntax-Tree = pkgs.fetchgit {
     url = https://github.com/s-expressionists/Concrete-Syntax-Tree;
-    rev = "ffade18bb5b390d9aee960d587701367f4aac92b";
-    sha256 = "000lwbz6dimzr5p3s37v9qri3wz13y05fy7bvh0n6p0h9ls4ld0a";
+    rev = "a56a5246fbaa90b98a29368c011a6616f2bcb482";
+    sha256 = "10nw9a0kxim87a8nrf3xpcqm70ahpcgmgpi0gxphmrr74iqx5n9q";
     leaveDotGit = true;
   };
   closer-mop = pkgs.fetchgit {
@@ -62,13 +62,13 @@ in
 
 with pkgs;
 
-llvmPackages_12.stdenv.mkDerivation {
+llvmPackages_9.stdenv.mkDerivation {
   pname = "clasp";
-  version = "0.9-23bf6aa3dc";
+  version = "0.9-b14e329f49";
   src = fetchgit {
     url = https://github.com/clasp-developers/clasp;
-    rev = "d92ff9d78919c265a45caa1983c3998ac1f54e61";
-    sha256 = "07pld7f9nqmgnca4rp6wcydwr3fryh3dkp1niqrazbxzpk14lx33";
+    rev = "b14e329f49998275579926da2a737885ceb2cea7";
+    sha256 = "0sgh3r6vlik1g5zvc721if6nil1qk0rf5y65yp97q9y2xz4lb6sr";
   };
   preConfigure = ''
     ./waf configure
@@ -93,8 +93,8 @@ llvmPackages_12.stdenv.mkDerivation {
   buildInputs =
     [ python310 git sbcl gmp libffi boehmgc libelf libbsd
       boost175.dev boost175
-      llvm_12.dev
-      llvmPackages_12.libclang
+      llvm_9.dev
+      llvmPackages_9.libclang
     ];
 }
 
