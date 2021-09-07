@@ -73,7 +73,7 @@ clasp_0_9 = llvmPackages_9.stdenv.mkDerivation {
     ./waf configure
   '';
   patches = [
-    ./dont-set-locale.patch
+    ./user-preferred-locale.patch
   ];
   postPatch = ''
     substituteInPlace waf \
