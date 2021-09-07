@@ -72,9 +72,6 @@ clasp_0_9 = llvmPackages_9.stdenv.mkDerivation {
   preConfigure = ''
     ./waf configure
   '';
-  patches = [
-    ./user-preferred-locale.patch
-  ];
   postPatch = ''
     substituteInPlace waf \
       --replace '/usr/bin/env python' ${python3.interpreter}
@@ -87,6 +84,9 @@ clasp_0_9 = llvmPackages_9.stdenv.mkDerivation {
       --replace 'https://github.com/clasp-developers/alexandria.git' ${alexandria} \
       --replace 'https://github.com/Ravenbrook/mps.git' ${mps} \
       --replace 'https://gitlab.common-lisp.net/asdf/asdf.git' ${asdf}
+
+    substituteInPlace include/clasp/core/character.h \
+      --replace "en_US.UTF-8" ""
 
     # Simply exit right after cloning the repo, revisions are set on nix side
     substituteInPlace tools-for-build/fetch-git-revision.sh \
