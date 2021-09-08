@@ -9,6 +9,7 @@
            ];
       buildInputs = o.buildInputs ++ [ super.zstd ];
       doCheck = false;
+      doInstallCheck = false;
     });
 
     nixopsWithPlugins = super.nixopsUnstable.override {
