@@ -124,12 +124,6 @@ clasp_1_0 = let
     leaveDotGit = true;
   };
 
-  llvmPackages_clasp = recurseIntoAttrs (callPackage ./llvm_13 ({
-    inherit (stdenvAdapters) overrideCC;
-    buildLlvmTools = buildPackages.llvmPackages_12.tools;
-    targetLlvmLibraries = targetPackages.llvmPackages_12.libraries;
-  }));
-
 in
 
   # Gotta use the right commit of llvm: 972b6a3a3471c2a742c5c5d8ec004ff640d544c4
