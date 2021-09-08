@@ -56,11 +56,13 @@
       eclPackages
       abclPackages
       cclPackages
+      claspPackages
       lispWithPackages
       sbclWithPackages
       eclWithPackages
       abclWithPackages
-      cclWithPackages;
+      cclWithPackages
+      claspWithPackages;
 
 
     fsl = super.callPackage ./fsl.nix { inherit fossil; };
