@@ -114,13 +114,13 @@ clasp_1_0 = let
   Cleavir = pkgs.fetchgit {
     url = https://github.com/s-expressionists/Cleavir;
     rev = "3884e9325acf8db4d45d2a0e86378285ecbc2926";
-    sha256 = "10k4agbqp1dgcy6jd72lg02n47iafjr725cgc91fxv0bl1n7xdhl";
+    sha256 = "0b2zisaczsvcg6d68rp87vmgrndk3ilqandwfgv96kkijwzw5y8n";
     leaveDotGit = true;
   };
   Concrete-Syntax-Tree = pkgs.fetchgit {
     url = https://github.com/s-expressionists/Concrete-Syntax-Tree;
     rev = "4f01430c34f163356f3a2cfbf0a8a6963ff0e5ac";
-    sha256 = "0ak9n3xfghd3wzv4r4hgpjka1dlv2hhsqwzibvipbgjb6vpgf03x";
+    sha256 = "1vx36d8w27kppkq25nc5fcgw5155z1wv2hj0v92n6xamx4wxl9fn";
     leaveDotGit = true;
   };
 
