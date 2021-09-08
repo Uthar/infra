@@ -124,10 +124,16 @@ clasp_1_0 = let
     leaveDotGit = true;
   };
 
+  llvmPackages_clasp = recurseIntoAttrs (callPackage ./llvm_13 ({
+    inherit (stdenvAdapters) overrideCC;
+    buildLlvmTools = buildPackages.llvmPackages_12.tools;
+    targetLlvmLibraries = targetPackages.llvmPackages_12.libraries;
+  }));
+
 in
 
   # Gotta use the right commit of llvm: 972b6a3a3471c2a742c5c5d8ec004ff640d544c4
-  pkgs_unstable.llvmPackages_13.stdenv.mkDerivation {
+  llvmPackages_clasp.stdenv.mkDerivation {
     pname = "clasp";
     version = "1.0-23bf6aa3dc";
     src = fetchgit {
@@ -138,10 +144,6 @@ in
     preConfigure = ''
     ./waf configure
   '';
-    patches = [
-      ./TargetProcessControl-renamed-to-ExecutorProcessControl.patch
-      ./toString-fix-nargs.patch
-    ];
     postPatch = ''
     substituteInPlace waf \
       --replace '/usr/bin/env python3' ${python3.interpreter}
@@ -158,12 +160,17 @@ in
     # Simply exit right after cloning the repo, revisions are set on nix side
     substituteInPlace tools-for-build/fetch-git-revision.sh \
       --replace 'cd "$path" || exit $?' 'cd "$path" && exit 0'
+
+    substituteInPlace include/clasp/core/character.h \
+      --replace "en_US.UTF-8" ""
+
+    echo "PREFIX = \"$out\"" > wscript.config
   '';
     buildInputs =
       [ python310 git sbcl gmp libffi boehmgc libelf libbsd
-        pkgs_unstable.boost175.dev pkgs_unstable.boost175
-        pkgs_unstable.llvm_13.dev
-        pkgs_unstable.llvmPackages_13.libclang
+        boost175.dev boost175
+        llvmPackages_clasp.llvm.dev
+        llvmPackages_clasp.libclang
       ];
   };
 
