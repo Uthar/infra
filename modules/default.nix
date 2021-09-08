@@ -12,5 +12,6 @@
       ./guix
       ./nixos-mailserver
       ./selenium
+      ./happet
     ];
 }

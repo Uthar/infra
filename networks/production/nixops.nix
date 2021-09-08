@@ -162,6 +162,10 @@ in {
         toPort = 80;
         sourceIp = "0.0.0.0/0";
       }
+      { fromPort = 443;
+        toPort = 443;
+        sourceIp = "0.0.0.0/0";
+      }
     ];
   };
 
@@ -185,17 +189,51 @@ in {
         ebsInitialRootDiskSize = 10;
       };
 
+      deployment.keys.happet_token = {
+        user = "happet";
+        keyCommand = [ "pass" "infra/prod/happet/token" ];
+      };
+
+      deployment.keys.happet_login = {
+        user = "happet";
+        keyCommand = [ "pass" "infra/prod/happet/login" ];
+      };
+
+      deployment.keys.happet_password = {
+        user = "happet";
+        keyCommand = [ "pass" "infra/prod/happet/password" ];
+      };
+
       services.httpd.adminAddr = "k@galkowski,xyz";
       services.httpd.enable = true;
 
+      services.httpd.extraConfig = ''
+        ServerTokens Prod
+        ServerSignature Off
+      '';
+
+      security.acme.acceptTerms = true;
+      security.acme.email = "k@galkowski.xyz";
+
+      services.httpd.virtualHosts."happet.galkowski.xyz" = {
+        locations."/.well-known".proxyPass = "!";
+        locations."/order".proxyPass = "http://localhost:8080/order";
+        forceSSL = true;
+        enableACME = true;
+      };
+
       services.selenium.enable = true;
+      services.happet.enable = true;
+      services.happet.group = "keys";
 
       # Just in case i lose nixops.sqlite
       users.users.root = {
-        openssh.authorizedKeys.keyFiles = [ /home/kpg/.ssh/id_rsa.pub ];
+        openssh.authorizedKeys.keyFiles = [ /home/kpg/.ssh/id_rsa.pub
+                                            /home/kpg/.ssh/aws_happet_mikus.pub
+                                          ];
       };
 
-      networking.firewall.allowedTCPPorts = [ 80 ];
+      networking.firewall.allowedTCPPorts = [ 80 443 ];
     };
 
 }
