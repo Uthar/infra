@@ -91,6 +91,8 @@
 
 (use-package emacs
   :custom
+  (enable-dir-local-variables nil)
+  (enable-local-variables nil)
   (server-client-instructions nil)
   (use-short-answers t)
   (create-lockfiles nil)
