@@ -167,4 +167,19 @@ in
       ];
   };
 
-in clasp_0_9
+fixup = clasp: stdenv.mkDerivation {
+  inherit (clasp) pname version;
+  src = clasp;
+  buildPhase = ''
+    mkdir -pv $out
+    cp -r * $out
+    rm -rf $out/lib/clasp/src/lisp/kernel/contrib/{alexandria,closer-mop}
+    mv $out/bin/iclasp-boehm $out/bin/clasp
+  '';
+  dontInstall = true;
+  dontFixup = true;
+  dontStrip = true;
+};
+
+in fixup clasp_0_9
+# in fixup clasp_1_0
