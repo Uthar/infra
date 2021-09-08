@@ -141,7 +141,7 @@ let
   # Build the set of lisp packages using `lisp`
   commonLispPackagesFor = lisp:
     let
-      build-asdf-system' = body: build-asdf-system (body // { inherit lisp; });
+      build-asdf-system' = body: build-asdf-system (body // { lisp = body.lisp or lisp; });
     in import ./packages.nix {
       inherit pkgs;
       build-asdf-system = build-asdf-system';

@@ -200,7 +200,7 @@ rec {
   };
 
   "cl-unicode" = with builtins; let
-    version = "0.1.6";
+    version = "0.1.6-2790a6b891";
     # cl-unicode generates lisp source files during compilation.
     #
     # Normally this fails because of an attempt to write to
@@ -209,18 +209,19 @@ rec {
     # of that as the $src of the next compilation
     cl-unicode-build = (build-asdf-system {
       inherit version;
+      lisp = "${pkgs.sbcl}/bin/sbcl --script";
       pname = "cl-unicode-build";
 
       src =  builtins.fetchTarball {
-        url = "https://github.com/edicl/cl-unicode/archive/refs/tags/v0.1.6.tar.gz";
-        sha256 = "0ykx2s9lqfl74p1px0ik3l2izd1fc9jd1b4ra68s5x34rvjy0hza";
+        url = "https://github.com/edicl/cl-unicode/archive/2790a6b8912be1cb051437f463400b4a7198748a.tar.gz";
+        sha256 = "1a9gbzvi5gj3z9gcia1rgmnk0dzgc82vz47bgnfvhn4q0c7mvk31";
       };
 
       systems = [ "cl-unicode" ];
 
       buildInputs = [
-        cl-ppcre
-        flexi-streams
+        pkgs.sbclPackages.cl-ppcre
+        pkgs.sbclPackages.flexi-streams
       ];
     }).overrideAttrs(o: {
       buildPhase = ''
