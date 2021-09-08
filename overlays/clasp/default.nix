@@ -188,5 +188,5 @@ fixup = clasp: stdenv.mkDerivation {
   dontStrip = true;
 };
 
-in fixup clasp_0_9
-# in fixup clasp_1_0
+# in fixup clasp_0_9
+in fixup clasp_1_0
