@@ -8,8 +8,7 @@
              ./add-zstd-decompression.patch
            ];
       buildInputs = o.buildInputs ++ [ super.zstd ];
-      # uncomment on next rebuild
-      # doCheck = false;
+      doCheck = false;
     });
 
     nixopsWithPlugins = super.nixopsUnstable.override {
