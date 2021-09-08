@@ -14,20 +14,20 @@ diff --git a/cmake/Modules/AddCompilerRT.cmake b/cmake/Modules/AddCompilerRT.cma
 index bc69ec95c419..9f100fdcec2f 100644
 --- a/cmake/Modules/AddCompilerRT.cmake
 +++ b/cmake/Modules/AddCompilerRT.cmake
-@@ -366,14 +366,6 @@ function(add_compiler_rt_runtime name type)
+@@ -365,14 +365,6 @@
          set_target_properties(${libname} PROPERTIES IMPORT_PREFIX "")
          set_target_properties(${libname} PROPERTIES IMPORT_SUFFIX ".lib")
        endif()
 -      if(APPLE)
 -        # Ad-hoc sign the dylibs
 -        add_custom_command(TARGET ${libname}
--          POST_BUILD  
+-          POST_BUILD
 -          COMMAND codesign --sign - $<TARGET_FILE:${libname}>
--          WORKING_DIRECTORY ${COMPILER_RT_OUTPUT_LIBRARY_DIR}
+-          WORKING_DIRECTORY ${COMPILER_RT_LIBRARY_OUTPUT_DIR}
 -        )
 -      endif()
      endif()
- 
-     set(parent_target_arg)
-2.14.1
 
+     set(parent_target_arg)
+
+Diff finished.  Wed Sep  8 12:51:25 2021
