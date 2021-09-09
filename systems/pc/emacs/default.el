@@ -156,6 +156,7 @@
           (dired "." (remove ?a dired-listing-switches))
           (dired "." (concat dired-listing-switches "a")))
       (setq dired-listing-switches dired-actual-switches)))
+  (setf dired-listing-switches (concat "--group-directories-first " dired-listing-switches))
   (setf dired-listing-switches (concat dired-listing-switches "h"))
   :hook
   (before-save . delete-trailing-whitespace)
