@@ -6,160 +6,82 @@ with pkgs;
 
 let
 
-  pkgs_unstable = import (builtins.fetchTarball {
-    url = https://github.com/nixos/nixpkgs/archive/e16c267e4899b2d87655f0c45ec96235bfe6a258.tar.gz;
-    sha256 = "1x4nx4hfcmhyib6c83sryyf33vjzxsh5kkr3mqwhfg7agwhcdhi4";
-  }) {};
-
-  Cleavir = pkgs.fetchgit {
-    url = https://github.com/s-expressionists/Cleavir;
-    rev = "715266bc877bf1c15d2c5e471a9e2d2d3ca5db6c";
-    sha256 = "0aa0a5hsjqzpy1s7pr2lmyzbsyhfrqfa41z54js6vgxf56p92gdg";
-    leaveDotGit = true;
+  Cleavir = builtins.fetchTarball {
+    url = https://github.com/s-expressionists/Cleavir/archive/3884e9325acf8db4d45d2a0e86378285ecbc2926.tar.gz;
+    sha256 = "1nm09y0scr75a0y7v2l1yiyqpnslvx2vn7fdr8317261lr4an0bp";
   };
-  Concrete-Syntax-Tree = pkgs.fetchgit {
-    url = https://github.com/s-expressionists/Concrete-Syntax-Tree;
-    rev = "a56a5246fbaa90b98a29368c011a6616f2bcb482";
-    sha256 = "10nw9a0kxim87a8nrf3xpcqm70ahpcgmgpi0gxphmrr74iqx5n9q";
-    leaveDotGit = true;
+  Concrete-Syntax-Tree = builtins.fetchTarball {
+    url = https://github.com/s-expressionists/Concrete-Syntax-Tree/archive/4f01430c34f163356f3a2cfbf0a8a6963ff0e5ac.tar.gz;
+    sha256 = "169ibaz1vv7pphib28443zzk3hf1mrcarhzfm8hnbdbk529cnxyi";
   };
-  closer-mop = pkgs.fetchgit {
-    url = https://github.com/pcostanza/closer-mop.git;
-    rev = "d4d1c7aa6aba9b4ac8b7bb78ff4902a52126633f";
-    sha256 = "1jvp1hv82bfvqzgvy5kd5rhryibd46nn0fsjn9ih337axi4p7cvc";
-    leaveDotGit = true;
+  closer-mop = builtins.fetchTarball {
+    url = https://github.com/pcostanza/closer-mop/archive/d4d1c7aa6aba9b4ac8b7bb78ff4902a52126633f.tar.gz;
+    sha256 = "1amcv0f3vbsq0aqhai7ki5bi367giway1pbfxyc47r7q3hq5hw3c";
   };
-  Acclimation = pkgs.fetchgit {
-    url = https://github.com/robert-strandh/Acclimation.git;
-    rev = "dd15c86b0866fc5d8b474be0da15c58a3c04c45c";
-    sha256 = "0ndwk1jz9gswh7hws68diay1skkps6zdsm8fz9qg00idz10pl8c9";
-    leaveDotGit = true;
+  Acclimation = builtins.fetchTarball {
+    url = https://github.com/robert-strandh/Acclimation/archive/dd15c86b0866fc5d8b474be0da15c58a3c04c45c.tar.gz;
+    sha256 = "0ql224qs3zgflvdhfbca621v3byhhqfb71kzy70bslyczxv1bsh2";
   };
-  Eclector = pkgs.fetchgit {
-    url = https://github.com/s-expressionists/Eclector.git;
-    rev = "e92cf239783be90c97e80aff2a14d65778a38325";
-    sha256 = "1avf606n3hg8rhjvhhfqbhls9q9cxzf0vgyn8ibb7zdaf4zz539h";
-    leaveDotGit = true;
+  Eclector = builtins.fetchTarball {
+    url = https://github.com/s-expressionists/Eclector/archive/e92cf239783be90c97e80aff2a14d65778a38325.tar.gz;
+    sha256 = "1srik177l76kf2hr5z7brp1fhzwfdqy3fkzrmyi9iyrfw547pl7y";
   };
-  alexandria = pkgs.fetchgit {
-    url = https://github.com/clasp-developers/alexandria.git;
-    rev = "e5c54bc30b0887c237bde2827036d17315f88737";
-    sha256 = "07krnwavqfj1cfdbxincv6l4y5anqawa7jw4q7990dacbcszvxq1";
-    leaveDotGit = true;
+  alexandria = builtins.fetchTarball {
+    url = https://github.com/clasp-developers/alexandria/archive/e5c54bc30b0887c237bde2827036d17315f88737.tar.gz;
+    sha256 = "14h7a9fwimiw9gqxjm2h47d95bfhrm7b81f6si7x8vy18d78fn4g";
   };
-  mps = pkgs.fetchgit {
-    url = https://github.com/Ravenbrook/mps.git;
-    rev = "b8a05a3846430bc36c8200f24d248c8293801503";
-    sha256 = "0i53b7f0qyh05xxppfi05c5i8rqr7mcwh8p4kr3b28jb8nf6pkxz";
-    leaveDotGit = true;
+  mps = builtins.fetchTarball {
+    url = https://github.com/Ravenbrook/mps/archive/b8a05a3846430bc36c8200f24d248c8293801503.tar.gz;
+    sha256 = "1q2xqdw832jrp0w9yhgr8xihria01j4z132ac16lr9ssqznkprv6";
   };
-  asdf = pkgs.fetchgit {
-    url = https://gitlab.common-lisp.net/asdf/asdf.git;
-    rev = "3.3.3.5";
-    sha256 = "16k3dw25imr9sjl57yl1yzsqs4njfd9gba05vj914c1f9zzgkhj7";
-    leaveDotGit = true;
+  asdf = builtins.fetchTarball {
+    url = https://gitlab.common-lisp.net/asdf/asdf/-/archive/3.3.3.5/asdf-3.3.3.5.tar.gz;
+    sha256 = "0jqj9qwxzx81rpsab784akyxbv2xh60m5yx3w5gjh0agq0y5bdki";
   };
 
-
-clasp_0_9 = llvmPackages_9.stdenv.mkDerivation {
-  pname = "clasp";
-  version = "0.9-b14e329f49";
-  src = fetchgit {
-    url = https://github.com/clasp-developers/clasp;
-    rev = "b14e329f49998275579926da2a737885ceb2cea7";
-    sha256 = "0sgh3r6vlik1g5zvc721if6nil1qk0rf5y65yp97q9y2xz4lb6sr";
-  };
-  preConfigure = ''
-    ./waf configure
-  '';
-  postPatch = ''
-    substituteInPlace waf \
-      --replace '/usr/bin/env python' ${python3.interpreter}
-    substituteInPlace wscript \
-      --replace 'https://github.com/s-expressionists/Cleavir' ${Cleavir} \
-      --replace 'https://github.com/s-expressionists/Concrete-Syntax-Tree.git' ${Concrete-Syntax-Tree} \
-      --replace 'https://github.com/pcostanza/closer-mop.git' ${closer-mop} \
-      --replace 'https://github.com/robert-strandh/Acclimation.git' ${Acclimation} \
-      --replace 'https://github.com/s-expressionists/Eclector.git' ${Eclector} \
-      --replace 'https://github.com/clasp-developers/alexandria.git' ${alexandria} \
-      --replace 'https://github.com/Ravenbrook/mps.git' ${mps} \
-      --replace 'https://gitlab.common-lisp.net/asdf/asdf.git' ${asdf}
-
-    substituteInPlace include/clasp/core/character.h \
-      --replace "en_US.UTF-8" ""
-
-    # Simply exit right after cloning the repo, revisions are set on nix side
-    substituteInPlace tools-for-build/fetch-git-revision.sh \
-      --replace 'cd "$path" || exit $?' 'cd "$path" && exit 0'
-
-    echo "PREFIX = \"$out\"" > wscript.config
-  '';
-  buildInputs =
-    [ python310 git sbcl gmp libffi boehmgc libelf libbsd
-      boost175.dev boost175
-      llvm_9.dev
-      llvmPackages_9.libclang
-    ];
-};
-
-# Probably best to wait for LLVM 13 to be released and clasp devs to
-# adjust to the new interface
-clasp_1_0 = let
-
-  pkgs_unstable = import (builtins.fetchTarball {
-    url = https://github.com/nixos/nixpkgs/archive/e16c267e4899b2d87655f0c45ec96235bfe6a258.tar.gz;
-    sha256 = "1x4nx4hfcmhyib6c83sryyf33vjzxsh5kkr3mqwhfg7agwhcdhi4";
-  }) {};
-
-  Cleavir = pkgs.fetchgit {
-    url = https://github.com/s-expressionists/Cleavir;
-    rev = "3884e9325acf8db4d45d2a0e86378285ecbc2926";
-    sha256 = "0b2zisaczsvcg6d68rp87vmgrndk3ilqandwfgv96kkijwzw5y8n";
-    leaveDotGit = true;
-  };
-  Concrete-Syntax-Tree = pkgs.fetchgit {
-    url = https://github.com/s-expressionists/Concrete-Syntax-Tree;
-    rev = "4f01430c34f163356f3a2cfbf0a8a6963ff0e5ac";
-    sha256 = "1vx36d8w27kppkq25nc5fcgw5155z1wv2hj0v92n6xamx4wxl9fn";
-    leaveDotGit = true;
-  };
-
-in
+clasp =
 
   # Gotta use the right commit of llvm: 972b6a3a3471c2a742c5c5d8ec004ff640d544c4
   llvmPackages_clasp.stdenv.mkDerivation {
     pname = "clasp";
     version = "1.0-23bf6aa3dc";
-    src = fetchgit {
-      url = https://github.com/clasp-developers/clasp;
-      rev = "23bf6aa3dcba5f8687cd22946f3a06e195552ce3";
+    src = builtins.fetchTarball {
+      url = https://github.com/clasp-developers/clasp/archive/23bf6aa3dcba5f8687cd22946f3a06e195552ce3.tar.gz;
       sha256 = "1whc6jrqhy6jsin0g63yblczpp8j8vdfskr16b40332y687p2wmd";
     };
     preConfigure = ''
     ./waf configure
   '';
     postPatch = ''
-    substituteInPlace waf \
-      --replace '/usr/bin/env python3' ${python3.interpreter}
-    substituteInPlace wscript \
-      --replace 'https://github.com/s-expressionists/Cleavir' ${Cleavir} \
-      --replace 'https://github.com/s-expressionists/Concrete-Syntax-Tree.git' ${Concrete-Syntax-Tree} \
-      --replace 'https://github.com/pcostanza/closer-mop.git' ${closer-mop} \
-      --replace 'https://github.com/robert-strandh/Acclimation.git' ${Acclimation} \
-      --replace 'https://github.com/s-expressionists/Eclector.git' ${Eclector} \
-      --replace 'https://github.com/clasp-developers/alexandria.git' ${alexandria} \
-      --replace 'https://github.com/Ravenbrook/mps.git' ${mps} \
-      --replace 'https://gitlab.common-lisp.net/asdf/asdf.git' ${asdf}
+      substituteInPlace waf \
+        --replace '/usr/bin/env python3' ${python3.interpreter}
 
-    # Simply exit right after cloning the repo, revisions are set on nix side
-    substituteInPlace tools-for-build/fetch-git-revision.sh \
-      --replace 'cd "$path" || exit $?' 'cd "$path" && exit 0'
+      mkdir -pv src/lisp/kernel/contrib/Cleavir
+      mkdir -pv src/lisp/kernel/contrib/Concrete-Syntax-Tree
+      mkdir -pv src/lisp/kernel/contrib/closer-mop
+      mkdir -pv src/lisp/kernel/contrib/Acclimation
+      mkdir -pv src/lisp/kernel/contrib/Eclector
+      mkdir -pv src/lisp/kernel/contrib/alexandria
+      mkdir -pv src/mps
+      mkdir -pv src/lisp/modules/asdf
 
-    substituteInPlace include/clasp/core/character.h \
-      --replace "en_US.UTF-8" ""
+      cp -rfT "${Cleavir}" src/lisp/kernel/contrib/Cleavir
+      cp -rfT "${Concrete-Syntax-Tree}" src/lisp/kernel/contrib/Concrete-Syntax-Tree
+      cp -rfT "${closer-mop}" src/lisp/kernel/contrib/closer-mop
+      cp -rfT "${Acclimation}" src/lisp/kernel/contrib/Acclimation
+      cp -rfT "${Eclector}" src/lisp/kernel/contrib/Eclector
+      cp -rfT "${alexandria}" src/lisp/kernel/contrib/alexandria
+      cp -rfT "${mps}" src/mps
+      cp -rfT "${asdf}" src/lisp/modules/asdf
 
-    echo "PREFIX = \"$out\"" > wscript.config
-  '';
+     substituteInPlace tools-for-build/fetch-git-revision.sh \
+       --replace 'cd "$path" || exit $?' 'cd "$path" && exit 0'
+
+      substituteInPlace include/clasp/core/character.h \
+        --replace "en_US.UTF-8" ""
+
+      echo "PREFIX = \"$out\"" > wscript.config
+    '';
     buildInputs =
       [ python310 git sbcl gmp libffi boehmgc libelf libbsd
         boost175.dev boost175
@@ -182,5 +104,4 @@ fixup = clasp: stdenv.mkDerivation {
   dontStrip = true;
 };
 
-# in fixup clasp_0_9
-in fixup clasp_1_0
+in fixup clasp
