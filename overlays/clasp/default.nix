@@ -7,8 +7,8 @@ with pkgs;
 let
 
   Cleavir = builtins.fetchTarball {
-    url = https://github.com/s-expressionists/Cleavir/archive/3884e9325acf8db4d45d2a0e86378285ecbc2926.tar.gz;
-    sha256 = "1nm09y0scr75a0y7v2l1yiyqpnslvx2vn7fdr8317261lr4an0bp";
+    url = https://github.com/s-expressionists/Cleavir/archive/dbb46cf1054d8d5e7222585a14eb121b62e62f90.tar.gz;
+    sha256 = "0w3m0f8mm0p7kcv359y1af3adkjdlma2l50wp19d4pjwlmmqqnyl";
   };
   Concrete-Syntax-Tree = builtins.fetchTarball {
     url = https://github.com/s-expressionists/Concrete-Syntax-Tree/archive/4f01430c34f163356f3a2cfbf0a8a6963ff0e5ac.tar.gz;
@@ -46,8 +46,8 @@ clasp =
     pname = "clasp";
     version = "1.0-23bf6aa3dc";
     src = builtins.fetchTarball {
-      url = https://github.com/clasp-developers/clasp/archive/23bf6aa3dcba5f8687cd22946f3a06e195552ce3.tar.gz;
-      sha256 = "1whc6jrqhy6jsin0g63yblczpp8j8vdfskr16b40332y687p2wmd";
+      url = https://github.com/clasp-developers/clasp/archive/8b749f632ee7dfd44b9d594997e60d696d4af72f.tar.gz;
+      sha256 = "14dgy8haan9aij09v1iw1632rnhk1w30xr19zzx5fralky6zkvpd";
     };
     preConfigure = ''
     ./waf configure
