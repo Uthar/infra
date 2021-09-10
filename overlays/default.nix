@@ -17,8 +17,8 @@
         nixops = super.nixops.overridePythonAttrs (o:{
             src = super.pkgs.fetchgit {
               url = "https://galkowski.xyz/nixops";
-              rev = "97e30efa54e75d4b5028f31d2f75ce39a72fa534";
-              sha256 = "0gbxcz6kfkhqnbh2havsxmfmjzp2sbj5wa9rzq38s6h49n7l11vr";
+              rev = "eff444990351b462e4ba22a1d2d8ffd241cd2e2c";
+              sha256 = "0lvamz2y8hbx653slbscq85qgfqi49r1jsvx3fqh4ql5cz5kkz5m";
             };
             version = "20210901-97e30efa54";
           });
@@ -33,8 +33,8 @@
         nixops-aws = super.nixops-aws.overridePythonAttrs (o:{
             src = super.pkgs.fetchgit {
               url = "https://galkowski.xyz/nixops-aws";
-              rev = "371aedeb7fd53b8978a60dd7c37d3a6c38101c48";
-              sha256 = "15jz9x3ra3hsh6xj4cbri1fvvjk2rplnnhnccz7qc6f176b5r01j";
+              rev = "c14964982f5130241b0e51ed87cf823721bac804";
+              sha256 = "1bmrjx9w7rjgki491flkjyhxi4fajda9bpn97h00f86n05i7wq2b";
             };
             version = "20210902-371aedeb7f";
         });

@@ -1,5 +1,4 @@
-# source .envrc first, or just use direnv
-with import <nixpkgs> {};
+with import ./. {};
 
 mkShell {
   buildInputs = [ nix nixopsWithPlugins ];
