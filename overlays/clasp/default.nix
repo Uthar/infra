@@ -44,7 +44,7 @@ clasp =
   # Gotta use the right commit of llvm: 972b6a3a3471c2a742c5c5d8ec004ff640d544c4
   llvmPackages_clasp.stdenv.mkDerivation {
     pname = "clasp";
-    version = "1.0-23bf6aa3dc";
+    version = "1.0-8b749f632e";
     src = builtins.fetchTarball {
       url = https://github.com/clasp-developers/clasp/archive/8b749f632ee7dfd44b9d594997e60d696d4af72f.tar.gz;
       sha256 = "14dgy8haan9aij09v1iw1632rnhk1w30xr19zzx5fralky6zkvpd";
