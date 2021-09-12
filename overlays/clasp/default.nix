@@ -7,12 +7,12 @@ with pkgs;
 let
 
   Cleavir = builtins.fetchTarball {
-    url = https://github.com/s-expressionists/Cleavir/archive/dbb46cf1054d8d5e7222585a14eb121b62e62f90.tar.gz;
-    sha256 = "0w3m0f8mm0p7kcv359y1af3adkjdlma2l50wp19d4pjwlmmqqnyl";
+    url = https://github.com/s-expressionists/Cleavir/archive/c5e9843fb077448466e418a73d7587d39fc50bbd.tar.gz;
+    sha256 = "1bj6igzjdlkrya94sa2cnlx6jnv5f3x5sb1j15xpscp4sd0m176y";
   };
   Concrete-Syntax-Tree = builtins.fetchTarball {
-    url = https://github.com/s-expressionists/Concrete-Syntax-Tree/archive/4f01430c34f163356f3a2cfbf0a8a6963ff0e5ac.tar.gz;
-    sha256 = "169ibaz1vv7pphib28443zzk3hf1mrcarhzfm8hnbdbk529cnxyi";
+    url = https://github.com/s-expressionists/Concrete-Syntax-Tree/archive/a56a5246fbaa90b98a29368c011a6616f2bcb482.tar.gz;
+    sha256 = "015glkx1dx8dzlhm4hfzp0zzmydxakx48r12y01f55a8n6shxqn5";
   };
   closer-mop = builtins.fetchTarball {
     url = https://github.com/pcostanza/closer-mop/archive/d4d1c7aa6aba9b4ac8b7bb78ff4902a52126633f.tar.gz;
@@ -44,10 +44,11 @@ clasp =
   # Gotta use the right commit of llvm: 972b6a3a3471c2a742c5c5d8ec004ff640d544c4
   llvmPackages_clasp.stdenv.mkDerivation {
     pname = "clasp";
-    version = "1.0-8b749f632e";
+    version = "dcaf594c1f";
     src = builtins.fetchTarball {
-      url = https://github.com/clasp-developers/clasp/archive/8b749f632ee7dfd44b9d594997e60d696d4af72f.tar.gz;
-      sha256 = "14dgy8haan9aij09v1iw1632rnhk1w30xr19zzx5fralky6zkvpd";
+      # last commit not affected by https://github.com/clasp-developers/clasp/issues/1183
+      url = https://github.com/clasp-developers/clasp/archive/dcaf594c1fe8158ac36e7fb634ad79b596911a75.tar.gz;
+      sha256 = "1qzw3jx3vkj5xcp8llhx218qrhakigin76d2csrmkndfj94ip5dy";
     };
     preConfigure = ''
     ./waf configure
