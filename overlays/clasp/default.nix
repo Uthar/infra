@@ -7,8 +7,9 @@ with pkgs;
 let
 
   Cleavir = builtins.fetchTarball {
-    url = https://github.com/s-expressionists/Cleavir/archive/c5e9843fb077448466e418a73d7587d39fc50bbd.tar.gz;
-    sha256 = "1bj6igzjdlkrya94sa2cnlx6jnv5f3x5sb1j15xpscp4sd0m176y";
+    # other than upstream to pull in compiler fix
+    url = https://github.com/s-expressionists/Cleavir/archive/ed8bdd47d3cea7d1ae80266e5def681519d7e8cd.tar.gz;
+    sha256 = "077hj5h6lrkg07fzwqpsq0blnm5d14gxw1i8d28jaj4dvl5fqj3g";
   };
   Concrete-Syntax-Tree = builtins.fetchTarball {
     url = https://github.com/s-expressionists/Concrete-Syntax-Tree/archive/a56a5246fbaa90b98a29368c011a6616f2bcb482.tar.gz;
