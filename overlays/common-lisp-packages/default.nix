@@ -175,7 +175,7 @@ let
           ${head (split " " o.lisp)} \
           $out/bin/${baseNameOf (head (split " " o.lisp))} \
           --prefix CL_SOURCE_REGISTRY : "${o.CL_SOURCE_REGISTRY}" \
-          --prefix ASDF_OUTPUT_TRANSLATIONS : ${storeDir}:${storeDir} \
+          --prefix ASDF_OUTPUT_TRANSLATIONS : ${concatStringsSep "::" (flattenedDeps o.buildInputs)}: \
           --prefix LD_LIBRARY_PATH : "${o.LD_LIBRARY_PATH}" \
           --prefix LD_LIBRARY_PATH : "${makeLibraryPath o.nativeLibs}" \
           --prefix CLASSPATH : "${o.CLASSPATH}" \
