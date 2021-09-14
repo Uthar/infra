@@ -1,7 +1,4 @@
-{ pkgs ? (import (builtins.fetchTarball {
-    url    = "https://github.com/nixos/nixpkgs/archive/97c5d0cbe76.tar.gz";
-    sha256 = "05zisan8s08r45jbn9xc3dysnsdh639qn7jhczsd71mjfg85n13v";
-  }) {}) }:
+{ pkgs ? import <nixpkgs> {}, ... }:
 
 with pkgs; with emacsPackagesNg;
 
