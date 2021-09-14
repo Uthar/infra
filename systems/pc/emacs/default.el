@@ -195,7 +195,9 @@
   (evil-kill-on-visual-paste nil)
   (evil-undo-system 'undo-tree)
   (evil-want-keybinding nil)
-  :config (evil-mode 1))
+  :config
+  (evil-mode 1)
+  (evil-global-set-key 'normal (kbd "M-.") nil))
 
 (use-package evil-collection
   :after evil
