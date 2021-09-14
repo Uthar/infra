@@ -56,6 +56,7 @@ with pkgs; with emacsPackagesNg;
       counsel
       ivy
       modus-operandi
+      sly
       undo-tree
       which-key
     ])
@@ -85,8 +86,6 @@ with pkgs; with emacsPackagesNg;
       projectile
       rg
       ripgrep
-      slime
-      slime-company
       use-package
       vc-fossil
       wgrep
