@@ -78,11 +78,6 @@
   :diminish
   :config (counsel-mode))
 
-(use-package nix-mode
-  :mode "\\.nix\\'")
-
-(use-package go-mode)
-
 (defun state-dir (dir)
   (expand-file-name (concat user-emacs-directory dir "/")))
 
@@ -256,6 +251,19 @@
   :diminish
   :config (global-flycheck-mode))
 
+
+;;;; programming language support
+
+(use-package nix-mode
+  :mode "\\.nix\\'")
+
+(use-package go-mode)
+
+(use-package lisp-mode
+  :mode "\\.cl\\'")
+
+(use-package cider)
+
 (use-package lsp-mode
   :custom
   (lsp-keymap-prefix "C-c l")
@@ -385,8 +393,3 @@
             ("<f10>" . delete-window)
             ("<f11>" . kill-buffer-and-window)
             ("<f12>" . universal-argument))
-
-(use-package lisp-mode
-  :mode "\\.cl\\'")
-
-(use-package cider)
