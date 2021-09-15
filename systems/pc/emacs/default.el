@@ -63,10 +63,11 @@
   (require 'term)
   (dotimes (i 9)
     (let* ((n (1+ i))
+           (key (kbd (format "M-%i" n)))
            (command (intern (format "winum-select-window-%i" n))))
-      (define-key diff-mode-map (kbd (format "M-%i" n)) nil)
-      (define-key term-raw-map (kbd (format "M-%i" n)) command)
-      (global-set-key (kbd (format "M-%i" n)) command)))
+      (define-key diff-mode-map key nil)
+      (define-key term-raw-map key command)
+      (global-set-key key command)))
   (winum-mode))
 
 (use-package ivy
