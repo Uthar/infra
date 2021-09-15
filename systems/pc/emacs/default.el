@@ -112,7 +112,6 @@
   (auto-save-file-name-transforms `((".*" ,(state-dir "auto-save") t)))
   (auto-save-list-file-prefix (state-dir "auto-save"))
   (indent-tabs-mode nil)
-  (c-basic-offset 2)
   (tab-width 4)
   (column-number-mode t)
   (line-number-mode nil)
