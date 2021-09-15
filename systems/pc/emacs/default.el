@@ -70,6 +70,9 @@
       (global-set-key key command)))
   (winum-mode))
 
+(use-package diff
+  :custom (diff-font-lock-syntax nil))
+
 (use-package ivy
   :diminish
   :config (ivy-mode t))
@@ -110,7 +113,6 @@
   (tab-width 4)
   (column-number-mode t)
   (line-number-mode nil)
-  (diff-font-lock-syntax nil)
   (dired-kill-when-opening-new-dired-buffer t)
   :config
   (minibuffer-depth-indicate-mode t)
