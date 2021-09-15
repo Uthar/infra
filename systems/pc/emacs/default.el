@@ -70,6 +70,31 @@
       (global-set-key key command)))
   (winum-mode))
 
+(use-package dired
+  :custom
+  (dired-kill-when-opening-new-dired-buffer t)
+  :config
+  (define-key
+    dired-mode-map
+    (kbd "M-h")
+    (lambda ()
+      (interactive)
+      (if (string-match-p "a" dired-actual-switches)
+          (dired "." (remove ?a dired-listing-switches))
+          (dired "." (concat dired-listing-switches "a")))
+      (setq dired-listing-switches dired-actual-switches)))
+  (setf dired-listing-switches (concat "--group-directories-first " dired-listing-switches))
+  (setf dired-listing-switches (concat dired-listing-switches "h"))
+  :hook
+  (dired-mode . dired-hide-details-mode)
+  (dired-mode
+   . (lambda ()
+       (define-key dired-mode-map "N" nil)
+       (define-key dired-mode-map "n" nil)
+       (define-key evil-normal-state-local-map "l" 'dired-find-file)
+       (define-key evil-normal-state-local-map "h" 'dired-up-directory))))
+
+
 (use-package diff
   :custom (diff-font-lock-syntax nil))
 
@@ -113,7 +138,6 @@
   (tab-width 4)
   (column-number-mode t)
   (line-number-mode nil)
-  (dired-kill-when-opening-new-dired-buffer t)
   :config
   (minibuffer-depth-indicate-mode t)
   (tool-bar-mode -1)
@@ -128,29 +152,11 @@
   (context-menu-mode)
   (advice-add 'display-startup-echo-area-message :override nil)
   (set-language-environment "UTF-8")
-  (define-key
-    dired-mode-map
-    (kbd "M-h")
-    (lambda ()
-      (interactive)
-      (if (string-match-p "a" dired-actual-switches)
-          (dired "." (remove ?a dired-listing-switches))
-          (dired "." (concat dired-listing-switches "a")))
-      (setq dired-listing-switches dired-actual-switches)))
-  (setf dired-listing-switches (concat "--group-directories-first " dired-listing-switches))
-  (setf dired-listing-switches (concat dired-listing-switches "h"))
   :hook
   (before-save . delete-trailing-whitespace)
   (after-save . executable-make-buffer-file-executable-if-script-p)
   (find-file . (lambda () (with-inhibit-message (recentf-save-list))))
   (prog-mode . display-line-numbers-mode)
-  (dired-mode . dired-hide-details-mode)
-  (dired-mode
-   . (lambda ()
-       (define-key dired-mode-map "N" nil)
-       (define-key dired-mode-map "n" nil)
-       (define-key evil-normal-state-local-map "l" 'dired-find-file)
-       (define-key evil-normal-state-local-map "h" 'dired-up-directory)))
   (after-init . (lambda () (set-cursor-color "#999"))))
 
 ;;;; recentf
