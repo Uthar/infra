@@ -147,7 +147,7 @@
   (recentf-mode)
   (savehist-mode)
   (context-menu-mode)
-  (advice-add 'display-startup-echo-area-message :override nil)
+  (advice-add 'display-startup-echo-area-message :around 'identity)
   (set-language-environment "UTF-8")
   :hook
   (before-save . delete-trailing-whitespace)
