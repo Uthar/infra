@@ -41,6 +41,8 @@ with pkgs; with emacsPackagesNg;
       }} $out/share/emacs/site-lisp
     '';
 
+    withPatches = drv: patches: drv.overrideAttrs (o: { inherit patches; });
+
     emacsWithPackages = (emacsPackagesNgGen emacs').emacsWithPackages;
 
   in emacsWithPackages(epkgs:
@@ -56,7 +58,7 @@ with pkgs; with emacsPackagesNg;
       counsel
       ivy
       modus-operandi
-      sly
+      (withPatches sly [ ./sly-dont-leave-map-sym-file.patch ])
       undo-tree
       which-key
     ])
@@ -69,7 +71,7 @@ with pkgs; with emacsPackagesNg;
       browse-kill-ring
       cider
       diminish
-      (direnv.overrideAttrs(o:{ patches = [ ./direnv-el-message-not-warning.patch ]; }))
+      (withPatches direnv [ ./direnv-el-message-not-warning.patch ])
       editorconfig
       evil
       evil-anzu
