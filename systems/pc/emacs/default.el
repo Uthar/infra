@@ -129,7 +129,7 @@
   (recentf-mode)
   (savehist-mode)
   (context-menu-mode)
-  (defun display-startup-echo-area-message ())
+  (advice-add 'display-startup-echo-area-message :override nil)
   (set-language-environment "UTF-8")
   (defun my/comment-or-uncomment ()
     (interactive)
