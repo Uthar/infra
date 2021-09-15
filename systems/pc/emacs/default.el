@@ -155,9 +155,7 @@
   :hook
   (before-save . delete-trailing-whitespace)
   (after-save . executable-make-buffer-file-executable-if-script-p)
-  (find-file . (lambda () (with-inhibit-message (recentf-save-list))))
-  (prog-mode . display-line-numbers-mode)
-  (after-init . (lambda () (set-cursor-color "#999"))))
+  (prog-mode . display-line-numbers-mode))
 
 ;;;; recentf
 
