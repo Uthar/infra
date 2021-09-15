@@ -199,6 +199,9 @@
   (evil-mode 1)
   (evil-global-set-key 'normal (kbd "M-.") nil))
 
+(use-package xref
+  :hook (xref-after-update . evil-emacs-state))
+
 (use-package evil-collection
   :after evil
   :custom
