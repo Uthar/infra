@@ -128,22 +128,6 @@
   (context-menu-mode)
   (advice-add 'display-startup-echo-area-message :override nil)
   (set-language-environment "UTF-8")
-  (defun my/comment-or-uncomment ()
-    (interactive)
-    (if (region-active-p)
-        (comment-or-uncomment-region (region-beginning) (region-end))
-        (comment-or-uncomment-region (line-beginning-position) (line-end-position)))
-    (setq deactivate-mark nil))
-  (global-set-key (kbd "C-;") 'my/comment-or-uncomment)
-  (defun x-copy ()
-    (interactive)
-    (when (region-active-p)
-      (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
-      (message "Yanked region to clipboard")
-      (deactivate-mark)))
-  (defun x-paste ()
-    (interactive)
-    (insert (shell-command-to-string "xsel -o -b")))
   (define-key
     dired-mode-map
     (kbd "M-h")
@@ -373,7 +357,27 @@
   (counsel-ag "" (guess-directory "ag") " --hidden --follow "))
 
 
-;;
+;;;; generic utilities
+
+(defun my/comment-or-uncomment ()
+  (interactive)
+  (if (region-active-p)
+      (comment-or-uncomment-region (region-beginning) (region-end))
+      (comment-or-uncomment-region (line-beginning-position) (line-end-position)))
+  (setq deactivate-mark nil))
+
+(global-set-key (kbd "C-;") 'my/comment-or-uncomment)
+
+(defun x-copy ()
+  (interactive)
+  (when (region-active-p)
+    (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
+    (message "Yanked region to clipboard")
+    (deactivate-mark)))
+
+(defun x-paste ()
+  (interactive)
+  (insert (shell-command-to-string "xsel -o -b")))
 
 (defun select-or-exit-minibuffer ()
   (interactive)
