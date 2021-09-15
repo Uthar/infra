@@ -321,7 +321,7 @@
       (open-repl-window)))
 
 (defun ensure-repl-window ()
-  (if repl-window
+  (if (window-live-p repl-window)
       (select-window repl-window)
       (open-repl-window)))
 
