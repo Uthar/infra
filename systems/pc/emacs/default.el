@@ -332,10 +332,14 @@
   (ensure-repl-window)
   (switch-to-buffer buffer))
 
-(defun ansi-term* ()
-  (interactive)
-  (open-buffer-in-repl-window (save-window-excursion (ansi-term "bash"))))
+(defun call-with-repl-window (fn &rest args)
+  (open-buffer-in-repl-window (save-window-excursion (apply fn args))))
 
+(advice-add 'sly-mrepl :around 'call-with-repl-window)
+(advice-add 'ansi-term :around 'call-with-repl-window)
+(advice-add 'eshell :around 'call-with-repl-window)
+(advice-add 'cider-repl-create :around 'call-with-repl-window)
+(advice-add 'cider-switch-to-repl-buffer :around 'call-with-repl-window)
 
 ;; search
 

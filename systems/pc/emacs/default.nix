@@ -69,7 +69,7 @@ with pkgs; with emacsPackagesNg;
       ag
       anzu
       browse-kill-ring
-      cider
+      (withPatches cider [ ./cider-return-buffer-in-switch-to-repl-buffer.patch ])
       diminish
       (withPatches direnv [ ./direnv-el-message-not-warning.patch ])
       editorconfig
