@@ -70,30 +70,27 @@
       (global-set-key key command)))
   (winum-mode))
 
+(defun dired-toggle-hidden ()
+  (interactive)
+  (if (string-match-p "a" dired-actual-switches)
+      (dired "." (remove ?a dired-listing-switches))
+      (dired "." (concat dired-listing-switches "a")))
+  (setf dired-listing-switches dired-actual-switches))
+
 (use-package dired
   :custom
   (dired-kill-when-opening-new-dired-buffer t)
+  (dired-listing-switches "--group-directories-first -lh")
   :config
-  (define-key
-    dired-mode-map
-    (kbd "M-h")
-    (lambda ()
-      (interactive)
-      (if (string-match-p "a" dired-actual-switches)
-          (dired "." (remove ?a dired-listing-switches))
-          (dired "." (concat dired-listing-switches "a")))
-      (setq dired-listing-switches dired-actual-switches)))
-  (setf dired-listing-switches (concat "--group-directories-first " dired-listing-switches))
-  (setf dired-listing-switches (concat dired-listing-switches "h"))
+  (define-key dired-mode-map (kbd "M-h") 'dired-toggle-hidden)
+  (define-key dired-mode-map "N" nil)
+  (define-key dired-mode-map "n" nil)
   :hook
   (dired-mode . dired-hide-details-mode)
   (dired-mode
    . (lambda ()
-       (define-key dired-mode-map "N" nil)
-       (define-key dired-mode-map "n" nil)
-       (define-key evil-normal-state-local-map "l" 'dired-find-file)
-       (define-key evil-normal-state-local-map "h" 'dired-up-directory))))
-
+       (evil-local-set-key 'normal "l" 'dired-find-file)
+       (evil-local-set-key 'normal "h" 'dired-up-directory))))
 
 (use-package diff
   :custom (diff-font-lock-syntax nil))
