@@ -20,7 +20,7 @@
               rev = "eff444990351b462e4ba22a1d2d8ffd241cd2e2c";
               sha256 = "0lvamz2y8hbx653slbscq85qgfqi49r1jsvx3fqh4ql5cz5kkz5m";
             };
-            version = "20210901-97e30efa54";
+            version = "20210901-eff4449903";
           });
         nixopsvbox = super.nixopsvbox.overridePythonAttrs (o:{
             src = super.pkgs.fetchgit {
@@ -33,10 +33,10 @@
         nixops-aws = super.nixops-aws.overridePythonAttrs (o:{
             src = super.pkgs.fetchgit {
               url = "https://galkowski.xyz/nixops-aws";
-              rev = "c14964982f5130241b0e51ed87cf823721bac804";
-              sha256 = "1bmrjx9w7rjgki491flkjyhxi4fajda9bpn97h00f86n05i7wq2b";
+              rev = "67f405dcee8754c5e4d7d371f4362cec422b83cb";
+              sha256 = "0bmrjx9w7rjgki491flkjyhxi4fajda9bpn97h00f86n05i7wq2b";
             };
-            version = "20210902-371aedeb7f";
+            version = "20210917-67f405dcee";
         });
       });
     };
