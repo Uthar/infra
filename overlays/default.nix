@@ -34,7 +34,7 @@
             src = super.pkgs.fetchgit {
               url = "https://galkowski.xyz/nixops-aws";
               rev = "67f405dcee8754c5e4d7d371f4362cec422b83cb";
-              sha256 = "0bmrjx9w7rjgki491flkjyhxi4fajda9bpn97h00f86n05i7wq2b";
+              sha256 = "19ajpy25vyxqlgvv71s796x94jqk8b6sw1iwmrqh03qbf7534zim";
             };
             version = "20210917-67f405dcee";
         });
