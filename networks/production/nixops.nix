@@ -36,19 +36,14 @@ let
     { config, pkgs, lib, ... }:
     {
       imports = [ ../../systems/binary-cache ];
-      services.httpd.virtualHosts."cache.${config.networking.domain}" = {
-        locations."/".proxyPass = lib.mkForce "unix:${config.services.bcache.socketPath}|http://localhost/";
-      };
     };
 
   fossil =
     { config, pkgs, lib, ... }:
+    let domain = config.networking.domain; in
     {
       imports = [ ../../systems/fossil ];
-      networking.extraHosts = ''
-        127.0.0.1 fossil
-      '';
-      services.fossil.baseurl = lib.mkForce "https://fossil.${config.networking.domain}";
+      services.fossil.baseurl = lib.mkForce "https://fossil.${domain}";
       services.fossil.https = true;
     };
 
@@ -94,7 +89,6 @@ let
       services.httpd = {
         enable = true;
         virtualHosts.${config.networking.domain} = {
-          locations = lib.mkForce {};
           documentRoot = "/srv/git";
         };
       };
@@ -102,11 +96,37 @@ let
 
   proxy =
     { config, pkgs, lib, nodes, ... }:
-    {
-      services.httpd.adminAddr = "k@${config.networking.domain}";
+    let
+      domain = config.networking.domain;
+      make-vhost = x: lib.attrsets.recursiveUpdate x {
+        locations."/.well-known".proxyPass = "!";
+        enableACME = true;
+        forceSSL = true;
+      };
+      bcache = config.services.bcache;
+      fossil = config.services.fossil;
+    in {
       security.acme.acceptTerms = acmep;
-      security.acme.email = "k@${config.networking.domain}";
-      imports = [ ../../systems/proxy ];
+      security.acme.email = "k@${domain}";
+
+      networking.firewall.allowedTCPPorts = [ 80 443 ];
+
+      services.httpd = {
+        enable = true;
+        adminAddr = "k@${domain}";
+        extraConfig = ''
+          ServerTokens Prod
+          ServerSignature Off
+        '';
+        virtualHosts."cache.${domain}" = make-vhost {
+          locations."/".proxyPass = "unix:${bcache.socketPath}|http://localhost/";
+        };
+        virtualHosts."fossil.${domain}" = make-vhost {
+          locations."/".proxyPass = "http://localhost:${toString fossil.port}/";
+        };
+        virtualHosts.${domain} = make-vhost {};
+      };
+
     };
 
 in {
@@ -117,7 +137,8 @@ in {
 
   defaults =
     { config, pkgs, lib, ... }:
-    { nix.autoOptimiseStore = true;
+    {
+      nix.autoOptimiseStore = true;
       environment.systemPackages = with pkgs; [ sqlite ranger htop file ];
       networking.domain = "galkowski.xyz";
       deployment.sshOptions = ["-oIdentitiesOnly=yes"];
@@ -128,7 +149,8 @@ in {
 
   amalgam =
     { config, pkgs, lib, nodes, ... }:
-    { deployment.targetHost = config.networking.publicIPv4;
+    {
+      deployment.targetHost = config.networking.publicIPv4;
       deployment.provisionSSHKey = false;
 
       imports =
@@ -154,11 +176,13 @@ in {
   resources.ec2SecurityGroups.nixopsGrp = {
     region = "eu-central-1";
     rules = [
-      { fromPort = 22;
+      {
+        fromPort = 22;
         toPort = 22;
         sourceIp = "104.244.74.41/32";
       }
-      { fromPort = 80;
+      {
+        fromPort = 80;
         toPort = 80;
         sourceIp = "0.0.0.0/0";
       }
@@ -179,7 +203,7 @@ in {
       deployment.ec2 = {
         keyPair = happetKey;
         securityGroups = [ nixopsGrp ];
-        region = pkgs.lib.mkDefault "eu-central-1";
+        region = "eu-central-1";
         instanceType = "t2.micro";
         ebsBoot = true;
         ebsInitialRootDiskSize = 10;
