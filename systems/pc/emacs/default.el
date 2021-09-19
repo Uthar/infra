@@ -272,6 +272,7 @@
   :config
   (evil-set-initial-state 'sly-db-mode 'emacs)
   (evil-set-initial-state 'sly-inspector-mode 'emacs)
+  (advice-add 'sly-display-eval-result :override (lambda (value) (message "=> %s" value)))
   :bind-keymap ("C-c s" . sly-selector-map))
 
 
