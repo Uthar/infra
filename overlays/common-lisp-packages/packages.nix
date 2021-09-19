@@ -687,4 +687,14 @@ rec {
     };
   };
 
+  documentation-utils = build-asdf-system {
+    pname = "documentation-utils";
+    version = "1.2.0-98630dd5f7";
+    src = builtins.fetchTarball {
+      url = https://github.com/Shinmera/documentation-utils/archive/98630dd5f7e36ae057fa09da3523f42ccb5d1f55.tar.gz;
+      sha256 = "098qhkqskmmrh4wix34mawf7p5c87yql28r51r75yjxj577k5idq";
+    };
+    buildInputs = [ trivial-indent ];
+  };
+
 }
