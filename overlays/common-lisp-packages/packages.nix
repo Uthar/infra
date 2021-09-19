@@ -740,6 +740,24 @@ rec {
     buildInputs = [ alexandria trivial-backtrace asdf-flv ];
   };
 
+  cl-rabbit = build-asdf-system {
+    pname = "cl-rabbit";
+    version = "9603204715";
+    src = builtins.fetchTarball {
+      url = https://github.com/uthar/cl-rabbit/archive/deedde4506c5f9d30d113157a6c304be05729851.tar.gz;
+      sha256 = "0hwnhbxcjkji011pz0bb6l07g346qkavahzzq2ajd0yfl673vcq4";
+    };
+    buildInputs = [
+      cffi
+      cffi-libffi
+      alexandria
+      babel
+      cl-ppcre
+    ];
+    # HACK: just for include flags for grovel, fix by buildInputs->lispLibs
+    nativeBuildInputs = [ pkgs.rabbitmq-c ];
+    nativeLibs = [ pkgs.rabbitmq-c ];
+  };
 
 
 }
