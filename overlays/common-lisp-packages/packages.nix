@@ -707,4 +707,14 @@ rec {
     buildInputs = [ documentation-utils ];
   };
 
+  lparallel = build-asdf-system {
+    pname = "lparallel";
+    version = "2.8.4";
+    src = builtins.fetchTarball {
+      url = https://github.com/lmj/lparallel/archive/lparallel-2.8.4.tar.gz;
+      sha256 = "0g0aylrbbrqsz0ahmwhvnk4cmc2931fllbpcfgzsprwnqqd7vwq9";
+    };
+    buildInputs = [ bordeaux-threads alexandria ];
+  };
+
 }
