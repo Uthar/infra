@@ -697,4 +697,14 @@ rec {
     buildInputs = [ trivial-indent ];
   };
 
+  atomics = build-asdf-system {
+    pname = "atomics";
+    version = "1.0.0-9ee0bdebcd";
+    src = builtins.fetchTarball {
+      url = https://github.com/Shinmera/atomics/archive/9ee0bdebcd2bb9b242671a75460db13fbf45454c.tar.gz;
+      sha256 = "0mp5jdqq0aamdhgnvw149cqqi3zg7dkkibp25qi4rafw1fnpd40z";
+    };
+    buildInputs = [ documentation-utils ];
+  };
+
 }
