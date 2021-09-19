@@ -678,4 +678,13 @@ rec {
     buildInputs = [ cl-murmurhash ];
   };
 
+  trivial-indent = build-asdf-system {
+    pname = "trivial-indent";
+    version = "1.2.0-98630dd5f7";
+    src = builtins.fetchTarball {
+      url = https://github.com/Shinmera/trivial-indent/archive/8d92e94756475d67fa1db2a9b5be77bc9c64d96c.tar.gz;
+      sha256 = "0j8ip54v0w49hi8y3cd52r4ayy3fz8zqsm6jl88xwa6v3lh05rhv";
+    };
+  };
+
 }
