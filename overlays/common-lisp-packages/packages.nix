@@ -727,4 +727,17 @@ rec {
     buildInputs = [ bordeaux-threads alexandria ];
     systems = [ "net.didierverna.asdf-flv" ];
   };
+
+  fiveam = build-asdf-system {
+    pname = "fiveam";
+    version = "1.4.1";
+    src = builtins.fetchTarball {
+      url = https://github.com/lispci/fiveam/archive/v1.4.2.tar.gz;
+      sha256 = "04mh5plmlb15jbq3dkd8b9jl1dmbbg4hnd3k7859vpf6s12k5p4j";
+    };
+    buildInputs = [ alexandria trivial-backtrace asdf-flv ];
+  };
+
+
+
 }
