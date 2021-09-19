@@ -717,4 +717,14 @@ rec {
     buildInputs = [ bordeaux-threads alexandria ];
   };
 
+  asdf-flv = build-asdf-system {
+    pname = "asdf-flv";
+    version = "2.1";
+    src = builtins.fetchTarball {
+      url = https://github.com/didierverna/asdf-flv/archive/fc5b7399767ca35bfb420bbeb9e08494e441dc69.tar.gz;
+      sha256 = "10094avq2whg8j5dnvla5wzqk5h36bx74lxbdbhdchv0wvn5x0g4";
+    };
+    buildInputs = [ bordeaux-threads alexandria ];
+    systems = [ "net.didierverna.asdf-flv" ];
+  };
 }
