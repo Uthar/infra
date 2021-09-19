@@ -71,7 +71,7 @@ rec {
   };
 
 
-  "cffi" = let
+  cffi = let
     jna = pkgs.fetchMavenArtifact {
       groupId = "net.java.dev.jna";
       artifactId = "jna";
@@ -91,36 +91,38 @@ rec {
       trivial-features
     ];
     javaLibs = [ jna ];
-    systems = [ "cffi" "cffi-grovel" "cffi-toolchain" ];
   };
 
-  "cffi-grovel" = cffi;
-  #   build-asdf-system {
-  #   src =  builtins.fetchTarball {
-  #     url = "http://beta.quicklisp.org/archive/cffi/2021-04-11/cffi_0.24.1.tgz";
-  #     sha256 = "17ryim4xilb1rzxydfr7595dnhqkk02lmrbkqrkvi9091shi4cj3";
-  #   };
-  #   version = "0.24.1";
-  #   pname = "cffi-grovel";
-  #   buildInputs = [
-  #     alexandria
-  #     cffi-toolchain
-  #     cffi
-  #   ];
-  # };
+  cffi-grovel = build-asdf-system {
+    inherit (cffi) src version;
+    pname = "cffi-grovel";
+    buildInputs = [
+      alexandria
+      cffi-toolchain
+      cffi
+    ];
+  };
 
-  "cffi-toolchain" = cffi;
-  #   build-asdf-system {
-  #   src =  builtins.fetchTarball {
-  #     url = "http://beta.quicklisp.org/archive/cffi/2021-04-11/cffi_0.24.1.tgz";
-  #     sha256 = "17ryim4xilb1rzxydfr7595dnhqkk02lmrbkqrkvi9091shi4cj3";
-  #   };
-  #   version = "0.24.1";
-  #   pname = "cffi-toolchain";
-  #   buildInputs = [
-  #     cffi
-  #   ];
-  # };
+  cffi-toolchain = build-asdf-system {
+    inherit (cffi) src version;
+    pname = "cffi-toolchain";
+    buildInputs = [
+      cffi
+    ];
+  };
+
+  cffi-libffi = build-asdf-system {
+    inherit (cffi) src version;
+    pname = "cffi-libffi";
+    buildInputs = [
+      cffi
+      cffi-grovel
+      trivial-features
+    ];
+    # HACK: just for include flags for grovel, fix by buildInputs->lispLibs
+    nativeBuildInputs = [ pkgs.libffi ];
+    nativeLibs = [ pkgs.libffi ];
+  };
 
   "chipz" = build-asdf-system {
     src =  builtins.fetchTarball {
