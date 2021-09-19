@@ -123,6 +123,7 @@ let me = "kpg"; in
   virtualisation.virtualbox.host.enable = true;
 
   virtualisation.podman.enable = true;
+  virtualisation.podman.dockerCompat = true;
 
   fonts.fonts = with pkgs; [
     anonymousPro
