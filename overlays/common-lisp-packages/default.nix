@@ -165,12 +165,11 @@ let
       pname = baseNameOf (head (split " " lisp));
       version = "with-packages";
       lispLibs = packages clpkgs;
+      buildInputs = with pkgs; [ makeWrapper ];
       systems = [];
     }).overrideAttrs(o: {
       installPhase = ''
         mkdir -pv $out/bin
-        source ${pkgs.dieHook}/nix-support/setup-hook
-        source ${pkgs.makeWrapper}/nix-support/setup-hook
         makeWrapper \
           ${head (split " " o.lisp)} \
           $out/bin/${baseNameOf (head (split " " o.lisp))} \
