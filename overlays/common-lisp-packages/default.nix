@@ -9,7 +9,6 @@
 # - hard one: remove unrelated sources ( of systems not being built)
 # - figure out a less awkward way to patch sources
 #   (have to build from src directly for SLIME to work, so can't just patch sources in place)
-# - don' conflate buildInputs as lisp libs, use something like lispLibs?
 
 { pkgs, lib, stdenv, ... }:
 
@@ -19,13 +18,13 @@ with lib.strings;
 let
 
   # Returns a flattened dependency tree without duplicates
-  flattenedDeps = buildInputs:
+  flattenedDeps = lispLibs:
     let
       walk = acc: node:
-        if length node.buildInputs == 0
+        if length node.lispLibs == 0
         then acc
-        else foldl walk (acc ++ node.buildInputs) node.buildInputs;
-    in unique (walk [] { inherit buildInputs; });
+        else foldl walk (acc ++ node.lispLibs) node.lispLibs;
+    in unique (walk [] { inherit lispLibs; });
 
   #
   # Wrapper around stdenv.mkDerivation for building ASDF systems.
@@ -42,7 +41,8 @@ let
       javaLibs ? [],
 
       # Lisp dependencies
-      buildInputs ? [],
+      # these should be packages built with `build-asdf-system`
+      lispLibs ? [],
 
       # Lisp command to run buildScript
       lisp,
@@ -64,7 +64,7 @@ let
     } @ args:
 
     stdenv.mkDerivation (rec {
-      inherit pname version src nativeLibs javaLibs buildInputs lisp systems;
+      inherit pname version src nativeLibs javaLibs lispLibs lisp systems;
 
       # When src is null, we are building a lispWithPackages and only
       # want to make use of the dependency environment variables
@@ -76,13 +76,13 @@ let
       # The "//" ending is important as it makes asdf recurse into
       # subdirectories when searching for .asd's. This is to support
       # projects where .asd's aren't in the root directory.
-      CL_SOURCE_REGISTRY = makeSearchPath "/" (flattenedDeps buildInputs);
+      CL_SOURCE_REGISTRY = makeSearchPath "/" (flattenedDeps lispLibs);
 
       # Tell lisp where to find native dependencies
-      LD_LIBRARY_PATH = makeLibraryPath (concatMap (x: x.nativeLibs) (flattenedDeps buildInputs));
+      LD_LIBRARY_PATH = makeLibraryPath (concatMap (x: x.nativeLibs) (flattenedDeps lispLibs));
 
       # Java libraries For ABCL
-      CLASSPATH = makeSearchPath "share/java/*" (concatMap (x: x.javaLibs) (flattenedDeps buildInputs));
+      CLASSPATH = makeSearchPath "share/java/*" (concatMap (x: x.javaLibs) (flattenedDeps lispLibs));
 
       # Portable script to build the systems.
       #
@@ -98,10 +98,10 @@ let
         # In addition to lisp dependencies, make asdf see the .asd's
         # of the systems being built
         #
-        # *Append* src since `buildInputs` can provide .asd's that are
+        # *Append* src since `lispLibs` can provide .asd's that are
         # also in `src` but are not in `systems` (that is, the .asd's
         # that will be deleted in installPhase). We don't want to
-        # rebuild them, but to load them from buildInputs.
+        # rebuild them, but to load them from lispLibs.
         #
         # NOTE: It's important to read files from `src` instead of
         # from pwd to get go-to-definition working with SLIME
@@ -111,7 +111,7 @@ let
         export LD_LIBRARY_PATH=${makeLibraryPath nativeLibs}:$LD_LIBRARY_PATH
         export CLASSPATH=${makeSearchPath "share/java/*" javaLibs}:$CLASSPATH
 
-        # Make asdf compile from `src` to pwd and load `buildInputs`
+        # Make asdf compile from `src` to pwd and load `lispLibs`
         # from storeDir. Otherwise it could try to recompile lisp deps.
         export ASDF_OUTPUT_TRANSLATIONS="${src}:$(pwd):${storeDir}:${storeDir}"
 
@@ -164,7 +164,7 @@ let
       lisp = (head (lib.attrValues clpkgs)).lisp;
       pname = baseNameOf (head (split " " lisp));
       version = "with-packages";
-      buildInputs = packages clpkgs;
+      lispLibs = packages clpkgs;
       systems = [];
     }).overrideAttrs(o: {
       installPhase = ''
@@ -175,7 +175,7 @@ let
           ${head (split " " o.lisp)} \
           $out/bin/${baseNameOf (head (split " " o.lisp))} \
           --prefix CL_SOURCE_REGISTRY : "${o.CL_SOURCE_REGISTRY}" \
-          --prefix ASDF_OUTPUT_TRANSLATIONS : ${concatStringsSep "::" (flattenedDeps o.buildInputs)}: \
+          --prefix ASDF_OUTPUT_TRANSLATIONS : ${concatStringsSep "::" (flattenedDeps o.lispLibs)}: \
           --prefix LD_LIBRARY_PATH : "${o.LD_LIBRARY_PATH}" \
           --prefix LD_LIBRARY_PATH : "${makeLibraryPath o.nativeLibs}" \
           --prefix CLASSPATH : "${o.CLASSPATH}" \

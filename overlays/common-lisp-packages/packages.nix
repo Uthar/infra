@@ -24,14 +24,14 @@ rec {
   queues-simple-queue = build-asdf-system {
     pname = "queues-simple-queue";
     inherit (queues) src version;
-    buildInputs = [ queues ];
+    lispLibs = [ queues ];
     systems = [ "queues.simple-queue" ];
   };
 
   queues-simple-cqueue = build-asdf-system {
     pname = "queues-simple-cqueue";
     inherit (queues) src version;
-    buildInputs = [ queues queues-simple-queue bordeaux-threads ];
+    lispLibs = [ queues queues-simple-queue bordeaux-threads ];
     systems = [ "queues.simple-cqueue" ];
   };
 
@@ -42,7 +42,7 @@ rec {
       url = https://github.com/Frechmatz/cl-threadpool/archive/refs/tags/v3.0.0.tar.gz;
       sha256 = "0yg09fpzqbmga1vx0p956vx6fyjmrgczb108fr0djswfn1mdiq3j";
     };
-    buildInputs = [ bordeaux-threads queues-simple-cqueue ];
+    lispLibs = [ bordeaux-threads queues-simple-cqueue ];
   };
 
   "babel" = build-asdf-system {
@@ -52,7 +52,7 @@ rec {
     };
     version = "20200925";
     pname = "babel";
-    buildInputs = [
+    lispLibs = [
       alexandria
       trivial-features
     ];
@@ -65,7 +65,7 @@ rec {
     };
     version = "0.8.8";
     pname = "bordeaux-threads";
-    buildInputs = [
+    lispLibs = [
       alexandria
     ];
   };
@@ -85,7 +85,7 @@ rec {
     };
     version = "0.24.1";
     pname = "cffi";
-    buildInputs = [
+    lispLibs = [
       alexandria
       babel
       trivial-features
@@ -96,7 +96,7 @@ rec {
   cffi-grovel = build-asdf-system {
     inherit (cffi) src version;
     pname = "cffi-grovel";
-    buildInputs = [
+    lispLibs = [
       alexandria
       cffi-toolchain
       cffi
@@ -106,7 +106,7 @@ rec {
   cffi-toolchain = build-asdf-system {
     inherit (cffi) src version;
     pname = "cffi-toolchain";
-    buildInputs = [
+    lispLibs = [
       cffi
     ];
   };
@@ -114,12 +114,12 @@ rec {
   cffi-libffi = build-asdf-system {
     inherit (cffi) src version;
     pname = "cffi-libffi";
-    buildInputs = [
+    lispLibs = [
       cffi
       cffi-grovel
       trivial-features
     ];
-    # HACK: just for include flags for grovel, fix by buildInputs->lispLibs
+    # HACK: just for include flags for grovel
     nativeBuildInputs = [ pkgs.libffi ];
     nativeLibs = [ pkgs.libffi ];
   };
@@ -131,7 +131,7 @@ rec {
     };
     version = "20190202";
     pname = "chipz";
-    buildInputs = [
+    lispLibs = [
     ];
   };
 
@@ -142,7 +142,7 @@ rec {
     };
     version = "20200427";
     pname = "chunga";
-    buildInputs = [
+    lispLibs = [
       trivial-gray-streams
     ];
   };
@@ -154,7 +154,7 @@ rec {
     };
     version = "20210411";
     pname = "cl+ssl";
-    buildInputs = [
+    lispLibs = [
       alexandria
       bordeaux-threads
       cffi
@@ -183,7 +183,7 @@ rec {
     };
     version = "20191007";
     pname = "cl-cookie";
-    buildInputs = [
+    lispLibs = [
       alexandria
       cl-ppcre
       local-time
@@ -220,7 +220,7 @@ rec {
 
       systems = [ "cl-unicode" ];
 
-      buildInputs = [
+      lispLibs = [
         cl-ppcre
         flexi-streams
       ];
@@ -242,7 +242,7 @@ rec {
     inherit version;
     pname = "cl-unicode";
     src = cl-unicode-build.out;
-    buildInputs = [
+    lispLibs = [
       cl-ppcre
       # flexi-streams is only needed for cl-unicode/build
     ];
@@ -263,7 +263,7 @@ rec {
   "cl-ppcre-unicode" = build-asdf-system {
     inherit (cl-ppcre) src version;
     pname = "cl-ppcre-unicode";
-    buildInputs = [
+    lispLibs = [
       cl-unicode
       cl-ppcre
     ];
@@ -279,7 +279,7 @@ rec {
     };
     version = "20210228";
     pname = "cl-reexport";
-    buildInputs = [
+    lispLibs = [
       alexandria
     ];
   };
@@ -291,7 +291,7 @@ rec {
     };
     version = "20180328";
     pname = "cl-selenium";
-    buildInputs = [
+    lispLibs = [
       alexandria
       cl-json
       dexador
@@ -316,7 +316,7 @@ rec {
     };
     version = "20210411";
     pname = "dexador";
-    buildInputs = [
+    lispLibs = [
       alexandria
       babel
       bordeaux-threads
@@ -343,7 +343,7 @@ rec {
     };
     version = "20191007";
     pname = "fast-http";
-    buildInputs = [
+    lispLibs = [
       alexandria
       babel
       cl-utilities
@@ -360,7 +360,7 @@ rec {
     };
     version = "20200925";
     pname = "fast-io";
-    buildInputs = [
+    lispLibs = [
       alexandria
       static-vectors
       trivial-gray-streams
@@ -374,7 +374,7 @@ rec {
     };
     version = "20200925";
     pname = "flexi-streams";
-    buildInputs = [
+    lispLibs = [
       trivial-gray-streams
     ];
   };
@@ -395,7 +395,7 @@ rec {
     };
     version = "20190813";
     pname = "proc-parse";
-    buildInputs = [
+    lispLibs = [
       alexandria
       babel
     ];
@@ -421,7 +421,7 @@ rec {
     };
     version = "20210411";
     pname = "quri";
-    buildInputs = [
+    lispLibs = [
       alexandria
       babel
       cl-utilities
@@ -436,7 +436,7 @@ rec {
     };
     version = "20160628";
     pname = "smart-buffer";
-    buildInputs = [
+    lispLibs = [
       flexi-streams
       xsubseq
     ];
@@ -458,7 +458,7 @@ rec {
     };
     version = "1.8.9";
     pname = "static-vectors";
-    buildInputs = [
+    lispLibs = [
       alexandria
       cffi-grovel
       cffi
@@ -508,7 +508,7 @@ rec {
     };
     version = "0.8.3";
     pname = "usocket";
-    buildInputs = [
+    lispLibs = [
       split-sequence
     ];
   };
@@ -520,7 +520,7 @@ rec {
     };
     version = "20170830";
     pname = "xsubseq";
-    buildInputs = [
+    lispLibs = [
     ];
   };
 
@@ -531,7 +531,7 @@ rec {
     };
     version = "0.2.0";
     pname = "cl-change-case";
-    buildInputs = [
+    lispLibs = [
       cl-ppcre-unicode
     ];
   };
@@ -543,7 +543,7 @@ rec {
     };
     version = "0.19.1-a833fa23bf";
     pname = "str";
-    buildInputs = [
+    lispLibs = [
       cl-ppcre
       cl-change-case
     ];
@@ -565,7 +565,7 @@ rec {
     };
     version = "0.0.0-20210905-6b201d4208";
     pname = "jzon";
-    buildInputs = [
+    lispLibs = [
       closer-mop
     ];
     systems = [ "com.inuoe.jzon" ];
@@ -578,7 +578,7 @@ rec {
       sha256 = "1gc8i82v6gks7g0lnm54r4prk2mklidv2flm5fvbr0a7rsys0vpa";
     };
     version = "0.7.6";
-    buildInputs = [
+    lispLibs = [
       bordeaux-threads
       alexandria
     ];
@@ -601,7 +601,7 @@ rec {
       sha256 = "10sc6226x725sm1w6na1ilbqmm3x8rphqy7m1fhcm9siqnrg8nnj";
     };
     version = "2.0.3";
-    buildInputs = [
+    lispLibs = [
       flexi-streams
     ];
   };
@@ -623,7 +623,7 @@ rec {
       url = "https://github.com/edicl/hunchentoot/archive/v1.3.0.tar.gz";
       sha256 = "1z0m45lp6rv59g69l44gj3q3d2bmjlhqzpii0vgkniam21dcimy9";
     };
-    buildInputs = [
+    lispLibs = [
       chunga
       cl-base64
       cl-fad
@@ -655,7 +655,7 @@ rec {
       url = "https://github.com/TeMPOraL/cl-sqlite/archive/refs/tags/0.2.1.tar.gz";
       sha256 = "08iv7b4m0hh7qx2cvq4f510nrgdld0vicnvmqsh9w0fgrcgmyg4k";
     };
-    buildInputs = [ iterate cffi ];
+    lispLibs = [ iterate cffi ];
     systems = [ "sqlite" ];
     nativeLibs = [ pkgs.sqlite ];
   };
@@ -667,7 +667,7 @@ rec {
       url = https://github.com/ruricolist/cl-murmurhash/archive/5433f5e95f1cce63a81259a471150834c6a59364.tar.gz;
       sha256 = "0251r0mpjm0y3qsm4lm7ncvrkxvgwc53spdm1p2mpayhvkkqqsws";
     };
-    buildInputs = [ babel ];
+    lispLibs = [ babel ];
   };
 
   cl-hamt = build-asdf-system {
@@ -677,7 +677,7 @@ rec {
       url = https://github.com/danshapero/cl-hamt/archive/7a99eaaca1f952029def9ad5a2b80a612a712208.tar.gz;
       sha256 = "1ycbd73ykfj5j9sdhlzamyv18qbjj6xqf7fhm4fa0nsyr6sr3rf5";
     };
-    buildInputs = [ cl-murmurhash ];
+    lispLibs = [ cl-murmurhash ];
   };
 
   trivial-indent = build-asdf-system {
@@ -696,7 +696,7 @@ rec {
       url = https://github.com/Shinmera/documentation-utils/archive/98630dd5f7e36ae057fa09da3523f42ccb5d1f55.tar.gz;
       sha256 = "098qhkqskmmrh4wix34mawf7p5c87yql28r51r75yjxj577k5idq";
     };
-    buildInputs = [ trivial-indent ];
+    lispLibs = [ trivial-indent ];
   };
 
   atomics = build-asdf-system {
@@ -706,7 +706,7 @@ rec {
       url = https://github.com/Shinmera/atomics/archive/9ee0bdebcd2bb9b242671a75460db13fbf45454c.tar.gz;
       sha256 = "0mp5jdqq0aamdhgnvw149cqqi3zg7dkkibp25qi4rafw1fnpd40z";
     };
-    buildInputs = [ documentation-utils ];
+    lispLibs = [ documentation-utils ];
   };
 
   lparallel = build-asdf-system {
@@ -716,7 +716,7 @@ rec {
       url = https://github.com/lmj/lparallel/archive/lparallel-2.8.4.tar.gz;
       sha256 = "0g0aylrbbrqsz0ahmwhvnk4cmc2931fllbpcfgzsprwnqqd7vwq9";
     };
-    buildInputs = [ bordeaux-threads alexandria ];
+    lispLibs = [ bordeaux-threads alexandria ];
   };
 
   asdf-flv = build-asdf-system {
@@ -726,7 +726,7 @@ rec {
       url = https://github.com/didierverna/asdf-flv/archive/fc5b7399767ca35bfb420bbeb9e08494e441dc69.tar.gz;
       sha256 = "10094avq2whg8j5dnvla5wzqk5h36bx74lxbdbhdchv0wvn5x0g4";
     };
-    buildInputs = [ bordeaux-threads alexandria ];
+    lispLibs = [ bordeaux-threads alexandria ];
     systems = [ "net.didierverna.asdf-flv" ];
   };
 
@@ -737,7 +737,7 @@ rec {
       url = https://github.com/lispci/fiveam/archive/v1.4.2.tar.gz;
       sha256 = "04mh5plmlb15jbq3dkd8b9jl1dmbbg4hnd3k7859vpf6s12k5p4j";
     };
-    buildInputs = [ alexandria trivial-backtrace asdf-flv ];
+    lispLibs = [ alexandria trivial-backtrace asdf-flv ];
   };
 
   cl-rabbit = build-asdf-system {
@@ -747,14 +747,14 @@ rec {
       url = https://github.com/uthar/cl-rabbit/archive/deedde4506c5f9d30d113157a6c304be05729851.tar.gz;
       sha256 = "0hwnhbxcjkji011pz0bb6l07g346qkavahzzq2ajd0yfl673vcq4";
     };
-    buildInputs = [
+    lispLibs = [
       cffi
       cffi-libffi
       alexandria
       babel
       cl-ppcre
     ];
-    # HACK: just for include flags for grovel, fix by buildInputs->lispLibs
+    # HACK: just for include flags for grovel
     nativeBuildInputs = [ pkgs.rabbitmq-c ];
     nativeLibs = [ pkgs.rabbitmq-c ];
   };
