@@ -8,8 +8,8 @@
              ./add-zstd-decompression.patch
            ];
       buildInputs = o.buildInputs ++ [ super.zstd ];
-      # uncomment on next rebuild
-      # doCheck = false;
+      doCheck = false;
+      doInstallCheck = false;
     });
 
     nixopsWithPlugins = super.nixopsUnstable.override {
@@ -41,6 +41,17 @@
       });
     };
 
+    llvmPackages_clasp = with super; recurseIntoAttrs (callPackage ./clasp/llvm_13 ({
+      inherit (stdenvAdapters) overrideCC;
+      buildLlvmTools = buildPackages.llvmPackages_clasp.tools;
+      targetLlvmLibraries = targetPackages.llvmPackages_clasp.libraries;
+    } // lib.optionalAttrs (stdenv.hostPlatform.isi686 && buildPackages.stdenv.cc.isGNU) {
+      stdenv = gcc7Stdenv;
+    }));
+    llvm_clasp = llvmPackages_clasp.lldb;
+    lldb_clasp = llvmPackages_clasp.lldb;
+    lld_clasp = llvmPackages_clasp.lld;
+
     nixops = builtins.head nixopsWithPlugins.plugins;
 
     vlc = super.vlc.override { jackSupport = true; };
@@ -56,11 +67,13 @@
       eclPackages
       abclPackages
       cclPackages
+      claspPackages
       lispWithPackages
       sbclWithPackages
       eclWithPackages
       abclWithPackages
-      cclWithPackages;
+      cclWithPackages
+      claspWithPackages;
 
 
     fsl = super.callPackage ./fsl.nix { inherit fossil; };
@@ -91,6 +104,8 @@
     ecl = eclGlibc;
 
     kawa = super.callPackage ./kawa {};
+
+    clasp = super.callPackage ./clasp {};
 
     lzlib = super.callPackage ./lzlib.nix {} ;
 

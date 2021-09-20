@@ -190,16 +190,19 @@ let
     ecl = "${pkgs.ecl}/bin/ecl --shell";
     abcl = ''${pkgs.abcl}/bin/abcl --batch --eval "(load \"$buildScript\")"'';
     ccl = ''${pkgs.ccl}/bin/ccl --batch --eval "(load \"$buildScript\")" --'';
+    clasp = ''${pkgs.clasp}/bin/clasp --non-interactive --quit --load'';
 
     sbclPackages = commonLispPackagesFor sbcl;
     eclPackages = commonLispPackagesFor ecl;
     abclPackages = commonLispPackagesFor abcl;
     cclPackages = commonLispPackagesFor ccl;
+    claspPackages = commonLispPackagesFor clasp;
 
     sbclWithPackages = lispWithPackages sbclPackages;
     eclWithPackages = lispWithPackages eclPackages;
     abclWithPackages = lispWithPackages abclPackages;
     cclWithPackages = lispWithPackages cclPackages;
+    claspWithPackages = lispWithPackages claspPackages;
   };
 
 in commonLispPackages
