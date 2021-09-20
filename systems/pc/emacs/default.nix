@@ -33,13 +33,19 @@ with pkgs; with emacsPackagesNg;
         patches = [ ./tramp-detect-wrapped-gvfsd.patch ] ;
       });
 
-    modus-operandi = runCommand "modus-operandi" {} ''
-      mkdir -p $out/share/emacs/site-lisp
-      cp -Tr ${fetchTarball {
+    build-elisp-package = { name, src }:
+      runCommand name {} ''
+        mkdir -p $out/share/emacs/site-lisp
+        cp -Tr ${src} $out/share/emacs/site-lisp
+      '';
+
+    modus-operandi = build-elisp-package {
+      name = "modus-operandi";
+      src = fetchTarball {
         url = http://elpa.gnu.org/packages/modus-themes-1.5.0.tar;
         sha256 = "0dr61yvmfq0cwrwc6by5iqy074q79qnpmvw4gmhhg6w7qpqyibnw";
-      }} $out/share/emacs/site-lisp
-    '';
+      };
+    };
 
     withPatches = drv: patches: drv.overrideAttrs (o: { inherit patches; });
 
