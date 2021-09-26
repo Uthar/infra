@@ -48,6 +48,7 @@
     };
     jdk17 = openjdk17;
     jdk-lts = jdk17;
+    jdk = jdk-lts;
 
 
     llvmPackages_clasp = with super; recurseIntoAttrs (callPackage ./clasp/llvm_13 ({
