@@ -41,6 +41,15 @@
       });
     };
 
+    openjdk17 = with super; callPackage ./openjdk/17.nix {
+      openjfx = openjfx15;
+      inherit (gnome2) GConf gnome_vfs;
+      openjdk17-bootstrap = adoptopenjdk-hotspot-bin-16;
+    };
+    jdk17 = openjdk17;
+    jdk-lts = jdk17;
+
+
     llvmPackages_clasp = with super; recurseIntoAttrs (callPackage ./clasp/llvm_13 ({
       inherit (stdenvAdapters) overrideCC;
       buildLlvmTools = buildPackages.llvmPackages_clasp.tools;
