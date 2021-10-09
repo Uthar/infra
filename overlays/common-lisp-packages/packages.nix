@@ -759,5 +759,17 @@ rec {
     nativeLibs = [ pkgs.rabbitmq-c ];
   };
 
+  log4cl = build-asdf-system {
+    pname = "log4cl";
+    version = "1.1.3";
+    src = builtins.fetchTarball {
+      url = https://github.com/sharplispers/log4cl/archive/ee39b187a082ef554ba0053a66ba8be59b9cc35c.tar.gz;
+      sha256 = "1za405sqy71f7w4lnrd1gjqkkbhqmsa7cbm7hy483z3fsdxq3y2l";
+    };
+    lispLibs = [
+      bordeaux-threads
+    ];
+  };
+
 
 }
