@@ -89,7 +89,7 @@
     fsl = super.callPackage ./fsl.nix { inherit fossil; };
 
     fossil = let
-      rev = "e3066edea3d0cef2cff8baaddf2cb7008c3367e27cab209dddec4db99eb692fc";
+      rev = "f48180f2ff3169651a725396d4f7d667c99a92873b9c3df7eee2f144be7a0721";
     in
       with super.lib.lists;
       super.fossil.overrideAttrs (old: rec {
@@ -99,7 +99,7 @@
         buildInputs = remove super.sqlite old.buildInputs;
         src = super.fetchurl {
           url = "https://fossil-scm.org/home/tarball/${rev}/${pname}-${rev}.tar.gz";
-          sha256 = "sha256:0kpk80vdp87myvzky1idrns1rvjawvnn8wc0vkgmpkp1ympxgzk0";
+          sha256 = "sha256:1gjmc2fy2mxhgy7bqnixgp4pfq7wdg04llrsy0qi1bc6cap8zdjs";
         };
         doCheck = false;
       });
