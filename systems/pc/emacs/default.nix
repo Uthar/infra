@@ -47,14 +47,6 @@ with pkgs; with emacsPackagesNg;
       };
     };
 
-    lisp-editing-commands = build-elisp-package {
-      name = "lisp-editing-commands";
-      src = fetchTarball {
-        url = https://github.com/uthar/lisp-editing-commands/archive/49ee3e47e75abfe15d6653965df452194a4402e7.tar.gz;
-        sha256 = "1h942alrd6ifi5p6a5c74a7iq2iv1ar02isjlgyh9za0vz604n4r";
-      };
-    };
-
     withPatches = drv: patches: drv.overrideAttrs (o: { inherit patches; });
 
     emacsWithPackages = (emacsPackagesNgGen emacs').emacsWithPackages;
@@ -63,7 +55,6 @@ with pkgs; with emacsPackagesNg;
 
     [
       defaultEl
-      lisp-editing-commands
     ]
 
     ++
@@ -73,7 +64,6 @@ with pkgs; with emacsPackagesNg;
       counsel
       ivy
       modus-operandi
-      (withPatches sly [ ./sly-dont-leave-map-sym-file.patch ])
       undo-tree
       which-key
     ])
@@ -103,6 +93,8 @@ with pkgs; with emacsPackagesNg;
       projectile
       rg
       ripgrep
+      slime
+      slime-company
       use-package
       vc-fossil
       wgrep

@@ -267,16 +267,20 @@
   :hook (after-init . modus-themes-load-operandi)
   :bind ("C-c t" . modus-themes-toggle))
 
-(use-package sly
+(use-package slime
   :custom
+  (slime-truncate-lines nil)
+  (slime-net-coding-system 'utf-8-unix)
   (inferior-lisp-program "sbcl --disable-ldb --dynamic-space-size 4096")
+  (slime-contribs '(slime-asdf slime-company slime-quicklisp slime-fancy))
+  (slime-company-completion 'fuzzy)
+  (slime-repl-auto-right-margin t)
+  (slime-repl-history-size 10000)
   (common-lisp-hyperspec-root "@clhs@/")
   (common-lisp-hyperspec-symbol-table "@clhs@/Data/Map_Sym.txt")
-  :config
-  (evil-set-initial-state 'sly-db-mode 'emacs)
-  (evil-set-initial-state 'sly-inspector-mode 'emacs)
-  (advice-add 'sly-display-eval-result :override (lambda (value) (message "=> %s" value)))
-  :bind-keymap ("C-c s" . sly-selector-map))
+  :bind ("C-c s" . 'slime-selector)
+  :hook
+  (slime-mode . (lambda () (bind-key "C-]" 'slime-edit-definition 'evil-motion-state-local-map))))
 
 
 ;; repl window
@@ -334,7 +338,7 @@
 (defun call-with-repl-window (fn &rest args)
   (open-buffer-in-repl-window (save-window-excursion (apply fn args))))
 
-(advice-add 'sly-mrepl :around 'call-with-repl-window)
+(advice-add 'slime :around 'call-with-repl-window)
 (advice-add 'ansi-term :around 'call-with-repl-window)
 (advice-add 'eshell :around 'call-with-repl-window)
 (advice-add 'cider-repl-create :around 'call-with-repl-window)
