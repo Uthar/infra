@@ -122,8 +122,8 @@ let me = "kpg"; in
 
   virtualisation.virtualbox.host.enable = true;
 
-  virtualisation.podman.enable = true;
-  virtualisation.podman.dockerCompat = true;
+  virtualisation.docker.enable = true;
+  environment.systemPackages = [ pkgs.docker-compose ];
 
   fonts.fonts = with pkgs; [
     anonymousPro
@@ -135,7 +135,7 @@ let me = "kpg"; in
   users.users.${me} = {
     isNormalUser = true;
     initialHashedPassword = "";
-    extraGroups = [ "wheel" "networkmanager" "transmission" "wireshark" ];
+    extraGroups = [ "docker" "wheel" "networkmanager" "transmission" "wireshark" ];
   };
 
   # This value determines the NixOS release from which the default
