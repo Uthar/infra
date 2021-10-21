@@ -75,6 +75,7 @@ with pkgs; with emacsPackagesNg;
       anzu
       browse-kill-ring
       (withPatches cider [ ./cider-return-buffer-in-switch-to-repl-buffer.patch ])
+      company-terraform
       diminish
       (withPatches direnv [ ./direnv-el-message-not-warning.patch ])
       editorconfig
@@ -83,7 +84,7 @@ with pkgs; with emacsPackagesNg;
       evil-collection
       evil-matchit
       evil-surround
-      flycheck
+      (withPatches flycheck [ ./flycheck-dont-message-suspicious.patch ])
       go-mode
       hl-todo
       lsp-mode
@@ -95,6 +96,7 @@ with pkgs; with emacsPackagesNg;
       ripgrep
       slime
       slime-company
+      terraform-mode
       use-package
       vc-fossil
       wgrep

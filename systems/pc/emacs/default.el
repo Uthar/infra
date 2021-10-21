@@ -241,6 +241,13 @@
 
 ;;;; programming language support
 
+(use-package terraform-mode
+  :mode "\\.tf\\'")
+
+(use-package company-terraform
+  :after (company terraform-mode)
+  :config (company-terraform-init))
+
 (use-package nix-mode
   :mode "\\.nix\\'")
 

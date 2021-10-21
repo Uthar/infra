@@ -1,6 +1,6 @@
 # infra
 
-This contains programs which declare networks of computers.
+This repo contains declarative infrastructure as code configuration of networks of NixOS machines, deployed using NixOps.
 
 ## dependencies
 
