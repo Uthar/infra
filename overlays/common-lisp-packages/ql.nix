@@ -39,6 +39,16 @@ let
     sdl2 = {
       nativeLibs = [ SDL2 ];
     };
+    cl-opengl = {
+      nativeLibs = [ libGL ];
+    };
+    lev = {
+      nativeLibs = [ libev ];
+    };
+    cl-rdkafka = {
+      nativeBuildInputs = [ rdkafka ];
+      nativeLibs = [ rdkafka ];
+    };
   };
 
   # NOTE:
