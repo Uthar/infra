@@ -203,6 +203,9 @@
 (use-package undo-tree
   :diminish
   :custom
+  (undo-tree-limit undo-limit)
+  (undo-tree-strong-limit undo-strong-limit)
+  (undo-tree-outer-limit undo-outer-limit)
   (undo-tree-auto-save-history t)
   (undo-tree-history-directory-alist `(("." . ,(state-dir "undo-tree-history"))))
   :config (global-undo-tree-mode))
