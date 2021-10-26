@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, build-asdf-system, flattenedDeps, ... }:
 
 with pkgs;
 with lib;
@@ -49,17 +49,28 @@ let
       nativeBuildInputs = [ rdkafka ];
       nativeLibs = [ rdkafka ];
     };
+    cl-async-ssl = {
+      nativeLibs = [ openssl ];
+    };
   };
 
   # NOTE:
   # You might need https://github.com/NixOS/nix/commit/cd44c0af71ace2eb8056c2b26b9249a5aa102b41
   # and a couple gigs of ram, as some derivations are HUGE
+  #
+  # So, if you get stack overflow with nix <=2.3, try again with `ulimit -s 65536`
+  #
+  # FIXME: mark those broken on nix.lisp level for speed
   broken = [
     # broken packaging in quicklisp: clml.data.r-datasets depends on
     # a non-existing system clml.data.r-datasets-package
     # FIXME: patch the clml.data.r-datasets-package system manually in
     # systems.txt before running nix.lisp
-    (x: hasPrefix "clml" x)
+    # (n: v: hasPrefix "clml" n)
+
+    # Broken upstream: see https://gitlab.common-lisp.net/antik/antik/-/issues/4
+    # (n: v: hasPrefix "antik" n)
+    # (n: v: any (dep: hasPrefix "antik" dep.pname) (flattenedDeps v.lispLibs))
 
     # FIXME: for cl-unicode (and other cases where the build process
     # generates new source files), try to rebuild any failing library
@@ -67,13 +78,11 @@ let
     # with the previous one as source
   ];
 
-  qlpkgs = filterAttrs (n: v: any (check: !(check n)) broken) (import ./from-quicklisp.nix { inherit pkgs; });
-  # qlpkgs = (import ./from-quicklisp.nix { inherit pkgs; });
+  qlpkgs = filterAttrs (n: v: all (check: !(check n v)) broken) (import ./from-quicklisp.nix { inherit pkgs; });
 
   build = pkg:
-    (commonLispPackages.build-asdf-system
+    (build-asdf-system
       (pkg // {
-        lisp = "${sbcl}/bin/sbcl --script";
         lispLibs = map build pkg.lispLibs;
       }
       // (optionalAttrs (hasAttr pkg.pname extras) extras.${pkg.pname})));
