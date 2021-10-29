@@ -26,7 +26,7 @@
 
   # FIXME no root login
   users.users.root = {
-    openssh.authorizedKeys.keys = [ /home/kpg/.ssh/id_rsa.pub ];
+    openssh.authorizedKeys.keyFiles = [ /home/kpg/.ssh/id_rsa.pub ];
   };
 
 }
