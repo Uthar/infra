@@ -147,6 +147,29 @@ let
       build-asdf-system = build-asdf-system';
     };
 
+  # Build the set of packages imported from quicklisp using `lisp`
+  quicklispPackagesFor = lisp:
+    let
+      manualPackages = commonLispPackagesFor lisp;
+      build-asdf-system' = body: build-asdf-system (body // {
+        inherit lisp;
+
+        # Rewrite dependencies of imported packages to use the manually
+        # defined ones instead
+        lispLibs = map
+          (pkg:
+            if (lib.hasAttr pkg.pname manualPackages)
+            then manualPackages.${pkg.pname}
+            else pkg
+          )
+          body.lispLibs;
+      });
+    in import ./ql.nix {
+      inherit pkgs;
+      inherit flattenedDeps;
+      build-asdf-system = build-asdf-system';
+    };
+
   # Creates a lisp wrapper with `packages` installed
   #
   # `packages` is a function that takes `clpkgs` - a set of lisp
@@ -192,11 +215,25 @@ let
     ccl   = ''${pkgs.ccl}/bin/ccl --batch --eval "(load \"$buildScript\")" --'';
     clasp = ''${pkgs.clasp}/bin/clasp --non-interactive --quit --load'';
 
-    sbclPackages  = commonLispPackagesFor sbcl;
-    eclPackages   = commonLispPackagesFor ecl;
-    abclPackages  = commonLispPackagesFor abcl;
-    cclPackages   = commonLispPackagesFor ccl;
-    claspPackages = commonLispPackagesFor clasp;
+    sbclManualPackages  = commonLispPackagesFor sbcl;
+    eclManualPackages   = commonLispPackagesFor ecl;
+    abclManualPackages  = commonLispPackagesFor abcl;
+    cclManualPackages   = commonLispPackagesFor ccl;
+    claspManualPackages = commonLispPackagesFor clasp;
+
+    sbclQlPackages  = quicklispPackagesFor sbcl;
+    eclQlPackages   = quicklispPackagesFor ecl;
+    abclQlPackages  = quicklispPackagesFor abcl;
+    cclQlPackages   = quicklispPackagesFor ccl;
+    claspQlPackages = quicklispPackagesFor clasp;
+
+    # Manually defined packages shadow the ones imported from quicklisp
+
+    sbclPackages  = (sbclQlPackages  // sbclManualPackages);
+    eclPackages   = (eclQlPackages   // eclManualPackages);
+    abclPackages  = (abclQlPackages  // abclManualPackages);
+    cclPackages   = (cclQlPackages   // cclManualPackages);
+    claspPackages = (claspQlPackages // claspManualPackages);
 
     sbclWithPackages  = lispWithPackages sbclPackages;
     eclWithPackages   = lispWithPackages eclPackages;
