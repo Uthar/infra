@@ -69,7 +69,7 @@ let
   git =
     { config, pkgs, lib, ... }:
     {
-      users.users.git.openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF6vChYUxR9N6zI3cSucBG5zMEfF3AQJzOtfcvIG23Xbb68pIdgVM188rhCanjchw1tLbgeO86QAa3K0oQcxsLMWntWTD3y4ERLgxxW5VEnB2G5ZQsX3BYlxLHoLNBEtqipJUN0Mjrczoe/xlNljeeiCG7VvwG5Uwl35+ZhLUo18C8VMLII9wErMXIi8Iaw3Hcvrl9WsGvF9urqaxJEczMPLmUu7rpe4i7qoA1s1v9P8lqHv6YtSxxa/bi5SpkRdcCdQ4t22fDPVkP2gyAet/AfgoBWKWp3FZ8XdTwPlQRXOLRA1os3hAsf4ZxvTJNNdyFZUTISnFXhKVL+qdMRUGJ" ];
+      users.users.git.openssh.authorizedKeys.keyFiles = [ /home/kpg/.ssh/id_rsa.pub ];
       imports = [ ../../systems/git ];
     };
 
