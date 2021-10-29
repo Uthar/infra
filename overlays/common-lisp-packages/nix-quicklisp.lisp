@@ -1,3 +1,9 @@
+(require :asdf)
+(asdf:load-system :str)
+(asdf:load-system :cl-ppcre)
+(asdf:load-system :dexador)
+(asdf:load-system :sqlite)
+
 (defun nix-string (object)
   (format nil "\"~a\"" object))
 
@@ -44,56 +50,12 @@
           (nixify-symbol fun)
           (mapcar 'nix-eval args)))
 
-;; (nix-funcall "myFunction+2.3" '( (:string . "foo") (:symbol . "bhar") (:funcall . ("superFunction" ( (:symbol . "bar") ) ) ) ))
-
-;; (nix-eval
-;; '(:attrs .
-;;   ((|first| . (:attrs .
-;;                ((|foo| . (:string . "5"))
-;;                 (|bar| . (:symbol . "2"))
-;;                 (|baz| . (:list . (
-;;                                    (:symbol . "2")
-;;                                    (:string . "HelloThar")
-;;                                    (:list . ((:symbol . "2")
-;;                                              (:symbol . "foozie")
-
-;;                                              (:symbol . "cl+ssl.hehe"))))))
-;;                 ("quux" . (:attrs .
-;;                                   ((|lisp+Libs| . (:funcall . ("fetchTarball" ((:attrs . ((|url| . (:string . "https://galkowski.xyz"))
-;;                                                                                           (|sha1| . (:string . "12312312512312125124123"))))))))))))))
-;;    (|second| . (:attrs .
-;;                 ((|foo| . (:string . "5"))
-;;                  (|bar| . (:symbol . "2"))
-;;                  (|baz| . (:list . (
-;;                                     (:symbol . "2")
-;;                                     (:string . "HelloThar")
-;;                                     (:list . ((:symbol . "2")
-;;                                               (:symbol . "foozie")
-
-;;                                               (:symbol . "cl+ssl.hehe"))))))
-;;                  ("quux" . (:attrs .
-;;                                    ((|lisp+Libs| . (:attrs . ((|BaZinG| . (:symbol . "cl+ssl"))))))))))))))
-;; (nix-attrs
-;;  '(
-;;    (|2foo| . (:string . "5"))
-;;    ("sumThanh+-3" . (:symbol . "2"))
-;;    (|baz| . (:list . (
-;;                       (:symbol . "2")
-;;                       (:string . "HelloThar")
-;;                       (:list . ((:symbol . "2")
-;;                                 (:symbol . "foozie")
-
-;;                                 (:symbol . "cl+ssl.hehe"))))))
-;;    ("quux" . (:attrs .
-;;             ((|lisp+Libs| . (:attrs . (("BaZinG" . (:symbol . "cl+ssl"))))))))))
-
-
 ;; FIXME: preload these text files into a hash table/sqlite for faster acccess
 
 (let ((systems-url "https://beta.quicklisp.org/dist/quicklisp/2021-08-07/systems.txt")
       (releases-url "https://beta.quicklisp.org/dist/quicklisp/2021-08-07/releases.txt"))
-  (defvar *systems.txt* (str:split #\Newline (dex:get systems-url)))
-  (defvar *releases.txt* (str:split #\Newline (dex:get releases-url))))
+  (defvar *systems.txt* (butlast (str:split #\Newline (dex:get systems-url))))
+  (defvar *releases.txt* (butlast (str:split #\Newline (dex:get releases-url)))))
 
 (defvar *projects*
   (loop for line in *systems.txt*
@@ -125,9 +87,6 @@
                        :url ,(second words)
                        :sha1 ,(fifth words)
                        :version ,(str:replace-first (str:concat project "-") "" (sixth words))))))
-
-;; (find-systems "cl-async")
-;; (find-release "3bmd")
 
 (defvar *asds* (remove-duplicates
                 (loop for line in *systems.txt*
@@ -189,8 +148,7 @@
         collect `(:asd ,(if create-asd? system asd)
                   :systems ,systems
 
-                  ;; not needed if we create the missing asds and
-                  ;; :deps ,(remove-duplicates (mapcar 'find-asd deps) :test 'string=)
+                  ;; not needed if we create the missing asds
                   :deps ,deps
                   :create-asd? ,create-asd?
 
@@ -203,12 +161,18 @@
 (defun shell-command-to-string (cmd)
   (uiop:run-program cmd :output '(:string :stripped t)))
 
-(defvar *sha256-cache* (make-hash-table :test 'equalp))
+(defvar *sqlite* (sqlite:connect "quicklisp.sqlite"))
+(sqlite:execute-non-query *sqlite* "create table if not exists sha256s (url unique, sha256)")
+
+(defun ensure-sha256 (url)
+  (or (sqlite:execute-single *sqlite* "select sha256 from sha256s where url=?" url)
+      (let ((sha256 (shell-command-to-string (str:concat "nix-prefetch-url --unpack " url))))
+        (sqlite:execute-single *sqlite* "insert into sha256s values (?, ?)" url sha256)
+        sha256)))
 
 (defun nix-prefetch-tarball (url)
   (restart-case
-    (alexandria:ensure-gethash url *sha256-cache*
-      (shell-command-to-string (str:concat "nix-prefetch-url --unpack " url)))
+      (ensure-sha256 url)
     (try-again ()
       :report "Try downloading again"
       (nix-prefetch-tarball url))))
@@ -225,7 +189,7 @@
          for sha256 = (nix-prefetch-tarball url)
          for version = (getf pkg :version)
 
-         ;; join deps of all `systems` (find-system "cl-fad-test")
+         ;; join deps of all `systems`
          for alldeps
            = (loop with all = deps
                    for sys in systems
@@ -271,4 +235,4 @@ in
 
 rec ~a" (nix-packages))))
 
-;; (write-nix-packages "~/projects/infra/overlays/common-lisp-packages/from-quicklisp.nix")
+(write-nix-packages "from-quicklisp.nix")
