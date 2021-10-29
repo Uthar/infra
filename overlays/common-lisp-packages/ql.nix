@@ -78,7 +78,10 @@ let
     # with the previous one as source
   ];
 
-  qlpkgs = filterAttrs (n: v: all (check: !(check n v)) broken) (import ./from-quicklisp.nix { inherit pkgs; });
+  qlpkgs =
+    if builtins.pathExists ./from-quicklisp.nix
+    then filterAttrs (n: v: all (check: !(check n v)) broken) (import ./from-quicklisp.nix { inherit pkgs; })
+    else {};
 
   build = pkg:
     (build-asdf-system
