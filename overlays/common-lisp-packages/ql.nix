@@ -42,6 +42,12 @@ let
     cl-opengl = {
       nativeLibs = [ libGL ];
     };
+    cl-glu = {
+      nativeLibs = [ libGLU ];
+    };
+    cl-glut = {
+      nativeLibs = [ freeglut ];
+    };
     lev = {
       nativeLibs = [ libev ];
     };
