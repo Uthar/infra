@@ -85,10 +85,12 @@
   (define-key dired-mode-map (kbd "M-h") 'dired-toggle-hidden)
   (define-key dired-mode-map "N" nil)
   (define-key dired-mode-map "n" nil)
+  (define-key dired-mode-map [mouse-1] 'dired-find-file)
   :hook
   (dired-mode . dired-hide-details-mode)
   (dired-mode
    . (lambda ()
+       (setq-local mouse-1-click-follows-link nil)
        (evil-local-set-key 'normal "l" 'dired-find-file)
        (evil-local-set-key 'normal "h" 'dired-up-directory))))
 
