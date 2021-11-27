@@ -10,53 +10,56 @@ let
   # FIXME: automatically add nativeLibs based on conditions signalled
 
   extras = {
-    "cl+ssl" = {
+    "cl+ssl" = pkg: {
       nativeLibs = [ openssl ];
     };
-    cffi-libffi = {
+    cffi-libffi = pkg: {
       nativeBuildInputs = [ libffi ];
       nativeLibs = [ libffi ];
     };
-    cl-rabbit = {
+    cl-rabbit = pkg: {
       nativeBuildInputs = [ rabbitmq-c ];
       nativeLibs = [ rabbitmq-c ];
     };
-    trivial-ssh-libssh2 = {
+    trivial-ssh-libssh2 = pkg: {
       nativeLibs = [ libssh2 ];
     };
-    sqlite = {
+    sqlite = pkg: {
       nativeLibs = [ sqlite ];
     };
-    cl-libuv = {
+    cl-libuv = pkg: {
       nativeBuildInputs = [ libuv ];
       nativeLibs = [ libuv ];
     };
-    cl-liballegro = {
+    cl-liballegro = pkg: {
       # build doesnt fail without this, but fails on runtime
       # weird...
       nativeLibs = [ allegro5 ];
     };
-    sdl2 = {
+    sdl2 = pkg: {
       nativeLibs = [ SDL2 ];
     };
-    cl-opengl = {
+    cl-opengl = pkg: {
       nativeLibs = [ libGL ];
     };
-    cl-glu = {
+    cl-glu = pkg: {
       nativeLibs = [ libGLU ];
     };
-    cl-glut = {
+    cl-glut = pkg: {
       nativeLibs = [ freeglut ];
     };
-    lev = {
+    lev = pkg: {
       nativeLibs = [ libev ];
     };
-    cl-rdkafka = {
+    cl-rdkafka = pkg: {
       nativeBuildInputs = [ rdkafka ];
       nativeLibs = [ rdkafka ];
     };
-    cl-async-ssl = {
+    cl-async-ssl = pkg: {
       nativeLibs = [ openssl ];
+    };
+    osicat = pkg: {
+      LD_LIBRARY_PATH = "${pkg}/posix/";
     };
   };
 
@@ -90,10 +93,13 @@ let
     else {};
 
   build = pkg:
-    (build-asdf-system
-      (pkg // {
-        lispLibs = map build pkg.lispLibs;
-      }
-      // (optionalAttrs (hasAttr pkg.pname extras) extras.${pkg.pname})));
+    let
+      withLibs = pkg // { lispLibs = map build pkg.lispLibs; };
+      builtPkg = build-asdf-system withLibs;
+      withExtras = withLibs //
+                   (optionalAttrs
+                     (hasAttr pkg.pname extras)
+                     (extras.${pkg.pname} builtPkg));
+    in build-asdf-system withExtras;
 
 in mapAttrs (n: v: build v) qlpkgs

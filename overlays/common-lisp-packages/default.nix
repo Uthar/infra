@@ -79,7 +79,19 @@ let
       CL_SOURCE_REGISTRY = makeSearchPath "/" (flattenedDeps lispLibs);
 
       # Tell lisp where to find native dependencies
-      LD_LIBRARY_PATH = makeLibraryPath (concatMap (x: x.nativeLibs) (flattenedDeps lispLibs));
+      #
+      # Normally generated from lispLibs, but LD_LIBRARY_PATH as a
+      # derivation attr itself can be used as an extension point when
+      # the libs are not in a '/lib' subdirectory
+      LD_LIBRARY_PATH =
+        let
+          deps = flattenedDeps lispLibs;
+          nativeLibs = concatMap (x: x.nativeLibs) deps;
+          libpaths = filter (x: x != "") (map (x: x.LD_LIBRARY_PATH) deps);
+        in
+          makeLibraryPath nativeLibs
+          + optionalString (length libpaths != 0) ":"
+          + concatStringsSep ":" libpaths;
 
       # Java libraries For ABCL
       CLASSPATH = makeSearchPath "share/java/*" (concatMap (x: x.javaLibs) (flattenedDeps lispLibs));
