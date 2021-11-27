@@ -86,6 +86,7 @@ with pkgs; with emacsPackagesNg;
       evil-surround
       (withPatches flycheck [ ./flycheck-dont-message-suspicious.patch ])
       go-mode
+      groovy-mode
       hl-todo
       lsp-mode
       magit

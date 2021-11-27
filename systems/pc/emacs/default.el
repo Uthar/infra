@@ -256,6 +256,9 @@
 (use-package nix-mode
   :mode "\\.nix\\'")
 
+(use-package groovy-mode
+  :mode "\\.groovy\\'")
+
 (use-package go-mode)
 
 (use-package lisp-mode
