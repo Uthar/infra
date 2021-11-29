@@ -267,7 +267,12 @@
 (use-package lisp-editing-commands
   :bind ("C-c M-q" . lisp-reindent-defun))
 
-(use-package cider)
+(use-package cider
+  :hook
+  ((clojure-mode clojurescript-mode)
+   . (lambda ()
+       ;; should fix slime-company itself
+       (setq-local company-backends (remove 'company-slime company-backends)))))
 
 (use-package lsp-mode
   :custom
