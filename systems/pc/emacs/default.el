@@ -264,9 +264,6 @@
 (use-package lisp-mode
   :mode "\\.cl\\'")
 
-(use-package lisp-editing-commands
-  :bind ("C-c M-q" . lisp-reindent-defun))
-
 (use-package cider
   :hook
   ((clojure-mode clojurescript-mode)
