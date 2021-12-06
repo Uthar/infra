@@ -247,6 +247,8 @@
 
 ;;;; programming language support
 
+(use-package glsl-mode)
+
 (use-package terraform-mode
   :mode "\\.tf\\'")
 

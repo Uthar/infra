@@ -85,6 +85,7 @@ with pkgs; with emacsPackagesNg;
       evil-matchit
       evil-surround
       (withPatches flycheck [ ./flycheck-dont-message-suspicious.patch ])
+      glsl-mode
       go-mode
       groovy-mode
       hl-todo
