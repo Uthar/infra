@@ -286,6 +286,7 @@
   :bind ("C-c t" . modus-themes-toggle))
 
 (use-package slime
+  :commands slime
   :custom
   (slime-truncate-lines nil)
   (slime-net-coding-system 'utf-8-unix)
@@ -296,7 +297,10 @@
   (slime-repl-history-size 10000)
   (common-lisp-hyperspec-root "@clhs@/")
   (common-lisp-hyperspec-symbol-table "@clhs@/Data/Map_Sym.txt")
-  :bind ("C-c s" . 'slime-selector)
+  :bind ("C-c s" . 'slime-selector))
+
+(use-package slime-presentations
+  :after slime
   :config
   (define-key slime-presentation-map [mouse-1] 'slime-inspect-presentation-at-mouse))
 
