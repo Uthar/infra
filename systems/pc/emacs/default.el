@@ -306,6 +306,12 @@
   :config
   (define-key slime-presentation-map [mouse-1] 'slime-inspect-presentation-at-mouse))
 
+(use-package lisp-mode
+  :config
+  (modify-syntax-entry ?\[ "(]" lisp-mode-syntax-table)
+  (modify-syntax-entry ?\] ")[" lisp-mode-syntax-table)
+  (modify-syntax-entry ?\{ "(}" lisp-mode-syntax-table)
+  (modify-syntax-entry ?\} "){" lisp-mode-syntax-table))
 
 ;; repl window
 
