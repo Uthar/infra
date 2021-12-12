@@ -2,6 +2,46 @@
 
 rec {
 
+  asdf = with builtins; let
+    version = "3.3.5.3";
+    # cl-unicode generates lisp source files during compilation.
+    #
+    # Normally this fails because of an attempt to write to
+    # storeDir. A workaround is to run the compilation first with
+    # CL_SOURCE_REGISTRY set to pwd, discard the fasls, then use $out
+    # of that as the $src of the next compilation
+    asdf-build = (build-asdf-system {
+      inherit version;
+      pname = "asdf-build";
+
+      src = builtins.fetchTarball {
+        url = "https://gitlab.common-lisp.net/asdf/asdf/-/archive/3.3.5.3/asdf-3.3.5.3.tar.gz";
+        sha256 = "0aw200awhg58smmbdmz80bayzmbm1a6547gv0wmc8yv89gjqldbv";
+      };
+
+      systems = [ "asdf" "uiop" ];
+
+    }).overrideAttrs(o: {
+      buildPhase = ''
+        mkdir __fasls
+        export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$(pwd)//
+        export ASDF_OUTPUT_TRANSLATIONS="$(pwd):$(pwd)/__fasls:${storeDir}:${storeDir}"
+        ${o.lisp} ${o.buildScript}
+      '';
+      installPhase = ''
+        mkdir -pv $out
+        rm -rf __fasls
+        cp -r * $out
+      '';
+    });
+
+  in build-asdf-system {
+    inherit version;
+    pname = "asdf";
+    src = asdf-build.out;
+    systems = [ "asdf" "uiop" ];
+  };
+
   alexandria = build-asdf-system {
     pname = "alexandria";
     version = "1.4-20210903";
