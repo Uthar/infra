@@ -135,7 +135,7 @@ let me = "kpg"; in
   users.users.${me} = {
     isNormalUser = true;
     initialHashedPassword = "";
-    extraGroups = [ "docker" "wheel" "networkmanager" "transmission" "wireshark" ];
+    extraGroups = [ "keys" "docker" "wheel" "networkmanager" "transmission" "wireshark" ];
   };
 
   # This value determines the NixOS release from which the default
