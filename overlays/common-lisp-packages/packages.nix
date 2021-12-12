@@ -811,5 +811,14 @@ rec {
     ];
   };
 
+  ltk = build-asdf-system {
+    pname = "ltk";
+    version = "20190202-git";
+    src = builtins.fetchTarball {
+      url = "http://beta.quicklisp.org/archive/ltk/2019-02-02/ltk-20190202-git.tgz";
+      sha256 = "13l2q4mskzilya9xh5wy2xvy30lwn104bd8wrq6ifds56r82iy3x";
+    };
+    systems = [ "ltk" ];
+  };
 
 }
