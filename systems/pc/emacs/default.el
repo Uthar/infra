@@ -256,6 +256,9 @@
   :after (company terraform-mode)
   :config (company-terraform-init))
 
+(use-package yaml-mode
+  :hook (yaml-mode . display-line-numbers-mode))
+
 (use-package nix-mode
   :mode "\\.nix\\'")
 

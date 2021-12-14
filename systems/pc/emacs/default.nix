@@ -103,6 +103,7 @@ with pkgs; with emacsPackagesNg;
       vc-fossil
       wgrep
       winum
+      yaml-mode
     ])
 
   )
