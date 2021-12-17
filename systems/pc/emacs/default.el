@@ -267,9 +267,6 @@
 
 (use-package go-mode)
 
-(use-package lisp-mode
-  :mode "\\.cl\\'")
-
 (use-package cider
   :hook
   ((clojure-mode clojurescript-mode)
