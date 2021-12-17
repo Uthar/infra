@@ -96,7 +96,7 @@ with pkgs; with emacsPackagesNg;
       projectile
       rg
       ripgrep
-      slime
+      (withPatches slime [ ./slime-cl-indent-other-braces.patch ])
       slime-company
       terraform-mode
       use-package
