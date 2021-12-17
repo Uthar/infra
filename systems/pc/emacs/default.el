@@ -58,6 +58,24 @@
       (define-key magit-section-mode-map (kbd (format "C-%i" n))
         (intern (format "magit-section-show-level-%i-all" n))))))
 
+(defun toggle-hook (hook function)
+  (if (and (consp (symbol-value hook))
+           (memq function (symbol-value hook)))
+      (remove-hook hook function)
+      (add-hook hook function)))
+
+(defun vc-annotate-toggle-annotation-visibility* ()
+  (toggle-hook 'vc-annotate-mode-hook 'vc-annotate-toggle-annotation-visibility))
+
+(use-package vc-annotate
+  :commands vc-annotate
+  :config
+  (define-key vc-annotate-mode-map (kbd "v")
+    (lambda ()
+      (interactive)
+      (vc-annotate-toggle-annotation-visibility)
+      (vc-annotate-toggle-annotation-visibility*))))
+
 (use-package winum
   :config
   (require 'term)
