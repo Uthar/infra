@@ -329,7 +329,16 @@
   (slime-repl-history-size 10000)
   (common-lisp-hyperspec-root "@clhs@/")
   (common-lisp-hyperspec-symbol-table "@clhs@/Data/Map_Sym.txt")
-  :bind ("C-c s" . 'slime-selector))
+  :bind ("C-c s" . 'slime-selector)
+  :config
+  (defslime-repl-shortcut nil ("delete-package" "dp")
+    (:handler (lambda ()
+                (interactive)
+                (let ((package (slime-read-package-name "Package: ")))
+                  (slime-repl-shortcut-eval `(cl:delete-package ,package)))))
+    (:one-liner "Delete a package.")))
+
+
 
 (use-package slime-presentations
   :after slime
