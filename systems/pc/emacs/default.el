@@ -331,6 +331,7 @@
   (common-lisp-hyperspec-symbol-table "@clhs@/Data/Map_Sym.txt")
   :bind ("C-c s" . 'slime-selector)
   :config
+  (advice-add 'slime :around 'call-with-repl-window)
   (defslime-repl-shortcut nil ("delete-package" "dp")
     (:handler (lambda ()
                 (interactive)
@@ -407,7 +408,6 @@
 (defun call-with-repl-window (fn &rest args)
   (open-buffer-in-repl-window (save-window-excursion (apply fn args))))
 
-(advice-add 'slime :around 'call-with-repl-window)
 (advice-add 'ansi-term :around 'call-with-repl-window)
 (advice-add 'eshell :around 'call-with-repl-window)
 (advice-add 'cider-repl-create :around 'call-with-repl-window)
