@@ -172,5 +172,18 @@
     fi
     '';
 
+    rofi-passmenu = super.writeShellScriptBin "passmenu" "
+      prefix=$\{PASSWORD_STORE_DIR-~/.password-store}
+      password_files=( \"$prefix\"/**/*.gpg )
+      password_files=( \"$\{password_files[@]#\"$prefix\"/}\" )
+      password_files=( \"$\{password_files[@]%.gpg}\" )
+
+      password=$(printf '%s\\n' \"$\{password_files[@]}\" | ${super.rofi}/bin/rofi -dmenu -p pass)
+
+      [[ -n $password ]] || exit
+
+      ${super.pass}/bin/pass show -c \"$password\" 2>/dev/null
+    ";
+
   })
 ]

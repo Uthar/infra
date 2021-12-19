@@ -43,6 +43,7 @@ in
             --replace togglemonitor ${togglemonitor}/bin/togglemonitor \
             --replace gsimplecal ${gsimplecal}/bin/gsimplecal \
             --replace rofi ${rofi}/bin/rofi \
+            --replace passmenu ${rofi-passmenu}/bin/passmenu \
             --replace emacsclient ${import ../emacs { inherit pkgs; }}/bin/emacsclient
         substituteAllInPlace $out
     '';
