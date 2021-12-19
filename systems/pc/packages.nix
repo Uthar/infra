@@ -3,7 +3,10 @@
 { environment.systemPackages = with pkgs; [
 
   # Xorg
+  xcape
   xclip
+  xorg.xbacklight
+  xorg.xmodmap
   xsel
 
   # urxvt
@@ -14,11 +17,14 @@
 
   # Programming
   ecl
-  guile_3_0
   sbcl
 
   # Development utils
-  nixops
+  binutils
+  clang-tools  # contains clangd
+  cloc
+  colordiff
+  gdb
 
   # Search utils
   ag
@@ -27,26 +33,50 @@
   ripgrep
 
   # Version control
+  cvs
   fsl fossil
   git
   mercurial
+  subversion
 
   # Shell utils
   curl
+  dos2unix
+  file
   htop
   killall
+  lsof
+  lz4
   p7zip
-  pass
+  (pass.withExtensions (es: [ es.pass-otp ]))
   patchelf
+  pwgen
+  rlwrap
   ranger
   tree
+  unzip
   wget
+  zip
+  zstd
 
-  # The rest
-  baobab
-  clang-tools
+  # Network utils
+  nmap
+  openvpn
+
+  # Weird things
+  flashrom
+  graphviz
+  pandoc
+  sqlite
+
+  # Desktop utils
+  feh
+  pavucontrol
+  xournalpp
+  xsensors
+  zathura
+
+  # Bad habits
   vim
-  vlc
-  youtube-dl
 
 ];}
