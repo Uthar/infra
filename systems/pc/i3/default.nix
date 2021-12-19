@@ -44,6 +44,7 @@ in
             --replace gsimplecal ${gsimplecal}/bin/gsimplecal \
             --replace rofi ${rofi}/bin/rofi \
             --replace passmenu ${rofi-passmenu}/bin/passmenu \
+            --replace gnome-screenshot ${gnome.gnome-screenshot}/bin/gnome-screenshot \
             --replace emacsclient ${import ../emacs { inherit pkgs; }}/bin/emacsclient
         substituteAllInPlace $out
     '';
