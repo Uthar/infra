@@ -815,4 +815,19 @@ rec {
     systems = [ "ltk" ];
   };
 
+  cl-notify = build-asdf-system {
+    pname = "cl-notify";
+    version = "20080904-138ca7038";
+    src = builtins.fetchTarball {
+      url = "https://repo.or.cz/cl-notify.git/snapshot/138ca703861f4a1fbccbed557f92cf4d213668a1.tar.gz";
+      sha256 = "0k6ns6fzvjcbpsqgx85r4g5m25fvrdw9481i9vyabwym9q8bbqwx";
+    };
+    lispLibs = [
+      cffi
+    ];
+    nativeLibs = [
+      pkgs.libnotify
+    ];
+  };
+
 }
