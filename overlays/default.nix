@@ -174,7 +174,7 @@
 
     rofi-passmenu = super.writeShellScriptBin "passmenu" "
       prefix=$\{PASSWORD_STORE_DIR-~/.password-store}
-      password_files=( \"$prefix\"/**/*.gpg )
+      password_files=($(${super.fd}/bin/fd .gpg$ $prefix))
       password_files=( \"$\{password_files[@]#\"$prefix\"/}\" )
       password_files=( \"$\{password_files[@]%.gpg}\" )
 
