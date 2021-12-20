@@ -91,7 +91,7 @@ let me = "kpg"; in
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark;
 
-  services.printing.enable = false;
+  services.printing.enable = true;
 
   services.emacs = {
     enable = true;
