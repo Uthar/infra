@@ -58,18 +58,6 @@
       (define-key magit-section-mode-map (kbd (format "C-%i" n))
         (intern (format "magit-section-show-level-%i-all" n))))))
 
-(use-package slime-cl-indent
-  :after slime
-  :config
-  (setf
-   common-lisp-style-default
-   (define-common-lisp-style "kpg"
-     "Fix the indentation of some Clojure-like macros."
-     (:inherit "modern")
-     (:indentation
-      (-> (as if))
-      (->> (as if))))))
-
 (defun toggle-hook (hook function)
   (if (and (consp (symbol-value hook))
            (memq function (symbol-value hook)))
@@ -369,12 +357,22 @@
                   (slime-repl-shortcut-eval `(cl:delete-package ,package)))))
     (:one-liner "Delete a package.")))
 
-
-
 (use-package slime-presentations
   :after slime
   :config
   (define-key slime-presentation-map [mouse-1] 'slime-inspect-presentation-at-mouse))
+
+(use-package slime-cl-indent
+  :after slime
+  :config
+  (setf
+   common-lisp-style-default
+   (define-common-lisp-style "kpg"
+     "Fix the indentation of some Clojure-like macros."
+     (:inherit "modern")
+     (:indentation
+      (-> (as if))
+      (->> (as if))))))
 
 (use-package lisp-mode
   :config
