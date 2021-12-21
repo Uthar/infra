@@ -350,6 +350,8 @@
   :bind ("C-c s" . 'slime-selector)
   :config
   (advice-add 'slime :around 'call-with-repl-window)
+  (advice-add 'slime-repl :around 'call-with-repl-window)
+  (bind-key (kbd "C-c C-z") 'slime-repl 'lisp-mode-map)
   (defslime-repl-shortcut nil ("delete-package" "dp")
     (:handler (lambda ()
                 (interactive)
