@@ -90,6 +90,7 @@ with pkgs; with emacsPackagesNg;
       groovy-mode
       hl-todo
       lsp-mode
+      lsp-python-ms
       magit
       nix-mode
       page-break-lines

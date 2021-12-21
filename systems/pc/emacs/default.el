@@ -317,12 +317,30 @@
        (setq-local company-backends (remove 'company-slime company-backends)))))
 
 (use-package lsp-mode
+  :commands lsp
   :custom
   (lsp-keymap-prefix "C-c l")
   (lsp-restart 'ignore)
   :hook
   (((c-mode c++-mode python-mode go-mode) . lsp)
-   (lsp-mode . lsp-enable-which-key-integration)))
+   (lsp-mode . lsp-enable-which-key-integration))
+  :config
+  (defun direnv-update-advice (&rest r)
+    (direnv-update-directory-environment))
+  (advice-add 'lsp :before 'direnv-update-advice))
+
+(use-package lsp-python-ms
+  :after lsp-mode
+  :config
+  (defun set-python-ms-executable (&rest r)
+    (setf lsp-python-ms-executable (executable-find "python-language-server")))
+  (advice-add 'lsp :before 'set-python-ms-executable '((depth . 100))))
+
+(use-package python
+  :commands python-mode
+  :config
+  (advice-add 'python-shell-make-comint :around 'call-with-repl-window)
+  (advice-add 'python-shell-switch-to-shell :around 'call-with-repl-window))
 
 (use-package modus-themes
   :config (modus-themes-load-themes)
