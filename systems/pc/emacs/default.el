@@ -154,7 +154,7 @@
   (indent-tabs-mode nil)
   (tab-width 4)
   (column-number-mode t)
-  (line-number-mode nil)
+  (setf line-number-mode t)
   :config
   (minibuffer-depth-indicate-mode t)
   (tool-bar-mode -1)
