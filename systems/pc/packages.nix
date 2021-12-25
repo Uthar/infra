@@ -68,6 +68,7 @@
   graphviz
   pandoc
   sqlite
+  ((winePackagesFor "wine64").minimal)
 
   # Desktop utils
   feh
