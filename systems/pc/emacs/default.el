@@ -298,6 +298,8 @@
 (use-package go-mode)
 
 (use-package cider
+  :custom
+  (cider-show-error-buffer 'except-in-repl)
   :hook
   ((clojure-mode clojurescript-mode)
    . (lambda ()
