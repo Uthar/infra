@@ -73,6 +73,7 @@
   # Desktop utils
   feh
   pavucontrol
+  vlc
   xournalpp
   xsensors
   zathura
