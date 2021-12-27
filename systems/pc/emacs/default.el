@@ -354,7 +354,11 @@
   (advice-add 'slime :around 'call-with-repl-window)
   (advice-add 'slime-repl :around 'call-with-repl-window)
   (advice-add 'slime-output-buffer :around 'call-with-repl-window)
-  (bind-key (kbd "C-c C-z") 'slime-repl 'lisp-mode-map)
+  (bind-key (kbd "C-c C-z") 'slime-repl 'lisp-mode-map))
+
+(use-package slime-repl
+  :after slime
+  :config
   (defslime-repl-shortcut nil ("delete-package" "dp")
     (:handler (lambda ()
                 (interactive)
