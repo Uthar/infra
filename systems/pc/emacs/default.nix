@@ -39,11 +39,11 @@ with pkgs; with emacsPackagesNg;
         cp -Tr ${src} $out/share/emacs/site-lisp
       '';
 
-    modus-operandi = build-elisp-package {
-      name = "modus-operandi";
+    modus-themes = build-elisp-package {
+      name = "modus-themes";
       src = fetchTarball {
-        url = http://elpa.gnu.org/packages/modus-themes-1.5.0.tar;
-        sha256 = "0dr61yvmfq0cwrwc6by5iqy074q79qnpmvw4gmhhg6w7qpqyibnw";
+        url = http://elpa.gnu.org/packages/modus-themes-2.0.0.tar;
+        sha256 = "122xg6wk2mn1c69kaqkqkgqkbw61n13x3ylwf5q2b2kr60skn1zh";
       };
     };
 
@@ -63,7 +63,7 @@ with pkgs; with emacsPackagesNg;
       company
       counsel
       ivy
-      modus-operandi
+      modus-themes
       undo-tree
       which-key
     ])
