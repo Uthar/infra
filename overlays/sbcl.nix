@@ -2,13 +2,13 @@
 
 super.sbcl.overrideAttrs(o: rec{
 
-  version = "2.1.11";
+  version = "2.2.0";
 
   buildInputs = with super; o.buildInputs ++ [ zlib.static zlib.dev ];
 
   src = super.fetchurl {
     url = "mirror://sourceforge/project/sbcl/sbcl/${version}/sbcl-${version}-source.tar.bz2";
-    sha256 = "sha256:1zgypmn19c58pv7j33ga7m1l7lzghj70w3xbybpgmggxwwflihdz";
+    sha256 = "sha256:1im5v9c89pzc4iynbv03jhfb6k53cy695ac6lj69dsbam1z9axi2";
   };
 
   postPatch = o.postPatch + ''
