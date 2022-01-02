@@ -830,4 +830,13 @@ rec {
     ];
   };
 
+  exit-hooks = build-asdf-system {
+    pname = "exit-hooks";
+    version = "20170220-78050f4f5";
+    src = builtins.fetchTarball {
+      url = "https://github.com/ailisp/exit-hooks/archive/78050f4f55c138fcea86a9d720928782021b6012.tar.gz";
+      sha256 = "00rk0pr2cy3hy6giblh166b7yrg06d5lanipjcqv508gkfb0vi47";
+    };
+  };
+
 }
