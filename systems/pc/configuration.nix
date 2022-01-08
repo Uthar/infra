@@ -112,8 +112,6 @@ let me = "kpg"; in
     Option "TearFree" "true"
   '';
 
-  services.guix.enable = true;
-
   services.transmission = {
     enable = true;
     openFirewall = true;
