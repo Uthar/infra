@@ -21,6 +21,7 @@ let me = "kpg"; in
       min-free = ${mb 100}
       max-free = ${mb 500}
     '';
+    trustedUsers = [ me ];
   };
 
   environment.variables.NIX_AUTO_RUN = "1";
