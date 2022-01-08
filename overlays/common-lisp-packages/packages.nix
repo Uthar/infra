@@ -839,4 +839,15 @@ rec {
     };
   };
 
+  classimp = build-asdf-system {
+    pname = "classimp";
+    version = "20200229-d82a14c59";
+    src = builtins.fetchTarball {
+      url = "https://github.com/3b/classimp/archive/d82a14c59bc733f89a1ea0b3447ebedddce5756e.tar.gz";
+      sha256 = "0pbnz6cf1zb2ayk4kbw0gphjb8nflnjns2rwhv86jz0kf0z1hqha";
+    };
+    lispLibs = [ cffi split-sequence ];
+    nativeLibs = [ pkgs.assimp ];
+  };
+
 }
