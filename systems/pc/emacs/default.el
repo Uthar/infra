@@ -380,7 +380,8 @@
      (:inherit "modern")
      (:indentation
       (-> (as if))
-      (->> (as if))))))
+      (->> (as if))
+      (hash-keys-bind (as destructuring-bind))))))
 
 (use-package lisp-mode
   :config
