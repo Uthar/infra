@@ -36,6 +36,9 @@ let
       # weird...
       nativeLibs = [ allegro5 ];
     };
+    classimp = pkg: {
+      nativeLibs = [ assimp ];
+    };
     sdl2 = pkg: {
       nativeLibs = [ SDL2 ];
     };
