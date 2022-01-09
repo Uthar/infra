@@ -381,7 +381,8 @@
      (:indentation
       (-> (as if))
       (->> (as if))
-      (hash-keys-bind (as destructuring-bind))))))
+      (hash-keys-bind (as destructuring-bind))
+      (dovec (as dolist))))))
 
 (use-package lisp-mode
   :config
