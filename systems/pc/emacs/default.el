@@ -353,7 +353,8 @@
   :config
   (advice-add 'slime :around 'call-with-repl-window)
   (advice-add 'slime-repl :around 'call-with-repl-window)
-  (bind-key (kbd "C-c C-z") 'slime-repl 'slime-mode-map))
+  (bind-key (kbd "C-c C-z") 'slime-repl 'slime-mode-map)
+  (bind-key (kbd "C-c h") 'slime-hyperspec-lookup 'slime-mode-map))
 
 (use-package slime-repl
   :after slime
