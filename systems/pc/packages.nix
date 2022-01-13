@@ -50,6 +50,7 @@
   p7zip
   (pass.withExtensions (es: [ es.pass-otp ]))
   patchelf
+  pciutils
   pwgen
   rlwrap
   ranger
