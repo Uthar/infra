@@ -13,7 +13,6 @@ with pkgs;
 let
 
   Cleavir = builtins.fetchTarball {
-    # other than upstream to pull in compiler fix
     url = https://github.com/s-expressionists/Cleavir/archive/12207aeb7224624e75ba25d4afea9a72ea058430.tar.gz;
     sha256 = "16s49kngxvdvgqk2rjlms6zxgwpbd4k3zdy8c41kypphj8xg40kq";
   };
@@ -56,7 +55,6 @@ let
 
 clasp =
 
-  # Gotta use the right commit of llvm: 972b6a3a3471c2a742c5c5d8ec004ff640d544c4
   llvmPackages_13.stdenv.mkDerivation {
     pname = "clasp";
     version = "1.0-pre";
