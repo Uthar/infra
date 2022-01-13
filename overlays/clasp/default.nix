@@ -1,6 +1,12 @@
 
+{ ... }:
 
-{ pkgs, stdenv, lib, ... }:
+let
+  pkgs = import (builtins.fetchTarball {
+    url = https://github.com/nixos/nixpkgs/archive/21.11.tar.gz;
+    sha256 = "162dywda2dvfj1248afxc45kcrg83appjd0nmdb541hl7rnncf02";
+  }) {};
+in
 
 with pkgs;
 
@@ -8,12 +14,12 @@ let
 
   Cleavir = builtins.fetchTarball {
     # other than upstream to pull in compiler fix
-    url = https://github.com/s-expressionists/Cleavir/archive/ed8bdd47d3cea7d1ae80266e5def681519d7e8cd.tar.gz;
-    sha256 = "077hj5h6lrkg07fzwqpsq0blnm5d14gxw1i8d28jaj4dvl5fqj3g";
+    url = https://github.com/s-expressionists/Cleavir/archive/12207aeb7224624e75ba25d4afea9a72ea058430.tar.gz;
+    sha256 = "16s49kngxvdvgqk2rjlms6zxgwpbd4k3zdy8c41kypphj8xg40kq";
   };
   Concrete-Syntax-Tree = builtins.fetchTarball {
-    url = https://github.com/s-expressionists/Concrete-Syntax-Tree/archive/a56a5246fbaa90b98a29368c011a6616f2bcb482.tar.gz;
-    sha256 = "015glkx1dx8dzlhm4hfzp0zzmydxakx48r12y01f55a8n6shxqn5";
+    url = https://github.com/s-expressionists/Concrete-Syntax-Tree/archive/4f01430c34f163356f3a2cfbf0a8a6963ff0e5ac.tar.gz;
+    sha256 = "169ibaz1vv7pphib28443zzk3hf1mrcarhzfm8hnbdbk529cnxyi";
   };
   closer-mop = builtins.fetchTarball {
     url = https://github.com/pcostanza/closer-mop/archive/d4d1c7aa6aba9b4ac8b7bb78ff4902a52126633f.tar.gz;
@@ -24,12 +30,20 @@ let
     sha256 = "0ql224qs3zgflvdhfbca621v3byhhqfb71kzy70bslyczxv1bsh2";
   };
   Eclector = builtins.fetchTarball {
-    url = https://github.com/s-expressionists/Eclector/archive/e92cf239783be90c97e80aff2a14d65778a38325.tar.gz;
-    sha256 = "1srik177l76kf2hr5z7brp1fhzwfdqy3fkzrmyi9iyrfw547pl7y";
+    url = https://github.com/s-expressionists/Eclector/archive/dddb4d8af3eae78017baae7fb9b99e73d2a56e6b.tar.gz;
+    sha256 = "00raw4nfg9q73w1pj4r001g90g97n2rq6q3zijg5j6j7iq81df9s";
   };
   alexandria = builtins.fetchTarball {
     url = https://github.com/clasp-developers/alexandria/archive/e5c54bc30b0887c237bde2827036d17315f88737.tar.gz;
     sha256 = "14h7a9fwimiw9gqxjm2h47d95bfhrm7b81f6si7x8vy18d78fn4g";
+  };
+  esrap = builtins.fetchTarball {
+    url = https://github.com/scymtym/esrap/archive/c99c33a33ff58ca85e8ba73912eba45d458eaa72.tar.gz;
+    sha256 = "0dcylqr93r959blz1scb5yd79qplqdsl3hbji0icq2yyxvam7cyi";
+  };
+  trivial-with-current-source-form = builtins.fetchTarball {
+    url = https://github.com/scymtym/trivial-with-current-source-form/archive/3898e09f8047ef89113df265574ae8de8afa31ac.tar.gz;
+    sha256 = "1114iibrds8rvwn4zrqnmvm8mvbgdzbrka53dxs1q61ajv44x8i0";
   };
   mps = builtins.fetchTarball {
     url = https://github.com/Ravenbrook/mps/archive/b8a05a3846430bc36c8200f24d248c8293801503.tar.gz;
@@ -43,13 +57,12 @@ let
 clasp =
 
   # Gotta use the right commit of llvm: 972b6a3a3471c2a742c5c5d8ec004ff640d544c4
-  llvmPackages_clasp.stdenv.mkDerivation {
+  llvmPackages_13.stdenv.mkDerivation {
     pname = "clasp";
-    version = "dcaf594c1f";
+    version = "1.0-pre";
     src = builtins.fetchTarball {
-      # last commit not affected by https://github.com/clasp-developers/clasp/issues/1183
-      url = https://github.com/clasp-developers/clasp/archive/dcaf594c1fe8158ac36e7fb634ad79b596911a75.tar.gz;
-      sha256 = "1qzw3jx3vkj5xcp8llhx218qrhakigin76d2csrmkndfj94ip5dy";
+      url = https://github.com/clasp-developers/clasp/archive/9c216a51706f2940818fb4b80050d775107a1e3a.tar.gz;
+      sha256 = "1fnpj5xq38kgiwq0dpbid8dh73alv5rg8r08qpzv9ilyn1xp1cg2";
     };
     preConfigure = ''
     ./waf configure
@@ -64,6 +77,9 @@ clasp =
       mkdir -pv src/lisp/kernel/contrib/Acclimation
       mkdir -pv src/lisp/kernel/contrib/Eclector
       mkdir -pv src/lisp/kernel/contrib/alexandria
+      mkdir -pv src/scraper/dependencies/alexandria
+      mkdir -pv src/scraper/dependencies/esrap
+      mkdir -pv src/scraper/dependencies/trivial-with-current-source-form
       mkdir -pv src/mps
       mkdir -pv src/lisp/modules/asdf
 
@@ -73,6 +89,9 @@ clasp =
       cp -rfT "${Acclimation}" src/lisp/kernel/contrib/Acclimation
       cp -rfT "${Eclector}" src/lisp/kernel/contrib/Eclector
       cp -rfT "${alexandria}" src/lisp/kernel/contrib/alexandria
+      cp -rfT "${alexandria}" src/scraper/dependencies/alexandria
+      cp -rfT "${esrap}" src/scraper/dependencies/esrap
+      cp -rfT "${trivial-with-current-source-form}" src/scraper/dependencies/trivial-with-current-source-form
       cp -rfT "${mps}" src/mps
       cp -rfT "${asdf}" src/lisp/modules/asdf
 
@@ -87,8 +106,8 @@ clasp =
     buildInputs =
       [ python310 git sbcl gmp libffi boehmgc libelf libbsd
         boost175.dev boost175
-        llvmPackages_clasp.llvm.dev
-        llvmPackages_clasp.libclang
+        llvmPackages_13.llvm.dev
+        llvmPackages_13.libclang
       ];
   };
 
