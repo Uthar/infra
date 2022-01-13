@@ -467,11 +467,13 @@
 
 (defun counsel-fzf-in-project ()
   (interactive)
-  (counsel-fzf "" (guess-directory "fzf")))
+  (let ((dir (guess-directory "fzf")))
+    (counsel-fzf "" dir (concat "fzf in " dir ": "))))
 
 (defun counsel-ag-in-project ()
   (interactive)
-  (counsel-ag "" (guess-directory "ag") " --hidden --follow "))
+  (let ((dir (guess-directory "ag")))
+    (counsel-ag "" dir " --hidden --follow " (concat "ag in " dir ": "))))
 
 
 ;;;; generic utilities
