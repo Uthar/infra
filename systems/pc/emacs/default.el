@@ -504,6 +504,10 @@
       (exit-minibuffer))
       (select-window (minibuffer-window)))
 
+(defun bash ()
+  (interactive)
+  (ansi-term "bash"))
+
 ;; keys
 
 (bind-keys* ("<f1>" . toggle-repl-window)
