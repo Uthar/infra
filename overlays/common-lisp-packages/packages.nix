@@ -850,4 +850,24 @@ rec {
     nativeLibs = [ pkgs.assimp ];
   };
 
+  trivial-with-current-source-form = build-asdf-system {
+    pname = "trivial-with-current-source-form";
+    version = "0.1.0-20210810-3898e09";
+    src = builtins.fetchTarball {
+      url = "https://github.com/scymtym/trivial-with-current-source-form/archive/3898e09f8047ef89113df265574ae8de8afa31ac.tar.gz";
+      sha256 = "1114iibrds8rvwn4zrqnmvm8mvbgdzbrka53dxs1q61ajv44x8i0";
+    };
+    lispLibs = [ alexandria ];
+  };
+
+  esrap = build-asdf-system {
+    pname = "esrap";
+    version = "0.18-20211008-c99c33a";
+    src = builtins.fetchTarball {
+      url = "https://github.com/scymtym/esrap/archive/c99c33a33ff58ca85e8ba73912eba45d458eaa72.tar.gz";
+      sha256 = "0dcylqr93r959blz1scb5yd79qplqdsl3hbji0icq2yyxvam7cyi";
+    };
+    lispLibs = [ alexandria trivial-with-current-source-form ];
+  };
+
 }
