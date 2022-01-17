@@ -92,6 +92,11 @@
         doCheck = false;
       });
 
+    sbclBootstrap = super.callPackage ./sbcl-bootstrap.nix {};
+    sbcl-windows = super.callPackage (import ./sbcl-windows.nix {
+      version = "2.2.0";
+      sha256 = "sha256:1im5v9c89pzc4iynbv03jhfb6k53cy695ac6lj69dsbam1z9axi2";
+    }) {};
     sbcl = import ./sbcl.nix { inherit super; };
     sbcl-static = super.callPackage ./sbcl-static.nix {};
 
