@@ -52,8 +52,8 @@
 
 ;; FIXME: preload these text files into a hash table/sqlite for faster acccess
 
-(let ((systems-url "https://beta.quicklisp.org/dist/quicklisp/2021-08-07/systems.txt")
-      (releases-url "https://beta.quicklisp.org/dist/quicklisp/2021-08-07/releases.txt"))
+(let ((systems-url "https://beta.quicklisp.org/dist/quicklisp/2021-12-30/systems.txt")
+      (releases-url "https://beta.quicklisp.org/dist/quicklisp/2021-12-30/releases.txt"))
   (defvar *systems.txt* (butlast (str:split #\Newline (dex:get systems-url))))
   (defvar *releases.txt* (butlast (str:split #\Newline (dex:get releases-url)))))
 

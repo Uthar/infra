@@ -67,7 +67,7 @@ sbcl --script nix-quicklisp.lisp
 ```
 This produces a `from-quicklisp.nix` containing Nix expressions for all packages in Quicklisp, which will be automatically picked up by `${lisp}WithPackages`. 
 
-This is going to **take a while** because it needs to fetch the source code of each system to compute its sha256 hash (quicklisp provides a sha1 hash but Nix's `builtins.fetchTarball` requires a sha256.). During the first run, the sha256s are cached in `quicklisp.sqlite` and are reused in subsequent invocations.
+This is going to **take a while** because it needs to fetch the source code of each system to compute its sha256 hash (quicklisp provides a sha1 hash but Nix's `builtins.fetchTarball` requires a sha256.). During the first run, the sha256s are cached in `quicklisp.sqlite` and are reused in subsequent invocations. (Though feel free to save the earth some electricity and download a pre-filled database from https://galkowski.xyz/quicklisp.sqlite for free)
 
 Quicklisp release url's are currently hard-coded and can be changed directly in the source code. 
 
