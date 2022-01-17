@@ -354,7 +354,13 @@
   (advice-add 'slime :around 'call-with-repl-window)
   (advice-add 'slime-repl :around 'call-with-repl-window)
   (bind-key (kbd "C-c C-z") 'slime-repl 'slime-mode-map)
-  (bind-key (kbd "C-c h") 'slime-hyperspec-lookup 'slime-mode-map))
+  (bind-key (kbd "C-c h") 'slime-hyperspec-lookup 'slime-mode-map)
+  :hook
+  ;; Disable annoying tab completion buffers.
+  ;; Careful: both slime-repl and inferior-slime set this.
+  ;; With M-x slime this is enough because only slime-repl is loaded
+  ;; Probably wouldn't work if using comint (but who would want to?)
+  (slime-repl-mode . (lambda () (setq-local tab-always-indent t))))
 
 (use-package slime-repl
   :after slime
