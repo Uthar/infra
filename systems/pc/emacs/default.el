@@ -113,7 +113,12 @@
        (evil-local-set-key 'normal "h" 'dired-up-directory))))
 
 (use-package diff
-  :custom (diff-font-lock-syntax nil))
+  :custom (diff-font-lock-syntax nil)
+  :hook
+  (diff-mode
+   . (lambda ()
+       (setq-local require-final-newline nil)
+       (setq-local before-save-hook nil))))
 
 (use-package ivy
   :diminish
