@@ -9,7 +9,6 @@
   imports =
     [ ./bcache
       ./fossil-server
-      ./guix
       ./nixos-mailserver
       ./selenium
     ];

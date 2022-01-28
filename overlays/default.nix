@@ -100,8 +100,6 @@
 
     guile_3_0 = super.callPackage ./guile {} ;
 
-    guix = super.callPackage ./guix { guile = guile_3_0; } ;
-
     togglemonitor = super.writeShellScriptBin "togglemonitor" ''
     if ! [ -f /tmp/togglemonitor ]; then
         echo "" > /tmp/togglemonitor
