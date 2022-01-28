@@ -9,5 +9,6 @@
     createHome = false;
     home = "/srv/git";
     shell = "${pkgs.git}/bin/git-shell";
+    group = "git";
   };
 }
