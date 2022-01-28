@@ -24,12 +24,13 @@ with pkgs; with emacsPackagesNg;
       .overrideAttrs (o: {
         CFLAGS="-g3";
         dontStrip = true;
-        src = fetchgit {
-          url = https://galkowski.xyz/emacs;
-          rev = "9c1bbad907575987054b8d81ac2d09bfabe6214b";
-          sha256 = "0zacdwb5xfljnbbijf9z4qbsgr3xrknz7r8zvwzfm2z1ch3i6r9j";
+        src = let
+          rev = "f393d0d441c3746f98007ae54341870a296bf809";
+        in builtins.fetchTarball {
+          url = "https://git.savannah.gnu.org/cgit/emacs.git/snapshot/emacs-${rev}.tar.gz";
+          sha256 = "143nndr4w4n28kaqglp916ik8pzapnzajxv8yrl0vklk4ab67jny";
         };
-        version = "28.0.50";
+        version = "28.0.91";
         patches = [ ./tramp-detect-wrapped-gvfsd.patch ] ;
       });
 
