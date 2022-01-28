@@ -41,15 +41,6 @@
       });
     };
 
-    openjdk17 = with super; callPackage ./openjdk/17.nix {
-      openjfx = openjfx15;
-      inherit (gnome2) GConf gnome_vfs;
-      openjdk17-bootstrap = adoptopenjdk-hotspot-bin-16;
-    };
-    jdk17 = openjdk17;
-    jdk-lts = jdk17;
-    jdk = jdk-lts;
-
     nixops = builtins.head nixopsWithPlugins.plugins;
 
     vlc = super.vlc.override { jackSupport = true; };
