@@ -13,6 +13,7 @@ let me = "kpg"; in
     ./direnv.nix
     ./doas.nix
     ./redshift.nix
+    ./zfs.nix
   ];
 
   nix = {

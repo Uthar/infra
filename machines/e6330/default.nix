@@ -22,6 +22,7 @@
   networking = {
     useDHCP = false;
     networkmanager.enable = true;
+    hostId = "41d98bee";
   };
 
   # Enable touchpad support.
