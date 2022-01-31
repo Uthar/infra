@@ -205,6 +205,7 @@
   :config
   (evil-mode 1)
   (evil-global-set-key 'insert (kbd "C-r") nil)
+  (evil-global-set-key 'motion (kbd "C-i") nil)
   (evil-global-set-key 'normal (kbd "M-.") nil))
 
 (use-package xref
