@@ -308,6 +308,7 @@
   (cider-show-error-buffer 'except-in-repl)
   :config
   (define-key cider-repl-mode-map (kbd "C-c M-o") 'cider-repl-clear-buffer)
+  (evil-set-initial-state 'cider-stacktrace-mode 'emacs)
   :hook
   ((clojure-mode clojurescript-mode)
    . (lambda ()
