@@ -306,6 +306,8 @@
 (use-package cider
   :custom
   (cider-show-error-buffer 'except-in-repl)
+  :config
+  (define-key cider-repl-mode-map (kbd "C-c M-o") 'cider-repl-clear-buffer)
   :hook
   ((clojure-mode clojurescript-mode)
    . (lambda ()
