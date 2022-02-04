@@ -205,6 +205,8 @@
   :config
   (evil-mode 1)
   (evil-global-set-key 'insert (kbd "C-r") nil)
+  (dolist (state '(motion insert))
+    (evil-global-set-key state (kbd "C-e") nil))
   (evil-global-set-key 'motion (kbd "C-i") nil)
   (evil-global-set-key 'normal (kbd "M-.") nil))
 
