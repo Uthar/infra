@@ -407,6 +407,17 @@
   (modify-syntax-entry ?\{ "(}" lisp-mode-syntax-table)
   (modify-syntax-entry ?\} "){" lisp-mode-syntax-table))
 
+(use-package paredit
+  :bind (("M-(" . paredit-wrap-round)
+         ("M-{" . paredit-wrap-curly)
+         ("M-[" . paredit-wrap-square)
+         ("M-\"" . paredit-meta-doublequote)
+         ("M-s" . paredit-splice-sexp)
+         ("M-r" . paredit-raise-sexp)
+         ("M-q" . paredit-reindent-defun)
+         ("C-<right>" . paredit-forward-slurp-sexp)
+         ("C-<left>" . paredit-forward-barf-sexp)))
+
 ;; repl window
 
 (defvar repl-window nil)

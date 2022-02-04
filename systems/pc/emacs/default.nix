@@ -95,6 +95,7 @@ with pkgs; with emacsPackagesNg;
       magit
       nix-mode
       page-break-lines
+      paredit
       projectile
       rg
       ripgrep
