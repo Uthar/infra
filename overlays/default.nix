@@ -41,6 +41,8 @@
       });
     };
 
+    emacs' = import ../systems/pc/emacs { pkgs = super; };
+
     nixops = builtins.head nixopsWithPlugins.plugins;
 
     vlc = super.vlc.override { jackSupport = true; };
