@@ -7,8 +7,8 @@ with pkgs; with emacsPackagesNg;
     clhs = runCommand
       "clhs"
       { src = fetchTarball {
-          url = http://ftp.lispworks.com/pub/software_tools/reference/HyperSpec-7-0.tar.gz;
-          sha256 = "1248sws9yk2wy1ajvn88m3cl8lii77961gax4mlka2899d69bkzs"; };}
+          url = https://galkowski.xyz/HyperSpec-7-0.tar.gz;
+          sha256 = "1zsi35245m5sfb862ibzy0pzlph48wvlggnqanymhgqkpa1v20ak"; };}
       "cp -Tr $src $out";
 
     defaultEl = (runCommand "default.el" { inherit clhs; } ''
@@ -43,7 +43,7 @@ with pkgs; with emacsPackagesNg;
     modus-themes = build-elisp-package {
       name = "modus-themes";
       src = fetchTarball {
-        url = http://elpa.gnu.org/packages/modus-themes-2.0.0.tar;
+        url = https://galkowski.xyz/modus-themes-2.0.0.tar;
         sha256 = "122xg6wk2mn1c69kaqkqkgqkbw61n13x3ylwf5q2b2kr60skn1zh";
       };
     };

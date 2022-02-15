@@ -14,6 +14,7 @@ let me = "kpg"; in
     ./doas.nix
     ./redshift.nix
     ./zfs.nix
+    ./nix-unstable.nix
   ];
 
   nix = {
