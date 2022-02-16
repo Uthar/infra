@@ -8,7 +8,6 @@
   imports =
   [ ./hardware-configuration.nix
     ./luks.nix
-    ./nixops.nix
   ];
 
   nix.maxJobs = lib.mkDefault 4;

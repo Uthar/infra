@@ -1,3 +1,5 @@
+{ emacs }:
+
 { config, lib, pkgs, ... }:
 
 let
@@ -45,7 +47,7 @@ in
             --replace rofi ${rofi}/bin/rofi \
             --replace passmenu ${rofi-passmenu}/bin/passmenu \
             --replace gnome-screenshot ${gnome.gnome-screenshot}/bin/gnome-screenshot \
-            --replace emacsclient ${import ../emacs { inherit pkgs; }}/bin/emacsclient
+            --replace emacsclient ${emacs}/bin/emacsclient
         substituteAllInPlace $out
     '';
 
