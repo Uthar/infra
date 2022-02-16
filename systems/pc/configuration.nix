@@ -2,13 +2,15 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+{ emacs }:
+
 { config, lib, pkgs, ... }:
 
 let me = "kpg"; in
 {
   imports =
   [ ./packages.nix
-    ./i3
+    (import ./i3 { inherit emacs; })
     ./binary-caches.nix
     ./direnv.nix
     ./doas.nix
@@ -98,7 +100,7 @@ let me = "kpg"; in
 
   services.emacs = {
     enable = true;
-    package = import ./emacs { inherit pkgs; };
+    package = emacs;
   };
 
   services.logind.extraConfig = ''

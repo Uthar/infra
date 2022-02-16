@@ -1,5 +1,23 @@
 {
   "nodes": {
+    "emacs": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1645040279,
+        "narHash": "sha256-0ib9KIXwlGPk4eTk45hD/a9Gk7tVp6MG69+/6HNRS0Y=",
+        "owner": "uthar",
+        "repo": "nix-emacs",
+        "rev": "4ebe7883b610ef9640b3a29c803d4873761c0ed1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "uthar",
+        "repo": "nix-emacs",
+        "type": "github"
+      }
+    },
     "nixos-21_11": {
       "locked": {
         "lastModified": 1644837400,
@@ -29,6 +47,22 @@
         "owner": "NixOS",
         "ref": "master",
         "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1638239011,
+        "narHash": "sha256-AjhmbT4UBlJWqxY0ea8a6GU2C2HdKUREkG43oRr3TZg=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "a7ecde854aee5c4c7cd6177f54a99d2c1ff28a31",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "21.11",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -66,6 +100,7 @@
     },
     "root": {
       "inputs": {
+        "emacs": "emacs",
         "nixos-21_11": "nixos-21_11",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs-21_11": "nixpkgs-21_11",

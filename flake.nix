@@ -6,14 +6,16 @@
     nixos-21_11.url    = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    emacs.url          = "github:uthar/nix-emacs";
   };
 
  outputs = {
    self
-   ,nixpkgs-21_11
-   ,nixos-21_11
-   ,nixpkgs-master
-   ,nixos-hardware
+   , nixpkgs-21_11
+   , nixos-21_11
+   , nixpkgs-master
+   , nixos-hardware
+   , emacs
  }: {
 
    nixosConfigurations = {
@@ -22,7 +24,7 @@
        system = "x86_64-linux";
        modules = [
          ./machines/e6330
-         ./systems/pc
+         (import ./systems/pc { emacs = emacs.defaultPackage.x86_64-linux; })
          {
            # Let 'nixos-version --json' know about the Git revision of this flake.
            system.configurationRevision = nixpkgs-21_11.lib.mkIf (self ? rev) self.rev;
@@ -38,7 +40,7 @@
        modules = [
          ./machines/l15-pix
          (nixos-hardware + "/lenovo/thinkpad/l14")
-         ./systems/pc
+         (import ./systems/pc { emacs = emacs.defaultPackage.x86_64-linux; })
          {
            # Let 'nixos-version --json' know about the Git revision of this flake.
            system.configurationRevision = nixpkgs-21_11.lib.mkIf (self ? rev) self.rev;
