@@ -50,18 +50,15 @@ let me = "kpg"; in
     l = "ls -lah --color=auto";
     c = "cd";
     ".." = "cd ..";
-    mkd = "mkdir -pv";
     mkdir = "mkdir -pv";
     n = "nix";
     h = "htop";
     f = "fossil";
     g = "git";
     e = "$EDITOR";
-    vim = "$EDITOR";
     x = "exit";
     r = "ranger";
-    nuke = "shred -zu";
-
+    s = "systemctl";
   }
   //
   (let
