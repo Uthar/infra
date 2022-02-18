@@ -58,13 +58,11 @@
       eclPackages
       abclPackages
       cclPackages
-      claspPackages
       lispWithPackages
       sbclWithPackages
       eclWithPackages
       abclWithPackages
-      cclWithPackages
-      claspWithPackages;
+      cclWithPackages;
 
 
     fsl = super.callPackage ./fsl.nix { inherit fossil; };
@@ -95,8 +93,6 @@
     ecl = eclGlibc;
 
     kawa = super.callPackage ./kawa {};
-
-    clasp = super.callPackage ./clasp {};
 
     lzlib = super.callPackage ./lzlib.nix {} ;
 

@@ -2,15 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ emacs }:
-
 { config, lib, pkgs, ... }:
 
 let me = "kpg"; in
 {
   imports =
   [ ./packages.nix
-    (import ./i3 { inherit emacs; })
+    ./i3.nix
     ./binary-caches.nix
     ./direnv.nix
     ./doas.nix
@@ -47,16 +45,6 @@ let me = "kpg"; in
 
   i18n.defaultLocale = "en_GB.UTF-8";
   time.timeZone = "Europe/Amsterdam";
-
-  environment.variables = {
-    TERMINAL = "urxvt";
-    BROWSER = "chromium";
-    EDITOR = "emacsclient -nw -c";
-
-    XDG_CONFIG_HOME = "$HOME/.config";
-    XDG_CACHE_HOME = "$HOME/.cache";
-    XDG_DATA_HOME = "$HOME/.local/share";
-  };
 
   environment.shellAliases = {
     l = "ls -lah --color=auto";
@@ -97,11 +85,6 @@ let me = "kpg"; in
   programs.wireshark.package = pkgs.wireshark;
 
   services.printing.enable = true;
-
-  services.emacs = {
-    enable = true;
-    package = emacs;
-  };
 
   services.logind.extraConfig = ''
     HandlePowerKey=ignore

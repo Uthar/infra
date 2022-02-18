@@ -24,11 +24,7 @@
        system = "x86_64-linux";
        modules = [
          ./machines/e6330
-         (import ./systems/pc { emacs = emacs.defaultPackage.x86_64-linux; })
-         {
-           # Let 'nixos-version --json' know about the Git revision of this flake.
-           system.configurationRevision = nixpkgs-21_11.lib.mkIf (self ? rev) self.rev;
-         }
+         ./systems/pc
          {
            nixpkgs.overlays = import ./overlays/default.nix;
          }
@@ -40,15 +36,9 @@
        modules = [
          ./machines/l15-pix
          (nixos-hardware + "/lenovo/thinkpad/l14")
-         (import ./systems/pc { emacs = emacs.defaultPackage.x86_64-linux; })
-         {
-           # Let 'nixos-version --json' know about the Git revision of this flake.
-           system.configurationRevision = nixpkgs-21_11.lib.mkIf (self ? rev) self.rev;
-         }
+         ./systems/pc
          {
            nixpkgs.overlays = import ./overlays/default.nix;
-         }
-         {
            boot.supportedFilesystems = nixpkgs-21_11.lib.mkForce [ "ext4" ];
          }
        ];
