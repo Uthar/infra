@@ -72,6 +72,7 @@ let me = "kpg"; in
     x = "exit";
     r = "ranger";
     s = "systemctl";
+    j = "journalctl";
   }
   //
   (let
