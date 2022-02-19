@@ -1,23 +1,31 @@
 # infra
 
-This repo contains declarative infrastructure as code configuration of networks of NixOS machines, deployed using NixOps.
+This repo contains Nix config for NixOS systems and NixOps networks.
 
 ## dependencies
 
-You need direnv and nix. Everything else is provided by `.envrc`.
+Nix
 
-## deploy
+## usage
 
-To deploy a network `foo`:
+NixOS:
+
+```
+nixos-rebuild --flake . switch
+```
+
+NixOps:
 
 ```
 cd networks/foo
-nixops create (first time only)
 nixops deploy
 ```
 
-## binary cache
+## binary cache information
 
-To avoid lengthy rebuilds, you can use the binary cache `https://cache.galkowski.xyz`. Its public key is `cache.galkowski.xyz-1:8itwpvpPypcmgogbwtWf6+/EOFALY2BIrG0zF8LfMCM=`.
-
-It gzips, so you need either `nix >=2.4` or `nix 2.3` patched with `./overlays/add-gzip-decompression.patch`.
+```nix
+{
+  nix.binaryCachePublicKeys = [ "cache.galkowski.xyz-1:8itwpvpPypcmgogbwtWf6+/EOFALY2BIrG0zF8LfMCM=" ];
+  nix.trustedBinaryCaches = [ "https://cache.galkowski.xyz" ];
+}
+```
