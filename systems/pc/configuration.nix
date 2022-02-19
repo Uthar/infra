@@ -29,6 +29,7 @@ let me = "kpg"; in
   };
 
   environment.variables.NIX_AUTO_RUN = "1";
+  environment.variables.HISTCONTROL = "ignorespace";
 
   # FIXME move firewall config to network declaration
   networking = {
