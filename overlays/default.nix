@@ -70,17 +70,17 @@
     fsl = super.callPackage ./fsl.nix { inherit fossil; };
 
     fossil = let
-      rev = "f48180f2ff3169651a725396d4f7d667c99a92873b9c3df7eee2f144be7a0721";
+      rev = "6b56d89058b8c63c1b55d29e6d9c70ed99e5ce21fbb4d52dd6da3f4e73edc796";
     in
       with super.lib.lists;
       super.fossil.overrideAttrs (old: rec {
         pname = "fossil";
-        version = "2.17";
+        version = "2.19";
         configureFlags = remove "--disable-internal-sqlite" old.configureFlags;
         buildInputs = remove super.sqlite old.buildInputs;
         src = super.fetchurl {
           url = "https://fossil-scm.org/home/tarball/${rev}/${pname}-${rev}.tar.gz";
-          sha256 = "sha256:1gjmc2fy2mxhgy7bqnixgp4pfq7wdg04llrsy0qi1bc6cap8zdjs";
+          sha256 = "sha256-AX5kZ9qP4DoSY9rWK0FJMj/Y7mWZDBY/wBrA+Vz3IGM=";
         };
         doCheck = false;
       });
