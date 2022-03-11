@@ -1,0 +1,15 @@
+#!/bin/sh
+
+ssh root@104.244.74.41 -- "echo \"$(pass infra/prod/layer-2-openvpn/ca.crt)\" > /run/keys/totalaCa"
+ssh root@104.244.74.41 -- "echo \"$(pass infra/prod/layer-2-openvpn/server.crt)\" > /run/keys/totalaCert"
+ssh root@104.244.74.41 -- "echo \"$(pass infra/prod/layer-2-openvpn/server.key)\" > /run/keys/totalaKey"
+ssh root@104.244.74.41 -- "echo \"$(pass infra/prod/layer-2-openvpn/dh.pem)\" > /run/keys/totalaDh"
+ssh root@104.244.74.41 -- "echo \"$(pass infra/prod/layer-2-openvpn/ta.key)\" > /run/keys/totalaTauth"
+ssh root@104.244.74.41 -- "echo \"$(pass infra/prod/layer-3-openvpn/ca.crt)\" > /run/keys/ovpnCa"
+ssh root@104.244.74.41 -- "echo \"$(pass infra/prod/layer-3-openvpn/server.crt)\" > /run/keys/ovpnCert"
+ssh root@104.244.74.41 -- "echo \"$(pass infra/prod/layer-3-openvpn/server.key)\" > /run/keys/ovpnKey"
+ssh root@104.244.74.41 -- "echo \"$(pass infra/prod/layer-3-openvpn/dh.pem)\" > /run/keys/ovpnDh"
+ssh root@104.244.74.41 -- "echo \"$(pass infra/prod/layer-3-openvpn/ta.key)\" > /run/keys/ovpnTauth"
+ssh root@104.244.74.41 -- "echo \"$(pass infra/prod/layer-3-openvpn/crl.pem)\" > /run/keys/ovpnCrl"
+ssh root@104.244.74.41 -- "echo \"$(pass infra/prod/mailserver/k)\" > /run/mailserverKeys/kMailAccount"
+ssh root@104.244.74.41 -- "echo \"$(pass infra/prod/murmur/password)\" > /run/keys/murmurPassword"
