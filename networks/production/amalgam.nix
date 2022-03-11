@@ -31,6 +31,16 @@ let
     { config, pkgs, lib, ... }:
     {
       imports = [ ../../systems/mail ];
+
+      systemd.tmpfiles.rules = [
+        "d /run/mailserverKeys 0750 dovecot2 dovecot2"
+        "z /run/mailserverKeys 0750 dovecot2 dovecot2"
+      ];
+
+      boot.specialFileSystems = {
+        "/run/mailserverKeys" = { fsType = "ramfs"; options = [ "nosuid" "nodev" "mode=750" ]; };
+      };
+
     };
 
   git =
