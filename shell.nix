@@ -1,5 +1,5 @@
 with import ./. {};
 
 mkShell {
-  buildInputs = [ nix nixopsWithPlugins ];
+  buildInputs = [ ansible ];
 }
