@@ -1,6 +1,6 @@
 # infra
 
-This repo contains Nix config for NixOS systems and NixOps networks.
+This repo contains configuration of NixOS systems.
 
 ## dependencies
 
@@ -8,17 +8,8 @@ Nix
 
 ## usage
 
-NixOS:
-
 ```
 nixos-rebuild --flake . switch
-```
-
-NixOps:
-
-```
-cd networks/foo
-nixops deploy
 ```
 
 ## binary cache information

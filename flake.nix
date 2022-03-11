@@ -18,15 +18,23 @@
    , emacs
  }: {
 
-   nixosConfigurations = {
+   nixosConfigurations = let
+
+     defaultsModule = {
+       system.configurationRevision = self.rev;
+       nixpkgs.overlays = import ./overlays/default.nix;
+     };
+
+     pcModule = import ./systems/pc { emacs = emacs.defaultPackage.x86_64-linux; };
+
+   in {
 
      e6330-kpg = nixpkgs-21_11.lib.nixosSystem {
        system = "x86_64-linux";
        modules = [
          ./machines/e6330
-         (import ./systems/pc { emacs = emacs.defaultPackage.x86_64-linux; })
-         { nixpkgs.overlays = import ./overlays/default.nix; }
-         { system.configurationRevision = self.rev; }
+         pcModule
+         defaultsModule
        ];
      };
 
@@ -35,9 +43,8 @@
        modules = [
          ./machines/l15-pix
          (nixos-hardware + "/lenovo/thinkpad/l14")
-         (import ./systems/pc { emacs = emacs.defaultPackage.x86_64-linux; })
-         { system.configurationRevision = self.rev; }
-         { nixpkgs.overlays = import ./overlays/default.nix; }
+         pcModule
+         defaultsModule
          { boot.supportedFilesystems = nixpkgs-21_11.lib.mkForce [ "ext4" ]; }
        ];
      };
@@ -47,9 +54,8 @@
        modules = [
          ./modules
          ./machines/buyvm-lu-512/104.244.74.41
-         ./networks/production/amalgam.nix
-         { nixpkgs.overlays = import ./overlays/default.nix; }
-         { system.configurationRevision = self.rev; }
+         ./systems/amalgam
+         defaultsModule
        ];
      };
 
