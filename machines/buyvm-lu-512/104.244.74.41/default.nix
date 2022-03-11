@@ -10,10 +10,8 @@
 
   networking.useDHCP = false;
 
-  networking.publicIPv4 = "104.244.74.41";
-
   networking.interfaces.ens3.ipv4.addresses = [
-    { address = config.networking.publicIPv4; prefixLength = 24; }
+    { address =  "104.244.74.41"; prefixLength = 24; }
   ];
 
   networking.defaultGateway = { address = "104.244.74.1"; interface = "ens3"; };
@@ -26,7 +24,9 @@
 
   # FIXME no root login
   users.users.root = {
-    openssh.authorizedKeys.keyFiles = [ /home/kpg/.ssh/id_rsa.pub ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKTXPjr06iNRuC0VMRO7hKA9x3NMe5W02g4v/2OujcEe"
+    ];
   };
 
 }

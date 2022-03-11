@@ -54,6 +54,17 @@
        ];
      };
 
+     amalgam = nixpkgs-21_11.lib.nixosSystem {
+       system = "x86_64-linux";
+       modules = [
+         ./modules
+         ./machines/buyvm-lu-512/104.244.74.41
+         ./networks/production/amalgam.nix
+         { nixpkgs.overlays = import ./overlays/default.nix; }
+         { system.configurationRevision = self.rev; }
+       ];
+     };
+
    };
 
  };
