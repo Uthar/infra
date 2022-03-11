@@ -1,7 +1,7 @@
 {
   description = "Development environment configuration";
 
- inputs = {
+  inputs = {
     nixpkgs-21_11.url  = "github:NixOS/nixpkgs/21.11";
     nixos-21_11.url    = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
@@ -9,58 +9,58 @@
     emacs.url          = "github:uthar/nix-emacs";
   };
 
- outputs = {
-   self
-   , nixpkgs-21_11
-   , nixos-21_11
-   , nixpkgs-master
-   , nixos-hardware
-   , emacs
- }: {
+  outputs = {
+    self
+    , nixpkgs-21_11
+    , nixos-21_11
+    , nixpkgs-master
+    , nixos-hardware
+    , emacs
+  }: {
 
-   nixosConfigurations = let
+    nixosConfigurations = let
 
-     defaultsModule = {
-       system.configurationRevision = self.rev;
-       nixpkgs.overlays = import ./overlays/default.nix;
-     };
+      defaultsModule = {
+        system.configurationRevision = self.rev;
+        nixpkgs.overlays = import ./overlays/default.nix;
+      };
 
-     pcModule = import ./systems/pc { emacs = emacs.defaultPackage.x86_64-linux; };
+      pcModule = import ./systems/pc { emacs = emacs.defaultPackage.x86_64-linux; };
 
-   in {
+    in {
 
-     e6330-kpg = nixpkgs-21_11.lib.nixosSystem {
-       system = "x86_64-linux";
-       modules = [
-         ./machines/e6330
-         pcModule
-         defaultsModule
-       ];
-     };
+      e6330-kpg = nixpkgs-21_11.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./machines/e6330
+          pcModule
+          defaultsModule
+        ];
+      };
 
-     l15-pix = nixos-21_11.lib.nixosSystem {
-       system = "x86_64-linux";
-       modules = [
-         ./machines/l15-pix
-         (nixos-hardware + "/lenovo/thinkpad/l14")
-         pcModule
-         defaultsModule
-         { boot.supportedFilesystems = nixpkgs-21_11.lib.mkForce [ "ext4" ]; }
-       ];
-     };
+      l15-pix = nixos-21_11.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./machines/l15-pix
+          (nixos-hardware + "/lenovo/thinkpad/l14")
+          pcModule
+          defaultsModule
+          { boot.supportedFilesystems = nixpkgs-21_11.lib.mkForce [ "ext4" ]; }
+        ];
+      };
 
-     amalgam = nixpkgs-21_11.lib.nixosSystem {
-       system = "x86_64-linux";
-       modules = [
-         ./modules
-         ./machines/buyvm-lu-512/104.244.74.41
-         ./systems/amalgam
-         defaultsModule
-       ];
-     };
+      amalgam = nixpkgs-21_11.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./modules
+          ./machines/buyvm-lu-512/104.244.74.41
+          ./systems/amalgam
+          defaultsModule
+        ];
+      };
 
-   };
+    };
 
- };
+  };
 
 }
