@@ -4,7 +4,7 @@
 {
   services.fossil = {
     enable = true;
-    baseurl = "https://${config.networking.fqdn}";
+    baseurl = "https://fossil.${config.networking.domain}";
   };
 
   environment.systemPackages = [ pkgs.fossil ];
