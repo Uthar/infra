@@ -19,6 +19,7 @@
   };
 
   networking = {
+    hostName = "e6330";
     useDHCP = false;
     networkmanager.enable = true;
     hostId = "41d98bee";
