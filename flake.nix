@@ -37,7 +37,7 @@
 
       defaults = {
         system.configurationRevision = self.rev or "dirty";
-        nixpkgs.overlays = import ./overlays/default.nix ++ nixOverlay;
+        nixpkgs.overlays = import ./overlays/default.nix ++ nixOverlay ++ claspOverlay;
         nix.package = nix.defaultPackage.${system};
         nix.extraOptions = ''
           experimental-features = nix-command flakes
