@@ -1,4 +1,3 @@
-[
   (self: super: rec {
 
     vlc = super.vlc.override { jackSupport = true; };
@@ -66,4 +65,3 @@
     ";
 
   })
-]

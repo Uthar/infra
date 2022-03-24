@@ -20,7 +20,15 @@
     , emacs
     , nix
     , clasp
-  }: {
+  }: rec {
+
+    overlays = [
+      (import ./overlays/default.nix)
+      (final: prev: {
+        nix = nix.defaultPackage.x86_64-linux;
+        clasp = clasp.defaultPackage.x86_64-linux;
+      })
+    ];
 
     devShell.x86_64-linux = let
       pkgs = nixpkgs-21_11.outputs.legacyPackages.x86_64-linux;
@@ -32,12 +40,9 @@
 
       system = "x86_64-linux";
 
-      nixOverlay = [ (self: super: { nix = nix.defaultPackage.${system}; }) ];
-      claspOverlay = [ (self: super: { clasp = clasp.defaultPackage.${system}; }) ];
-
       defaults = {
         system.configurationRevision = self.rev or "dirty";
-        nixpkgs.overlays = import ./overlays/default.nix ++ nixOverlay ++ claspOverlay;
+        nixpkgs.overlays = overlays;
         nix.package = nix.defaultPackage.${system};
         nix.extraOptions = ''
           experimental-features = nix-command flakes
