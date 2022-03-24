@@ -90,9 +90,14 @@ let
       services.httpd = {
         enable = true;
         adminAddr = "k@${domain}";
+        extraModules = [ "deflate" "filter" ];
         extraConfig = ''
           ServerTokens Prod
           ServerSignature Off
+          <IfModule mod_deflate.c>
+            SetOutputFilter DEFLATE
+            SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|gz|tgz|ogg|mkv|bz2|xz|zip)$" no-gzip
+          </IfModule>
         '';
         virtualHosts."cache.${domain}" = make-vhost {
           locations."/".proxyPass = "unix:${bcache.socketPath}|http://localhost/";
