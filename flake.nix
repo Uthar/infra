@@ -20,7 +20,7 @@
     , emacs
     , nix
     , clasp
-  }: rec {
+  }: {
 
     overlays = [
       (import ./overlays/default.nix)
@@ -42,7 +42,7 @@
 
       defaults = {
         system.configurationRevision = self.rev or "dirty";
-        nixpkgs.overlays = overlays;
+        nixpkgs.overlays = self.overlays;
         nix.package = nix.defaultPackage.${system};
         nix.extraOptions = ''
           experimental-features = nix-command flakes
