@@ -108,6 +108,8 @@ let me = "kpg"; in
   services.xserver.xkbOptions = "altwin:swap_lalt_lwin,ctrl:nocaps";
 
   services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.user = me;
 
   services.xserver.deviceSection = ''
     Option "TearFree" "true"
