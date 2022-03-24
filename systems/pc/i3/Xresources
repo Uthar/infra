@@ -61,6 +61,7 @@ URxvt.tabbed.tab-bg: 0
 ! Theme: modus-vivendi
 ! Description: XTerm port of modus-vivendi (Modus themes for GNU Emacs)
 ! Author: Protesilaos Stavrou, <https://protesilaos.com>
+URxvt.cursorColor: #eaeaea
 URxvt.background: [90]#000000
 URxvt.foreground: #ffffff
 URxvt.color0:     #000000
