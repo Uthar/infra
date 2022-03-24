@@ -110,6 +110,7 @@ let me = "kpg"; in
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = me;
+  services.xserver.desktopManager.wallpaper.mode = "fill";
 
   services.xserver.deviceSection = ''
     Option "TearFree" "true"
