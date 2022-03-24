@@ -61,7 +61,8 @@ let me = "kpg"; in
   '';
 
   environment.shellAliases = {
-    l = "ls -lah --color=auto";
+    l = "ls -lah --color=auto --group-directories-first";
+    ll = "ls -lh --color=auto --group-directories-first";
     c = "cd";
     ".." = "cd ..";
     mkdir = "mkdir -pv";
