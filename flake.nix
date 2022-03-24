@@ -7,6 +7,7 @@
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     emacs.url          = "github:uthar/nix-emacs";
+    clasp.url          = "github:uthar/nix-clasp";
     nix.url            = "nix/2.7.0";
   };
 
@@ -18,15 +19,25 @@
     , nixos-hardware
     , emacs
     , nix
+    , clasp
   }: {
+
+    devShell.x86_64-linux = let
+      pkgs = nixpkgs-21_11.outputs.legacyPackages.x86_64-linux;
+    in pkgs.mkShell {
+      buildInputs = with pkgs; [ ansible ];
+    };
 
     nixosConfigurations = let
 
       system = "x86_64-linux";
 
+      nixOverlay = [ (self: super: { nix = nix.defaultPackage.${system}; }) ];
+      claspOverlay = [ (self: super: { clasp = clasp.defaultPackage.${system}; }) ];
+
       defaults = {
         system.configurationRevision = self.rev or "dirty";
-        nixpkgs.overlays = import ./overlays/default.nix;
+        nixpkgs.overlays = import ./overlays/default.nix ++ nixOverlay;
         nix.package = nix.defaultPackage.${system};
         nix.extraOptions = ''
           experimental-features = nix-command flakes

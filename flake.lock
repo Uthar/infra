@@ -1,8 +1,26 @@
 {
   "nodes": {
-    "emacs": {
+    "clasp": {
       "inputs": {
         "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1645046701,
+        "narHash": "sha256-MnRDdS0gnS4EsJYBg6wSjupRYJ25kLJtV/lWA8WczXQ=",
+        "owner": "uthar",
+        "repo": "nix-clasp",
+        "rev": "3f4f43f355686524c7f120b2411a3e2b8b6cd5c4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "uthar",
+        "repo": "nix-clasp",
+        "type": "github"
+      }
+    },
+    "emacs": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1645281560,
@@ -37,7 +55,7 @@
     "nix": {
       "inputs": {
         "lowdown-src": "lowdown-src",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
@@ -151,6 +169,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1638239011,
+        "narHash": "sha256-AjhmbT4UBlJWqxY0ea8a6GU2C2HdKUREkG43oRr3TZg=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "a7ecde854aee5c4c7cd6177f54a99d2c1ff28a31",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "21.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1632864508,
         "narHash": "sha256-d127FIvGR41XbVRDPVvozUPQ/uRHbHwvfyKHwEt5xFM=",
         "owner": "NixOS",
@@ -166,6 +200,7 @@
     },
     "root": {
       "inputs": {
+        "clasp": "clasp",
         "emacs": "emacs",
         "nix": "nix",
         "nixos-21_11": "nixos-21_11",

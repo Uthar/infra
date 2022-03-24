@@ -1,73 +1,11 @@
 [
   (self: super: rec {
 
-    nix = super.nixStable.overrideAttrs(o:{
-      patches =
-        o.patches
-        ++ [ ./add-gzip-decompression.patch
-             ./add-zstd-decompression.patch
-           ];
-      buildInputs = o.buildInputs ++ [ super.zstd ];
-      doCheck = false;
-      doInstallCheck = false;
-    });
-
-    nixopsWithPlugins = super.nixopsUnstable.override {
-      overrides = (self: super: {
-        nixops = super.nixops.overridePythonAttrs (o:{
-            src = super.pkgs.fetchgit {
-              url = "https://galkowski.xyz/nixops";
-              rev = "eff444990351b462e4ba22a1d2d8ffd241cd2e2c";
-              sha256 = "0lvamz2y8hbx653slbscq85qgfqi49r1jsvx3fqh4ql5cz5kkz5m";
-            };
-            version = "20210901-eff4449903";
-          });
-        nixopsvbox = super.nixopsvbox.overridePythonAttrs (o:{
-            src = super.pkgs.fetchgit {
-              url = "https://galkowski.xyz/nixops-vbox";
-              rev = "5c1cd81de9568f37a9302b3b9a2314255419961e";
-              sha256 = "0a8lpcmadbpgpnqc8ksx7ds9dljgkr52bv0y0ghfrfhlsic0dmlv";
-            };
-            version = "20210823-5c1cd81de9";
-        });
-        nixops-aws = super.nixops-aws.overridePythonAttrs (o:{
-            src = super.pkgs.fetchgit {
-              url = "https://galkowski.xyz/nixops-aws";
-              rev = "67f405dcee8754c5e4d7d371f4362cec422b83cb";
-              sha256 = "19ajpy25vyxqlgvv71s796x94jqk8b6sw1iwmrqh03qbf7534zim";
-            };
-            version = "20210917-67f405dcee";
-        });
-      });
-    };
-
-    emacs' = import ../systems/pc/emacs { pkgs = super; };
-
-    nixops = builtins.head nixopsWithPlugins.plugins;
-
     vlc = super.vlc.override { jackSupport = true; };
 
     bcache = super.callPackage ./bcache.nix {};
 
     buildASDF = import ./save-lisp-and-die-static.nix;
-
-    commonLispPackages = super.callPackage ./common-lisp-packages {};
-    inherit (commonLispPackages)
-      commonLispPackagesFor
-      sbclPackages
-      eclPackages
-      abclPackages
-      cclPackages
-      claspPackages
-      lispWithPackages
-      sbclWithPackages
-      eclWithPackages
-      abclWithPackages
-      cclWithPackages
-      claspWithPackages;
-
-
-    fsl = super.callPackage ./fsl.nix { inherit fossil; };
 
     fossil = let
       rev = "6b56d89058b8c63c1b55d29e6d9c70ed99e5ce21fbb4d52dd6da3f4e73edc796";
@@ -95,8 +33,6 @@
     ecl = eclGlibc;
 
     kawa = super.callPackage ./kawa {};
-
-    clasp = super.callPackage ./clasp {};
 
     lzlib = super.callPackage ./lzlib.nix {} ;
 

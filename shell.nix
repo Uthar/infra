@@ -1,5 +1,1 @@
-with import ./. {};
-
-mkShell {
-  buildInputs = [ ansible ];
-}
+(builtins.getFlake ".").devShell.${builtins.currentSystem}

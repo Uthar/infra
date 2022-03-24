@@ -34,7 +34,7 @@
 
   # Version control
   cvs
-  fsl fossil
+  fossil
   git
   mercurial
   subversion
