@@ -2,21 +2,18 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ emacs }:
-
 { config, lib, pkgs, ... }:
 
 let me = "kpg"; in
 {
   imports =
   [ ./packages.nix
-    (import ./i3 { inherit emacs; })
+    ./i3
     ./binary-caches.nix
     ./direnv.nix
     ./doas.nix
     ./redshift.nix
     ./zfs.nix
-    ./nix-unstable.nix
   ];
 
   nix = {
@@ -96,11 +93,6 @@ let me = "kpg"; in
   programs.wireshark.package = pkgs.wireshark;
 
   services.printing.enable = true;
-
-  services.emacs = {
-    enable = true;
-    package = emacs;
-  };
 
   services.logind.extraConfig = ''
     HandlePowerKey=ignore

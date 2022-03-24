@@ -7,6 +7,7 @@
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     emacs.url          = "github:uthar/nix-emacs";
+    nix.url            = "nix/2.7.0";
   };
 
   outputs = {
@@ -16,25 +17,37 @@
     , nixpkgs-master
     , nixos-hardware
     , emacs
+    , nix
   }: {
 
     nixosConfigurations = let
 
-      defaultsModule = {
-        system.configurationRevision = self.rev;
+      system = "x86_64-linux";
+
+      defaults = {
+        system.configurationRevision = self.rev or "dirty";
         nixpkgs.overlays = import ./overlays/default.nix;
+        nix.package = nix.defaultPackage.${system};
+        nix.extraOptions = ''
+          experimental-features = nix-command flakes
+        '';
       };
 
-      pcModule = import ./systems/pc { emacs = emacs.defaultPackage.x86_64-linux; };
+      workstationDefaults = defaults // {
+        environment.systemPackages = [ emacs.defaultPackage.${system} ];
+      };
+
+      serverDefaults = defaults // {
+      };
 
     in {
 
-      e6330-kpg = nixpkgs-21_11.lib.nixosSystem {
+      e6330 = nixpkgs-21_11.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./machines/e6330
-          pcModule
-          defaultsModule
+          ./systems/pc
+          workstationDefaults
         ];
       };
 
@@ -43,8 +56,8 @@
         modules = [
           ./machines/l15-pix
           (nixos-hardware + "/lenovo/thinkpad/l14")
-          pcModule
-          defaultsModule
+          ./systems/pc
+          workstationDefaults
           { boot.supportedFilesystems = nixpkgs-21_11.lib.mkForce [ "ext4" ]; }
         ];
       };
@@ -55,7 +68,7 @@
           ./modules
           ./machines/buyvm-lu-512/104.244.74.41
           ./systems/amalgam
-          defaultsModule
+          serverDefaults
         ];
       };
 

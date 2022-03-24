@@ -1,5 +1,3 @@
-{ emacs }:
-
 { config, lib, pkgs, ... }:
 
 let
@@ -46,8 +44,7 @@ in
             --replace gsimplecal ${gsimplecal}/bin/gsimplecal \
             --replace rofi ${rofi}/bin/rofi \
             --replace passmenu ${rofi-passmenu}/bin/passmenu \
-            --replace gnome-screenshot ${gnome.gnome-screenshot}/bin/gnome-screenshot \
-            --replace emacsclient ${emacs}/bin/emacsclient
+            --replace gnome-screenshot ${gnome.gnome-screenshot}/bin/gnome-screenshot
         substituteAllInPlace $out
     '';
 
