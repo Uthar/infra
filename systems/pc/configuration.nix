@@ -56,6 +56,10 @@ let me = "kpg"; in
     XDG_DATA_HOME = "$HOME/.local/share";
   };
 
+  programs.bash.interactiveShellInit = ''
+    stty -ixon -ixoff
+  '';
+
   environment.shellAliases = {
     l = "ls -lah --color=auto";
     c = "cd";
