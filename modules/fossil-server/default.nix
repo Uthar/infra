@@ -157,45 +157,6 @@ in
         + "--port ${toString cfg.port} "
         + cfg.repository;
 
-        # Proc filesystem
-        ProcSubset = "pid";
-        ProtectProc = "invisible";
-
-        # New file permissions
-        UMask = "0027"; # 0640 / 0750
-
-        # Capabilities
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-
-        # Security
-        NoNewPrivileges = true;
-
-        # Sandboxing (sorted by occurrence in https://www.freedesktop.org/software/systemd/man/systemd.exec.html)
-        ProtectSystem = "strict";
-        ProtectHome = mkDefault true;
-        ReadWritePaths = [ cfg.repository ];
-        PrivateTmp = true;
-        PrivateDevices = true;
-        ProtectHostname = true;
-        ProtectClock = true;
-        ProtectKernelTunables = true;
-        ProtectKernelModules = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
-        RestrictNamespaces = true;
-        LockPersonality = true;
-        MemoryDenyWriteExecute = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        RemoveIPC = true;
-        PrivateMounts = true;
-
-        # System Call Filtering
-        SystemCallArchitectures = "native";
-        SystemCallFilter = "~@cpu-emulation @debug @keyring @ipc @mount @obsolete @privileged @setuid";
-
       };
     };
 
