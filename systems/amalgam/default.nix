@@ -96,7 +96,7 @@ let
           ServerSignature Off
           <IfModule mod_deflate.c>
             SetOutputFilter DEFLATE
-            SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|gz|tgz|ogg|mkv|bz2|xz|zip)$" no-gzip
+            SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png|gz|tgz|ogg|mkv|webm|bz2|xz|zip)$" no-gzip
           </IfModule>
         '';
         virtualHosts."cache.${domain}" = make-vhost {
