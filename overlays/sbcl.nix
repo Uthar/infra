@@ -1,27 +1,28 @@
 { super }:
 
-super.sbcl.overrideAttrs(o: rec{
+super.stdenv.mkDerivation rec {
+
+  pname = "sbcl";
 
   version = "2.2.3";
 
-  buildInputs = with super; o.buildInputs ++ [ zlib.static zlib.dev ];
+  buildInputs = [ super.zlib.static super.zlib.dev ];
 
   src = super.fetchurl {
     url = "mirror://sourceforge/project/sbcl/sbcl/${version}/sbcl-${version}-source.tar.bz2";
     sha256 = "sha256-3n9J4fd1D9LNiREe9wZBzFRxNV9iG3NzkqxoqpXzf58=";
   };
 
-  postPatch = o.postPatch + ''
-    echo '"${version}.nixos"' > version.lisp-expr
+  postPatch = ''
+    echo '"${version}.nix"' > version.lisp-expr
   '';
 
   buildPhase = ''
-    runHook preBuild
-
-    sh make.sh --prefix=$out --xc-host=${super.sbclBootstrap}/bin/sbcl --fancy --without-sb-ldb
-    (cd doc/manual ; make info)
-
-    runHook postBuild
+    sh make.sh --prefix=$out --xc-host=${super.ccl}/bin/ccl --fancy --without-sb-ldb
   '';
 
-})
+  installPhase = ''
+    INSTALL_ROOT=$out sh install.sh
+  '';
+
+}
