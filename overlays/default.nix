@@ -13,6 +13,7 @@
       super.fossil.overrideAttrs (old: rec {
         pname = "fossil";
         version = "2.19";
+        patches = [ ./fossil-wiki-no-search.patch ];
         configureFlags = remove "--disable-internal-sqlite" old.configureFlags;
         buildInputs = remove super.sqlite old.buildInputs;
         src = super.fetchurl {

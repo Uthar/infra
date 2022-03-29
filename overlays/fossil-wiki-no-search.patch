@@ -1,0 +1,19 @@
+CHANGED src/wiki.c
+colordiff 1.0.19 (http://www.colordiff.org/)
+(C)2002-2020 Dave Ewart, davee@sungate.co.uk
+
+--- a/src/wiki.c	2022-03-29 15:25:58.032938404 +0200
++++ b/src/wiki.c	2022-03-29 15:26:22.145287547 +0200
+@@ -553,11 +553,7 @@
+   if( !g.perm.RdWiki ){ login_needed(g.anon.RdWiki); return; }
+   zPageName = P("name");
+   if( zPageName==0 ){
+-    if( search_restrict(SRCH_WIKI)!=0 ){
+-      wiki_srchpage();
+-    }else{
+-      wiki_helppage();
+-    }
++    wcontent_page();
+     return;
+   }
+   if( check_name(zPageName) ) return;
