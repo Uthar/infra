@@ -5,17 +5,13 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1645046701,
         "narHash": "sha256-MnRDdS0gnS4EsJYBg6wSjupRYJ25kLJtV/lWA8WczXQ=",
-        "owner": "uthar",
-        "repo": "nix-clasp",
-        "rev": "3f4f43f355686524c7f120b2411a3e2b8b6cd5c4",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://fossil.galkowski.xyz/nix-clasp/tarball/nix-clasp.tar.gz"
       },
       "original": {
-        "owner": "uthar",
-        "repo": "nix-clasp",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://fossil.galkowski.xyz/nix-clasp/tarball/nix-clasp.tar.gz"
       }
     },
     "emacs": {
