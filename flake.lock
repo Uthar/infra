@@ -23,17 +23,13 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1645281560,
-        "narHash": "sha256-o3hNWeQpz/7nRJZwTjfs0ml6yd8eaqvlY1bnWq2OlA0=",
-        "owner": "uthar",
-        "repo": "nix-emacs",
-        "rev": "3b163dbd29747b3a0de1cac248e09c50c6911276",
-        "type": "github"
+        "narHash": "sha256-0IpR/H89KyO1NJSvoznBR8eB4fR0jAC+eZDKOeCMwjg=",
+        "type": "tarball",
+        "url": "https://fossil.galkowski.xyz/nix-emacs/tarball/nix-emacs.tar.gz"
       },
       "original": {
-        "owner": "uthar",
-        "repo": "nix-emacs",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://fossil.galkowski.xyz/nix-emacs/tarball/nix-emacs.tar.gz"
       }
     },
     "lowdown-src": {

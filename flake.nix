@@ -6,7 +6,7 @@
     nixos-21_11.url    = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    emacs.url          = "github:uthar/nix-emacs";
+    emacs.url          = "https://fossil.galkowski.xyz/nix-emacs/tarball/nix-emacs.tar.gz";
     clasp.url          = "github:uthar/nix-clasp";
     nix.url            = "nix/2.7.0";
   };
