@@ -19,6 +19,14 @@ let
     { config, pkgs, lib, ... }:
     {
       imports = [ ../../systems/binary-cache ];
+      users.users.nix.openssh.authorizedKeys.keys = [
+        "command=\"nix-store --serve --write\",no-port-forwarding,no-x11-forwarding,no-agent-forwarding ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHCPTLr1g7bOKSj0tCFbVz0VVY3mOl6mXOTuHaRFVGad"
+      ];
+      users.groups.ci = {};
+      users.users.nix.group = "ci";
+      users.users.nix.useDefaultShell = true;
+      users.users.nix.isSystemUser = true;
+      nix.trustedUsers = [ "nix" "root" ];
     };
 
   fossil =
