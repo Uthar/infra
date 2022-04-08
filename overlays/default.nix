@@ -6,6 +6,14 @@
 
     buildASDF = import ./save-lisp-and-die-static.nix;
 
+    sqlite338 = super.sqlite.overrideAttrs (o: {
+      version = "3.38.2";
+      src = super.fetchurl {
+        url = "https://sqlite.org/2022/sqlite-autoconf-3380200.tar.gz";
+        sha256 = "sha256-55dKoUMLrWkKXp95pu5chJKtqCadxnWHWtD7dH18raQ=";
+      };
+    });
+
     fossil = let
       rev = "6b56d89058b8c63c1b55d29e6d9c70ed99e5ce21fbb4d52dd6da3f4e73edc796";
     in
