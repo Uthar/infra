@@ -15,7 +15,7 @@
     });
 
     fossil = let
-      rev = "834db57d95f6e16d56eb39312145f448769b47fde2964ffa5d593063fe478b1e";
+      rev = "34a6b59533f8cf57cf714a0ea40035e17405141f8cc54026789c3a7dee86c4e8";
     in
       with super.lib.lists;
       super.fossil.overrideAttrs (old: rec {
@@ -24,8 +24,8 @@
         configureFlags = remove "--disable-internal-sqlite" old.configureFlags;
         buildInputs = remove super.sqlite old.buildInputs;
         src = super.fetchurl {
-          url = "https://fossil-scm.org/home/tarball/${rev}/${pname}-${rev}.tar.gz";
-          sha256 = "sha256-wd6T75QwqYFttlhsStfUDKDBM2T0Rdfi64MgOQt0aQE=";
+          url = "https://fossil.galkowski.xyz/${pname}/tarball/${rev}/${pname}-${rev}.tar.gz";
+          sha256 = "sha256-dku/UZyJs7YmFI60a8AnHygH7uze6zrvvmXtYmo1U7I=";
         };
         doCheck = false;
       });
