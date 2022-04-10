@@ -15,7 +15,7 @@
     });
 
     fossil = let
-      rev = "675342602a39211c11755a058fe137ddcb22a146a0ed8596e061835085a373d8";
+      rev = "2cddb18c6437941a6d90d95883941141367bfe9c07aaca16191834108bec0155";
     in
       with super.lib.lists;
       super.fossil.overrideAttrs (old: rec {
@@ -25,7 +25,7 @@
         buildInputs = remove super.sqlite old.buildInputs;
         src = super.fetchurl {
           url = "https://fossil.galkowski.xyz/${pname}/tarball/${rev}/${pname}-${rev}.tar.gz";
-          sha256 = "sha256-ZH9krOr2QbUtVwe/Gzygg9y7+cTvKLFNaYcyWl8jWuc=";
+          sha256 = "sha256-jL3sKJM9ShbOklZMppI/Gp8FhLzjpllKn7UVOfqWYuw=";
         };
         doCheck = false;
       });
