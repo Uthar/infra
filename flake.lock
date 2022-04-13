@@ -5,13 +5,17 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
+        "lastModified": 1645046700,
         "narHash": "sha256-MnRDdS0gnS4EsJYBg6wSjupRYJ25kLJtV/lWA8WczXQ=",
-        "type": "tarball",
-        "url": "https://fossil.galkowski.xyz/nix-clasp/tarball/nix-clasp.tar.gz"
+        "owner": "uthar",
+        "repo": "nix-clasp",
+        "rev": "bf60198db42d6962d002c736f8ebeeb52641d8ad",
+        "type": "gitlab"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://fossil.galkowski.xyz/nix-clasp/tarball/nix-clasp.tar.gz"
+        "owner": "uthar",
+        "repo": "nix-clasp",
+        "type": "gitlab"
       }
     },
     "emacs": {
@@ -19,13 +23,17 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "narHash": "sha256-0IpR/H89KyO1NJSvoznBR8eB4fR0jAC+eZDKOeCMwjg=",
-        "type": "tarball",
-        "url": "https://fossil.galkowski.xyz/nix-emacs/tarball/nix-emacs.tar.gz"
+        "lastModified": 1649887409,
+        "narHash": "sha256-vd0Swi+qKlLDeFm9z+tBQiUFiZFQAH8AkdmV4tMAEeY=",
+        "owner": "uthar",
+        "repo": "nix-emacs",
+        "rev": "d0dce0d6a27f352514815ff65e7008a436f7fa77",
+        "type": "gitlab"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://fossil.galkowski.xyz/nix-emacs/tarball/nix-emacs.tar.gz"
+        "owner": "uthar",
+        "repo": "nix-emacs",
+        "type": "gitlab"
       }
     },
     "lowdown-src": {
