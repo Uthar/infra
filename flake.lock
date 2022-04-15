@@ -23,11 +23,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1649887409,
-        "narHash": "sha256-vd0Swi+qKlLDeFm9z+tBQiUFiZFQAH8AkdmV4tMAEeY=",
+        "lastModified": 1650053288,
+        "narHash": "sha256-808XuPNdZTJ8LLgJYF6l/fRSv8s3G5uNo9if2XCjoww=",
         "owner": "uthar",
         "repo": "nix-emacs",
-        "rev": "d0dce0d6a27f352514815ff65e7008a436f7fa77",
+        "rev": "0162bf1f514bd437bdf652e57d1bb9b1ccbb63e9",
         "type": "gitlab"
       },
       "original": {
