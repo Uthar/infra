@@ -6,7 +6,6 @@
     nixos-21_11.url    = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    emacs.url          = "gitlab:uthar/nix-emacs";
     clasp.url          = "gitlab:uthar/nix-clasp";
     nix.url            = "nix/2.7.0";
   };
@@ -17,7 +16,6 @@
     , nixos-21_11
     , nixpkgs-master
     , nixos-hardware
-    , emacs
     , nix
     , clasp
   }: {
@@ -50,7 +48,6 @@
       };
 
       workstationDefaults = defaults // {
-        environment.systemPackages = [ emacs.defaultPackage.${system} ];
       };
 
       serverDefaults = defaults // {
