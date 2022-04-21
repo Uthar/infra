@@ -49,7 +49,7 @@ let me = "kpg"; in
   environment.variables = {
     TERMINAL = "urxvt";
     BROWSER = "chromium";
-    EDITOR = "emacsclient -nw -c";
+    EDITOR = "emacsclient -c";
 
     XDG_CONFIG_HOME = "$HOME/.config";
     XDG_CACHE_HOME = "$HOME/.cache";
