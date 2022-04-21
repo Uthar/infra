@@ -119,7 +119,7 @@ let me = "kpg"; in
   services.transmission = {
     enable = true;
     openFirewall = true;
-    settings.download-dir = "/home/${me}/torrents";
+    settings.download-dir = "/home/${me}/archive/torrents";
   };
 
   virtualisation.virtualbox.host.enable = true;
