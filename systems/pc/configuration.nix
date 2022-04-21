@@ -78,11 +78,17 @@ let me = "kpg"; in
   }
   //
   (let
-    rlwrap = x: {name=x; value="rlwrap ${x}";};
-    wrapped = map rlwrap [
+    rlwrap = args: x: {
+      name = x;
+      value="rlwrap ${args} -D 2 -c -H ~/.local/share/rlwrap/${x}_history ${x}";
+    };
+    rlwrap-lisp = rlwrap "-q'\"'";
+    rlwrap-other = rlwrap "";
+    wrapped = map rlwrap-lisp [
       "ecl" "sbcl" "abcl" "ccl" "clasp"
-      "sqlite3" "tclsh" "wish"
       "guile" "scheme" "racket" "clojure" "kawa"
+    ] ++ map rlwrap-other [
+      "sqlite3" "tclsh" "wish"
     ];
   in lib.listToAttrs wrapped);
 
