@@ -12,11 +12,6 @@ let
     exec --no-startup-id ${restartAlways} ${pcmanfm}/bin/pcmanfm -n --role=dropdownpcmanfm
     exec --no-startup-id ${restartAlways} ${udiskie}/bin/udiskie -s --no-password-cache -f ${pcmanfm}/bin/pcmanfm
     exec --no-startup-id ${restartAlways} ${dunst}/bin/dunst -conf ${./dunstrc}
-
-    exec_always --no-startup-id ${pkgs.killall}/bin/killall ${xcape}/bin/xcape
-    exec_always --no-startup-id ${pkgs.xorg.xmodmap}/bin/xmodmap -e "keycode 23 = Alt_L Meta_L Alt_L Meta_L"
-    exec_always --no-startup-id ${pkgs.xorg.xmodmap}/bin/xmodmap -e "keycode 222 = Tab"
-    exec_always --no-startup-id ${pkgs.xcape}/bin/xcape -e "Alt_L=Tab"
   '';
 in
 {
