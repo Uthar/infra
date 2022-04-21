@@ -111,7 +111,7 @@ let me = "kpg"; in
 
   services.xserver.enable = true;
   services.xserver.layout = "pl";
-  services.xserver.xkbOptions = "ctrl:nocaps,ctrl:swap_rwin_rctl";
+  services.xserver.xkbOptions = "ctrl:nocaps";
 
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.autoLogin.enable = true;
