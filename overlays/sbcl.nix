@@ -6,7 +6,7 @@ super.stdenv.mkDerivation rec {
 
   version = "2.2.3";
 
-  buildInputs = [ super.zlib.static super.zlib.dev ];
+  buildInputs = [ super.zlib.static super.zlib.dev super.texinfo ];
 
   src = super.fetchurl {
     url = "mirror://sourceforge/project/sbcl/sbcl/${version}/sbcl-${version}-source.tar.bz2";
@@ -19,6 +19,7 @@ super.stdenv.mkDerivation rec {
 
   buildPhase = ''
     sh make.sh --prefix=$out --xc-host=${super.ccl}/bin/ccl --fancy --without-sb-ldb
+   (cd doc/manual && make info)
   '';
 
   installPhase = ''
