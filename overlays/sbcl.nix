@@ -4,13 +4,13 @@ super.stdenv.mkDerivation rec {
 
   pname = "sbcl";
 
-  version = "2.2.3";
+  version = "2.2.4";
 
   buildInputs = [ super.zlib.static super.zlib.dev super.texinfo ];
 
   src = super.fetchurl {
     url = "mirror://sourceforge/project/sbcl/sbcl/${version}/sbcl-${version}-source.tar.bz2";
-    sha256 = "sha256-3n9J4fd1D9LNiREe9wZBzFRxNV9iG3NzkqxoqpXzf58=";
+    hash = "sha256-/N0lHLxl9/gI7QrXckaEjRvhZqppoX90mWABhLelcgI=";
   };
 
   postPatch = ''
