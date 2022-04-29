@@ -30,6 +30,25 @@
         doCheck = false;
       });
 
+    abcl = (super.abcl.override {
+      jdk = super.jdk17;
+      jre = super.jdk17;
+    }).overrideAttrs (o: {
+      # Pull in fix for https://github.com/armedbear/abcl/issues/473
+      version = "1.8.1-dev";
+      src = super.fetchFromGitHub {
+        repo = "abcl";
+        owner = "uthar";
+        rev = "aba4f90ca75935886512dba79dd3565bf58cac76";
+        hash = "sha256-k1apwbsGlKjbrRfhbSSqlM4xxxzvW0PB3DvuiTqEy+U=";
+      };
+      # Fix for https://github.com/armedbear/abcl/issues/484
+      installPhase = super.lib.replaceStrings
+        ["${super.jdk17}/bin/java"]
+        ["${super.jdk17}/bin/java --add-opens=java.base/java.util.jar=ALL-UNNAMED"]
+        o.installPhase;
+    });
+
     sbcl = import ./sbcl.nix { inherit super; };
     sbcl-static = super.callPackage ./sbcl-static.nix {};
 
