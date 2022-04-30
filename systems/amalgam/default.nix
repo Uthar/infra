@@ -113,6 +113,9 @@ let
         virtualHosts."fossil.${domain}" = make-vhost {
           locations."/".proxyPass = "http://localhost:${toString fossil.port}/";
         };
+        virtualHosts."blog.${domain}" = make-vhost {
+          documentRoot = "/srv/blog";
+        };
         virtualHosts.${domain} = make-vhost {};
       };
 
