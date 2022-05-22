@@ -62,6 +62,15 @@
 
     lzlib = super.callPackage ./lzlib.nix {} ;
 
+    ode = super.ode.overrideAttrs (o: { 
+      configureFlags = [ "--enable-shared" "--enable-double-precision"]; 
+    });
+
+    drawstuff = ode.overrideAttrs (o: {
+      buildInputs = with super; [ xorg.libX11 libGL libGLU glew ];
+      nativeBuildInputs = with super; [ pkg-config xorg.libX11 libGL libGLU glew ];
+    });
+
     guile_3_0 = super.callPackage ./guile {} ;
 
     togglemonitor = super.writeShellScriptBin "togglemonitor" ''
