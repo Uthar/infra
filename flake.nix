@@ -7,7 +7,7 @@
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     clasp.url          = "gitlab:uthar/nix-clasp";
-    nix.url            = "nix/2.7.0";
+    nix.url            = "nix/2.8.0";
   };
 
   outputs = {
