@@ -145,5 +145,14 @@ in {
     ];
 
   services.fail2ban.enable = true;
+  services.openssh.banner = ''
+    ;; OSTRZEŻENIE:
+    ;; 
+    ;; Wszystkie czynności wykonywane na tym systemie są monitorowane
+    ;; i rejestrowane.
+    ;;
+    ;; Nieupoważniony dostęp do systemu jest wykrywany w sposób
+    ;; automatyczny i NATYCHMIAST zgłaszany organom ścigania.
+  '';
 
 }
